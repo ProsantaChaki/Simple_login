@@ -147,8 +147,16 @@
 
                         <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Logout</a>
                     </div>
+                </div >
+                <div class="user-area dropdown float-right" id="login_success4" ">
+                    <a href="">Login</a>
                 </div>
-            </div>
+                <div class="user-area dropdown float-right" id="login_success5">
+                    <a href="">Registration</a>
+                </div>
+
+
+                </div>
         </div>
     </header><!-- /header -->
     <!-- Header-->
@@ -177,33 +185,31 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="{{ url('/') }}/assets/js/main.js"></script>
 
-<script>
-    (function () {
+<script type="text/javascript">
+    window.addEventListener("load", function(){
         @if(Auth::check()){
             var id = "{{ Auth::user()->id }}"
-            document.getElementById('login_success1').style.display="block";
-            document.getElementById('login_success2').style.display="block";
-            document.getElementById('login_success3').style.display="block";
+            document.getElementById("login_success1").style.visibility = "visible";
+            document.getElementById("login_success2").style.visibility = "visible";
+            document.getElementById("login_success3").style.visibility = "visible";
+
+            document.getElementById('login_success4').style.display="none";
+            document.getElementById('login_success5').style.display="none";
+
+
         }@else{
-            document.getElementById('login_success1').style.display="none";
+            document.getElementById("login_success1").style.display="none";
             document.getElementById('login_success2').style.display="none";
             document.getElementById('login_success3').style.display="none";
+            document.getElementById("login_success4").style.display = "block";
+            document.getElementById("login_success5").style.display = "block";
 
         }
-            @endif
+        @endif
 
-
-
-
-    })();
-
-
-
-
-
-
+        //run js code here
+    });
 </script>
-
 
 </body>
 </html>

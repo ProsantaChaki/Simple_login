@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="332f1368-e6f9-4002-b0b5-99ed19719d74" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/profile/update.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profile/update.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/user.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/user.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/home.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
