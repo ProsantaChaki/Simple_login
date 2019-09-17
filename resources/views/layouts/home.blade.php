@@ -100,7 +100,7 @@
                         </form>
                     </div>
 
-                    <div class="dropdown for-notification">
+                    <div class="dropdown for-notification" id="login_success1">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-bell"></i>
                             <span class="count bg-danger">3</span>
@@ -114,7 +114,7 @@
                         </div>
                     </div>
 
-                    <div class="dropdown for-message">
+                    <div class="dropdown for-message" id="login_success2">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-envelope"></i>
                             <span class="count bg-primary">4</span>
@@ -133,7 +133,7 @@
                     </div>
                 </div>
 
-                <div class="user-area dropdown float-right">
+                <div class="user-area dropdown float-right" id="login_success3">
                     <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="user-avatar rounded-circle" src="{{ url('/') }}/images/admin.jpg" alt="User Avatar">
                     </a>
@@ -176,6 +176,33 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="{{ url('/') }}/assets/js/main.js"></script>
+
+<script>
+    (function () {
+        @if(Auth::check()){
+            var id = "{{ Auth::user()->id }}"
+            document.getElementById('login_success1').style.display="block";
+            document.getElementById('login_success2').style.display="block";
+            document.getElementById('login_success3').style.display="block";
+        }@else{
+            document.getElementById('login_success1').style.display="none";
+            document.getElementById('login_success2').style.display="none";
+            document.getElementById('login_success3').style.display="none";
+
+        }
+            @endif
+
+
+
+
+    })();
+
+
+
+
+
+
+</script>
 
 
 </body>

@@ -22,3 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user', function (){
    return view('user.profile.profile') ;
 });
+
+Route::get('/user/name', function (){
+    return view('layouts.home') ;
+});
