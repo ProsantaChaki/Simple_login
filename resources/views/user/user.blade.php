@@ -48,7 +48,7 @@
                         <li><i class="fas fa-user-edit"></i><a href="#">Update</a></li>
                         <li><i class="fas fa-fingerprint"></i><a href="#">Verification</a></li>
                         <li><i class="fas fa-user-check"></i><a href="#">Memberships</a></li>
-                        <li><i class="fab fa-critical-role"></i><a href="#">Role</a></li>
+                        <li><i class="fab fa-critical-role"></i><a href="#">Activities</a></li>
                         <li><i class="fas fa-user-tag"></i><a href="#">Status</a></li>
                     </ul>
                 </li>
@@ -155,7 +155,7 @@
         </div>
     </header><!-- /header -->
     <!-- Header-->
-
+    @yield('content')
     <div class="breadcrumbs">
         <div class="breadcrumbs-inner">
             <div class="row m-0">
