@@ -30,7 +30,7 @@
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 </head>
-<body>
+<body >
 <!-- Left Panel -->
 
 <aside id="left-panel" class="left-panel">
@@ -149,10 +149,14 @@
                     </div>
                 </div >
                 <div class="user-area dropdown float-right" id="login_success4" ">
-                    <a href="">Login</a>
+                <a class="nav-link" href="{{ route('login') }}">Login</a>
                 </div>
+
                 <div class="user-area dropdown float-right" id="login_success5">
-                    <a href="">Registration</a>
+                    @if (Route::has('register'))
+                        <a class="nav-link" href="{{ route('register') }}">Registration</a>
+                    @endif
+
                 </div>
 
 

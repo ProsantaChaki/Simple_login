@@ -16,9 +16,9 @@ class UserController extends Controller
     {
         //  to display all information about user
 
-        $users = User::all();
+        $users = User::find(Auth::user()->id );
 
-        //return $users;
+        return $users;
 
 
 

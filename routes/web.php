@@ -26,3 +26,5 @@ Route::get('/user', function (){
 Route::get('/user/name', function (){
     return view('layouts.home') ;
 });
+
+
