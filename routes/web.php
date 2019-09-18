@@ -27,4 +27,6 @@ Route::get('/user/name', function (){
     return view('layouts.home') ;
 });
 
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 
