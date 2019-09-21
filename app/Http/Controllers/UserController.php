@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Photo;
 use Illuminate\Http\Request;
+use Auth;
+use hash;
 use App\User;
 
 class UserController extends Controller
@@ -16,13 +19,14 @@ class UserController extends Controller
     {
         //  to display all information about user
 
-        $users = User::find(Auth::user()->id );
-
-        return $users;
 
 
+        $user = Auth::user();
 
-        return view('user.profile.update', compact('users'));
+        //return $user;
+
+        return view('user.profile.update', compact('user'));
+
 
     }
 
@@ -104,26 +108,60 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-
-        /*
-                $user = User::findOrFail($id);
-                $roles = Role::pluck('name','id')->all();
-                return view('admin.users.edit', compact('user','roles'));
+        /*$user = Auth::user();
+        return view('users.edit', compact('user'));
         */
+
+                $user = User::findOrFail($id);
+                //$roles = Role::pluck('name','id')->all();
+                return view('user.profile.update', compact('user'/*,'roles'*/));
+
 
 
     }
 
-    /**
+    /*
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user)
     {
         //
+        $userinfo = user::findorfail($user);
+
+
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$user,
+
+        ]);
+
+        if($file = $request->image) {
+            //return $file;
+            $name = time() . $file->getClientOriginalName();
+            //return $name;
+            $file->move('images', $name);
+
+            $photo = Photo::create([
+                'path' => $name,
+                'imageable_id' => $user,
+                'imageable_type'=> 'App/User'
+            ]);
+            return $photo;
+
+            //$input['path'] = $photo->id;
+
+        }
+
+        $userinfo->name = request('name');
+        $userinfo->email = request('email');
+
+        $userinfo->save();
+
+        return back();
         /*
                 $user = User::findOrFail($id);
                 if(trim($request->password) == ''){

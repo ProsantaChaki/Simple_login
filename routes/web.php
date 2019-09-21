@@ -19,14 +19,33 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::get('/user', function (){
    return view('user.profile.profile') ;
 });
+
 
 Route::get('/user/name', function (){
     return view('layouts.home') ;
 });
 
+
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+
+
+Route::resource('/user/user', 'UserController',['names'=>[
+
+    'index'=>'user.profile.index',
+    'create'=>'user.profile.create',
+    'store'=>'user.profile.store',
+    'edit'=>'user.profile.update'
+
+
+
+]]);
+
+
+Route::get('user/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
+Route::patch('user/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 
