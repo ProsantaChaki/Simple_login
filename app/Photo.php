@@ -11,7 +11,6 @@ class Photo extends Model
       'path',
       'imageable_id',
       'imageable_type',
-
     ];
 
     public function imageable(){
