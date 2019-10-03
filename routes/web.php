@@ -46,6 +46,6 @@ Route::resource('/user/user', 'UserController',['names'=>[
 ]]);
 
 
-Route::get('user/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
-Route::patch('user/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
+Route::get('users/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
+Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 
