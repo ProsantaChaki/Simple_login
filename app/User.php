@@ -3,6 +3,7 @@
 
 namespace App;
 
+use App\OauthAccessToken;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -45,5 +46,9 @@ class User extends Authenticatable
 
     public function photo(){
         return $this->morphMany('App\Photo', "imageable");
+    }
+
+    public function AauthAcessToken(){
+        return $this->hasMany('\App\OauthAccessToken');
     }
 }

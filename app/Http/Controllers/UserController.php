@@ -150,7 +150,7 @@ class UserController extends Controller
                 'imageable_id' => $user,
                 'imageable_type'=> 'App/User'
             ]);
-            return $photo;
+            return $photo->id;
 
             //$input['path'] = $photo->id;
 

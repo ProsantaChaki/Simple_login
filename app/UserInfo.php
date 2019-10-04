@@ -21,6 +21,10 @@ class UserInfo extends Model
         'weight',
         'active_status',
         'marital_status',
+        'gender'
     ];
+
+    public $timestamps = false;
+
 
 }
