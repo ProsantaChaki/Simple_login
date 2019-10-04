@@ -20,6 +20,8 @@ class CreatePostReviewsTable extends Migration
             $table->integer('financial_value');
             $table->integer('review');
             $table->string('comment');
+            $table->timestamps();
+
         });
     }
 

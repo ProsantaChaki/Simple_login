@@ -27,6 +27,8 @@ class CreateUserInfosTable extends Migration
             $table->integer('weight')->nullable();
             $table->boolean('active_status')->default(1);
             $table->integer('marital_status')->nullable();
+            $table->timestamps();
+
         });
     }
 

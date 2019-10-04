@@ -13,4 +13,6 @@ class RoleUser extends Model
         'role_id',
         'active_status',
     ];
+    public $timestamps = false;
+
 }

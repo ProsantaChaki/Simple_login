@@ -27,6 +27,8 @@ class CreatePostsTable extends Migration
             $table->string('status');
             $table->boolean('type');
             $table->integer('financial_value');
+            $table->timestamps();
+
         });
     }
 
