@@ -35,4 +35,22 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
 
+    Route::post('post/create','API\PostController@create');
+    Route::post('post/updateinfo','API\PostController@updateInfo');
+    Route::post('post/postReviewSubmission','API\PostController@postReview');
+    Route::post('post/postReviewView','API\PostController@postReviewView');
+
+
+
+
+
+
+
+
+
 });
+
+//Route::post('post/validate','API\PostController@postValidator');
+
+Route::post('post/view','API\PostController@index');
+Route::post('post/details','API\PostController@details'); //use post method

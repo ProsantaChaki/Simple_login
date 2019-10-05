@@ -83,13 +83,13 @@ class UserController extends Controller
     public function details()
     {
         $user = Auth::user();
-        $userinfo = UserInfo::all()->where('user_id', $user->id);
-        $userinfo[0]['name'] = $user['name'];
-        $userinfo[0]['email'] = $user ['email'];
-        $userinfo[0]['mobile'] = $user ['mobile'];
+        $userInfo = UserInfo::all()->where('user_id', $user->id);
+        $userInfo[0]['name'] = $user['name'];
+        $userInfo[0]['email'] = $user ['email'];
+        $userInfo[0]['mobile'] = $user ['mobile'];
 
             //return typeOf($user);
-        return response()->json(['success' =>  $userinfo], $this-> successStatus);
+        return response()->json(['success' =>  $userInfo], $this-> successStatus);
     }
 
 
@@ -202,4 +202,6 @@ class UserController extends Controller
         return response()->json(['success'=>$userInfo], $this-> successStatus);
 
     }
+
+
 }

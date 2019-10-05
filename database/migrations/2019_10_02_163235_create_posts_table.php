@@ -25,7 +25,7 @@ class CreatePostsTable extends Migration
             $table->integer('quality');
             $table->string('mobile');
             $table->string('status');
-            $table->boolean('type');
+            $table->string('type');
             $table->integer('financial_value');
             $table->timestamps();
 
