@@ -28,15 +28,15 @@ class UserController extends Controller
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
-            return response()->json(['success' => $success], $this-> successStatus);
+            return response()->json(['status' => 200,'message' => 'you are logged in', 'data' => $success], $this-> successStatus);
         }
         elseif (Auth::attempt(['mobile' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
-            return response()->json(['success' => $success], $this-> successStatus);
+            return response()->json(['status' => 200,'message' => 'you are logged in', 'data' => $success], $this-> successStatus);
         }
         else{
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['status' => 401,'message' => 'User Id or password is invalid'], 401);
         }
     }
     /**
@@ -59,7 +59,7 @@ class UserController extends Controller
             'c_password' => 'required | same:password',
         ]);
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['status' => 401,'message' => 'validation error', 'data'=>$validator->errors()], 401);
         }
 
         $input = $request->all();
@@ -69,7 +69,7 @@ class UserController extends Controller
         $success['name'] =  $user->name;
         $success['email'] = $user->email;
 
-        return response()->json(['success'=>$success], $this-> successStatus);
+        return response()->json(['status' => 200,'message' => 'you are logged in', 'data'=>$success], $this-> successStatus);
     }
     /**
      * details api
@@ -83,13 +83,23 @@ class UserController extends Controller
     public function details()
     {
         $user = Auth::user();
-        $userInfo = UserInfo::all()->where('user_id', $user->id);
-        $userInfo[0]['name'] = $user['name'];
-        $userInfo[0]['email'] = $user ['email'];
-        $userInfo[0]['mobile'] = $user ['mobile'];
+        $userInfo = UserInfo::where('user_id', $user->id)->get();
+        //return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $userInfo], $this-> successStatus);
+
+        if ( json_decode($userInfo,true) != null){
+            //return $userInfo;
+            $userInfo[0]['name'] = $user['name'];
+            $userInfo[0]['email'] = $user ['email'];
+            $userInfo[0]['mobile'] = $user ['mobile'];
+            //return $user['name'];
+
+            return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $userInfo], $this-> successStatus);
+        }
+        else{
+            return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $user], $this-> successStatus);
+        }
 
             //return typeOf($user);
-        return response()->json(['success' =>  $userInfo], $this-> successStatus);
     }
 
 
@@ -131,7 +141,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['status' => 401,'message' => 'validation error', 'data'=>$validator->errors()], 401);
         }
 
         /*
@@ -187,19 +197,19 @@ class UserController extends Controller
 
         ];
         //return $userInfo;
-        $ids = Auth::user()->id;
+        $id = Auth::user()->id;
 
-        $result = UserInfo::where('user_id', $ids)->get('user_id');
+        $checkUser = UserInfo::where('user_id', $id)->get('user_id');
 
-        if (json_decode($result,true) == null){
+        if (json_decode($checkUser,true) == null){
             UserInfo::create($userInfo);
         }
         else{
-            UserInfo::where( 'user_id', $result[0]['user_id'])->update($userInfo);
+            UserInfo::where( 'user_id', $checkUser[0]['user_id'])->update($userInfo);
         }
 
 
-        return response()->json(['success'=>$userInfo], $this-> successStatus);
+        return response()->json(['status' => 200,'message' => 'your information has been updated', 'data'=>$userInfo], $this-> successStatus);
 
     }
 

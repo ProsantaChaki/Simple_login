@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Photo;
 use App\Post;
 use App\PostReview;
 use Illuminate\Http\Request;
@@ -65,9 +66,26 @@ class PostController extends Controller
             $postData['user_id'] = $user = Auth::user()->id;
             $postData['map_location_id'] = 1;
             //if($request->id)
-            Post::create($postData);
+            $postData = Post::create($postData);
 
-            return response()->json(['success'=>$postData]);
+            //return $postDatas['id'];
+
+
+            if($file = $request->image) {
+                $name = time() . $file->getClientOriginalName();
+                $file->move('images', $name);
+
+                $photo = Photo::create([
+                    'path' => $name,
+                    'imageable_id' => $postData['id'],
+                    'imageable_type'=> 'App/Post'
+                ]);
+
+                return response()->json(['status => 200', 'message' => 'post with image is submitted','post'=>$postData, 'photo' =>$photo]);
+
+            }
+
+            return response()->json(['status => 200', 'message' => 'post without image is submitted','success'=>$postData]);
         }
         else{
             return $this->postValidator($request);
@@ -84,65 +102,59 @@ class PostController extends Controller
     public function updateInfo(Request $request)
     {
         //
-        if( $request->id){
+        if( Post::find($request->id)){
 
-            $validation = $this->postValidator($request)->status();
+            $validation = $this->postValidator($request);
+
+            //return $validation->status();
             $postData = $request->all();
-            Post::where( 'id', $postData['id'])->update($postData);
+            if ($validation->status() ==200){
+                if($file = $request->image) {
+                    $name = time() . $file->getClientOriginalName();
+                    $file->move('images', $name);
 
-            return response()->json(['status' => 200, 'success'=>$postData]);
+                    $photo = Photo::create([
+                        'path' => $name,
+                        'imageable_id' => $postData['id'],
+                        'imageable_type'=> 'App/Post'
+                    ]);
+                    unset($postData['image']);
+                }
+                Post::where( 'id', $postData['id'])->update($postData);
+                return response()->json(['status' => 200, 'message' => 'Post updated','data'=>$postData]);
+            }
+            else{
+                return $validation;
+            }
         }
         else{
-            return response()->json(['status' => 400, 'message' => 'Include Post Id']);
+            return response()->json(['status' => 400, 'message' => 'Include a valid Post Id']);
         }
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function details(Request $request)
     {
         //
         $postData = Post::find($request->id);
         //return $postData;
-        return response()->json(['success'=>$postData]);
+        return response()->json(['status => 200','message' => 'your has been processed', 'data'=>$postData]);
 
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
@@ -172,7 +184,7 @@ class PostController extends Controller
             $postReview = $request->all();
             $postReview['user_id'] = Auth::user()->id;
             PostReview::create($postReview);
-            return response()->json(['status' => 200, 'success'=>$postReview]);
+            return response()->json(['status' => 200, 'data'=>$postReview]);
         }
 
     }
@@ -180,6 +192,6 @@ class PostController extends Controller
     public function postReviewView(Request $request){
         $postReview = PostReview::where('post_id', $request->post_id)->get();
 
-        return response()->json(['status' => 200, 'success'=>$postReview]);
+        return response()->json(['status' => 200, 'data'=>$postReview]);
     }
 }
