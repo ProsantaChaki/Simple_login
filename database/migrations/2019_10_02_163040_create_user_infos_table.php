@@ -15,18 +15,18 @@ class CreateUserInfosTable extends Migration
     {
         Schema::create('user_infos', function (Blueprint $table) {
             $table->integer('user_id')->primary();
-            $table->integer('area_id')->nullable();
-            $table->string('address')->nullable();
-            $table->integer('map_location_id')->nullable();
-            $table->string('blood_group')->nullable();
-            $table->date('birthday')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('occupation')->nullable();
-            $table->string('description')->nullable();
+            $table->integer('area_id');
+            $table->string('address');
+            $table->integer('map_location_id');
+            $table->string('blood_group');
+            $table->date('birthday');
+            $table->string('gender');
+            $table->string('occupation');
+            $table->string('description')->default(' ');
             $table->integer('photo_id')->nullable();
             $table->integer('weight')->nullable();
             $table->boolean('active_status')->default(1);
-            $table->integer('marital_status')->nullable();
+            $table->string('marital_status')->default('Single');
             $table->timestamps();
 
         });

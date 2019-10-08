@@ -18,7 +18,7 @@ class CreatePostReviewsTable extends Migration
             $table->integer('post_id');
             $table->integer('user_id');
             $table->integer('financial_value');
-            $table->integer('review');
+            $table->integer('review_score');
             $table->string('comment');
             $table->timestamps();
 

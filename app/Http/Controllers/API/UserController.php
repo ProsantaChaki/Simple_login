@@ -18,70 +18,99 @@ use DB;
 class UserController extends Controller
 {
     public $successStatus = 200;
-    /**
-     * login api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function login(){
-
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
-            $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')-> accessToken;
-            return response()->json(['status' => 200,'message' => 'you are logged in', 'data' => $success], $this-> successStatus);
-        }
-        elseif (Auth::attempt(['mobile' => request('email'), 'password' => request('password')])){
-            $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')-> accessToken;
-            return response()->json(['status' => 200,'message' => 'you are logged in', 'data' => $success], $this-> successStatus);
-        }
-        else{
-            return response()->json(['status' => 401,'message' => 'User Id or password is invalid'], 401);
-        }
-    }
-    /**
-     * Register api
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-
-
-
 
     public function register(Request $request)
     {
+        /*
+         * email is optional for registration
+         */
+        if($request->email!=null){
+
+            $validator = Validator::make($request->all(), [
+                'email'      => 'required | email | regex:/\S+@\S+\.\S+/ | unique:users',
+            ]);
+            if ($validator->fails()){
+                return response()->json(['message' => 'validation error', 'data'=>$validator->errors()], 401);
+            }
+        }
+
+
         $validator = Validator::make($request->all(), [
-            'name'       => 'required | string | max:255',
-            'email'      => 'required | email | regex:/\S+@\S+\.\S+/ | unique:users',
             'mobile'     => 'required | regex:/(01)[0-9]{9}/ | digits:11 | unique:users',
+            'name'       => 'required | string | max:255',
             'password'   => 'required | string | min:8 ',
             'c_password' => 'required | same:password',
         ]);
+
+
         if ($validator->fails()) {
-            return response()->json(['status' => 401,'message' => 'validation error', 'data'=>$validator->errors()], 401);
+            //return 'not';
+            return response()->json(['message' => 'validation error', 'data'=>$validator->errors()], 401);
         }
 
+
         $input = $request->all();
+
         $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')-> accessToken;
-        $success['name'] =  $user->name;
-        $success['email'] = $user->email;
+        //$input['email']
+        $users = User::create($input);
+        $success['token'] = $users->createToken('MyApp')-> accessToken;
+        $success['id']    = $users->id;
+        $success['name']  = $users->name;
+        $success['email'] = $users->email;
 
-        return response()->json(['status' => 200,'message' => 'you are logged in', 'data'=>$success], $this-> successStatus);
+        return response()->json(['message' => 'you are logged in', 'data'=>$success], $this-> successStatus);
     }
-    /**
-     * details api
-     *
-     * @return \Illuminate\Http\Response
+
+
+
+
+    /*
+     * user can login by using either mobile no or email
      */
+    public function login(){
+
+
+        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+            $user = Auth::user();
+            $success['id']    = $user->id;
+            $success['token'] =  $user->createToken('MyApp')-> accessToken;
+            return response()->json(['message' => 'you are logged in', 'data' => $success], $this-> successStatus);
+        }
+        elseif (Auth::attempt(['mobile' => request('email'), 'password' => request('password')])){
+            $user = Auth::user();
+            $success['id']    = $user->id;
+            $success['token'] =  $user->createToken('MyApp')-> accessToken;
+            return response()->json(['message' => 'you are logged in', 'data' => $success],  $this-> successStatus);
+        }
+        else{
+            return response()->json(['message' => 'User Id or password is invalid'], 401);
+        }
+    }
 
 
 
-
-    public function details()
+    public function logout(Request $request)
     {
+        $id = $request->id;
+        $accessToken = Auth::user()->token();
+        //return response()->json(['data' => $accessToken]);
+        DB::table('oauth_refresh_tokens')
+            ->where('access_token_id', $accessToken->id)
+            ->update([
+                'revoked' => true
+            ]);
+
+        $accessToken->revoke();
+        return response()->json([null,'data' => $accessToken], 204);
+    }
+
+
+
+
+    public function details(Request $request)
+    {
+        $id = $request->id;
         $user = Auth::user();
         $userInfo = UserInfo::where('user_id', $user->id)->get();
         //return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $userInfo], $this-> successStatus);
@@ -103,25 +132,7 @@ class UserController extends Controller
     }
 
 
-
-    public function logout()
-    {
-        $accessToken = Auth::user()->token();
-        //return response()->json(['data' => $accessToken]);
-        DB::table('oauth_refresh_tokens')
-            ->where('access_token_id', $accessToken->id)
-            ->update([
-                'revoked' => true
-            ]);
-
-        $accessToken->revoke();
-        return response()->json(null,$accessToken, 204);
-    }
-
-
-
     public function updateInfo(Request $request){
-
 
         $validator = Validator::make($request->all(), [
 
@@ -134,6 +145,10 @@ class UserController extends Controller
             'description'       => ' string ',
             'weight'            => 'integer',
             'marital_status'    => 'boolean ',
+            'email'             => 'email | regex:/\S+@\S+\.\S+/  ',
+            'mobile'            => 'regex:/(01)[0-9]{9}/ | digits:11 ',
+
+
             //'latitude'          => 'regex: /^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)/',
             //'longitude'         => 'regex: /^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)/',
 
@@ -150,8 +165,10 @@ class UserController extends Controller
          * -------------------------------------------
          */
         $data = $request->all();
+        //return $data;
 
-        /* unblock photo save after test*/
+
+        /* unblock photo save after test
         if($file = $request->image) {
             //return $file;
             $name = time() . $file->getClientOriginalName();
@@ -165,6 +182,7 @@ class UserController extends Controller
             ]);
 
         }
+        */
 
 
         /*
@@ -178,6 +196,36 @@ class UserController extends Controller
             'longitude'   => $data['longitude'],
         ]);
        */
+        $id = Auth::user()->id;
+
+//return $request->email;
+       if($request->email != null){
+           //return 'ok';
+
+           $idDuplicate = User::where('email',$request->email )->get('id');
+           if (json_decode($idDuplicate,true) == null || $idDuplicate[0]['id'] == $id){
+               User::where( 'id', $id)->update(array('email' => $request->email));
+           }
+           else {
+               $error['email'] = ['the email has aready taken'];
+               return response()->json(['message' => 'validation error', 'data'=>$error], 401);
+           }
+
+
+       }
+       if($request->mobile != null){
+           /*
+            * mobile number varification code will be here
+            */
+           $idDuplicate = User::where('mobile',$request->mobile )->get('id');
+           if (json_decode($idDuplicate,true) == null || $idDuplicate[0]['id'] == $id){
+               User::where( 'id', $id)->update(array('mobile' => $request->mobile));
+           }
+           else {
+               $error['mobile'] = ['the mobile has aready taken'];
+               return response()->json(['message' => 'validation error', 'data'=>$error], 401);
+           }
+       }
 
         $userInfo = [
 
@@ -191,13 +239,13 @@ class UserController extends Controller
             'description'     => $data['description'],
             'weight'          => $data['weight'],
             'marital_status'  => $data['marital_status'],
-            'photo_id'        => $photo->id,
+            'photo_id'        => 1,
             'gender'          => $data['gender'],
             'active_status'   => 1,
 
         ];
         //return $userInfo;
-        $id = Auth::user()->id;
+
 
         $checkUser = UserInfo::where('user_id', $id)->get('user_id');
 

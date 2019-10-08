@@ -3,8 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="332f1368-e6f9-4002-b0b5-99ed19719d74" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_163040_create_user_infos_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_163040_create_user_infos_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_163235_create_posts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_163235_create_posts_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_163310_create_post_reviews_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_163310_create_post_reviews_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -169,7 +174,7 @@
       <workItem from="1568569896647" duration="5271000" />
       <workItem from="1568640309347" duration="1871000" />
       <workItem from="1570429554676" duration="19000" />
-      <workItem from="1570432013465" duration="566000" />
+      <workItem from="1570432013465" duration="25091000" />
     </task>
     <servers />
   </component>

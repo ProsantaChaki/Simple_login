@@ -25,20 +25,21 @@ Route::get('users', 'UserController@getUsers')->middleware('auth:api');
  *
  */
 
-Route::post('login', 'API\UserController@login');
-Route::post('register', 'API\UserController@register');
+Route::post('v1/login', 'API\UserController@login');
+Route::post('v1/register', 'API\UserController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('details', 'API\UserController@details');
-    Route::post('logout','API\UserController@logout');
-    Route::post('updateinfo','API\UserController@updateInfo');
+    Route::get('v1/users/{id}', 'API\UserController@details');
+    Route::get('v1/logout/{id}','API\UserController@logout');
+    Route::post('v1/users/{id}/update','API\UserController@updateInfo');
 
 
 
-    Route::post('post/create','API\PostController@create');
-    Route::post('post/updateinfo','API\PostController@updateInfo');
-    Route::post('post/postReviewSubmission','API\PostController@postReview');
-    Route::post('post/postReviewView','API\PostController@postReviewView');
+
+    Route::post('v1/post/create','API\PostController@create');
+    Route::post('v1/post/{id}/update','API\PostController@updateInfo');
+    Route::post('v1/post/{id}/review/submission','API\PostController@postReview');
+    Route::post('v1/post/{id}/review/view','API\PostController@postReviewView');
 
 
 
@@ -49,6 +50,12 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
 });
+
+
+Route::post('updateinfo',function (){
+    return 'ok';
+});
+
 
 //Route::post('post/validate','API\PostController@postValidator');
 

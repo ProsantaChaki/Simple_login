@@ -18,14 +18,14 @@ class CreatePostsTable extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->string('sub_title');
-            $table->string('description');
+            $table->text('description');
             $table->integer('area_id');
             $table->string('address');
             $table->integer('map_location_id');
-            $table->integer('quality');
+            $table->integer('quality')->default(1);
             $table->string('mobile');
-            $table->string('status');
-            $table->string('type');
+            $table->string('post_status');
+            $table->string('post_type')->default('Donate');
             $table->integer('financial_value');
             $table->timestamps();
 

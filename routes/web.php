@@ -11,6 +11,10 @@
 |
 */
 
+//use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -45,7 +49,11 @@ Route::resource('/user/user', 'UserController',['names'=>[
 
 ]]);
 
-
 Route::get('users/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
 Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
