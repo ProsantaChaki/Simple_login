@@ -29,10 +29,10 @@ Route::post('v1/login', 'API\UserController@login');
 Route::post('v1/register', 'API\UserController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
+
     Route::get('v1/users/{id}', 'API\UserController@details');
     Route::get('v1/logout/{id}','API\UserController@logout');
     Route::post('v1/users/{id}/update','API\UserController@updateInfo');
-
 
 
 
@@ -43,21 +43,11 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
 
-
-
-
-
-
-
 });
 
-
-Route::post('updateinfo',function (){
-    return 'ok';
-});
 
 
 //Route::post('post/validate','API\PostController@postValidator');
 
-Route::post('post/view','API\PostController@index');
-Route::post('post/details','API\PostController@details'); //use post method
+Route::get('v1/all/post/view','API\PostController@index');
+Route::get('v1/post/{id}/details','API\PostController@details'); //use post method

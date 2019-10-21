@@ -17,8 +17,8 @@ class Post extends Model
         'map_location_id',
         'quality',
         'mobile',
-        'status',
-        'type',
+        'post_status',
+        'post_type',
         'financial_value',
     ];
 

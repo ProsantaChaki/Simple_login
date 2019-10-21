@@ -49,3 +49,14 @@ Route::resource('/user/user', 'UserController',['names'=>[
 Route::get('users/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
 Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 
+Route::get('masterlayout', function () {
+    return view('layouts.masterLayout');
+});
+Route::get('userlayout', function () {
+    return view('layouts.userLayout');
+
+});
+Route::get('userDashboardlayout', function () {
+    return view('layouts.userDashboardLayout');
+
+});

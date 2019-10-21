@@ -30,8 +30,8 @@ class PostController extends Controller
             'address'           => ' string ',
             'quality'           => ' integer ',
             'mobile'            => ' string | regex:/(01)[0-9]{9}/ | digits:11',
-            'status'            => ' string ',
-            'type'              => 'string ',
+            'post_status'            => ' string ',
+            'post_type'              => 'string ',
             'financial_value'   => 'integer',
             //'latitude'          => 'regex: /^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)/',
             //'longitude'         => 'regex: /^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)/',
@@ -63,15 +63,21 @@ class PostController extends Controller
 
         if($validation == 200){
             $postData = $request->all();
+            $image = $request->image;
+            $request = $request->except('image');
+            //return $request;
+
+
             $postData['user_id'] = $user = Auth::user()->id;
             $postData['map_location_id'] = 1;
             //if($request->id)
+            //return $postData['post_status'];
             $postData = Post::create($postData);
 
-            //return $postDatas['id'];
+            //return $postData['id'];
 
 
-            if($file = $request->image) {
+            if($file =  $image) {
                 $name = time() . $file->getClientOriginalName();
                 $file->move('images', $name);
 
@@ -80,11 +86,8 @@ class PostController extends Controller
                     'imageable_id' => $postData['id'],
                     'imageable_type'=> 'App/Post'
                 ]);
-
                 return response()->json(['status => 200', 'message' => 'post with image is submitted','post'=>$postData, 'photo' =>$photo]);
-
             }
-
             return response()->json(['status => 200', 'message' => 'post without image is submitted','success'=>$postData]);
         }
         else{
@@ -130,18 +133,22 @@ class PostController extends Controller
         else{
             return response()->json(['status' => 400, 'message' => 'Include a valid Post Id']);
         }
-
     }
 
 
     public function details(Request $request)
     {
         //
-        $postData = Post::find($request->id);
+        //return $request->id;
+        if(Post::find($request->id)){
+            return response()->json(['status => 200','message' => 'your has been processed', 'data'=>Post::find($request->id)]);
+
+        }
+        else{
+            return response()->json(['message' => 'post not found', 'data'=>[]],401);
+
+        }
         //return $postData;
-        return response()->json(['status => 200','message' => 'your has been processed', 'data'=>$postData]);
-
-
     }
 
 

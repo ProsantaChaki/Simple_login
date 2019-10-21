@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function login(){
 
-
+        //return request('email');
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             $success['id']    = $user->id;
@@ -84,6 +84,7 @@ class UserController extends Controller
             return response()->json(['message' => 'you are logged in', 'data' => $success],  $this-> successStatus);
         }
         else{
+            return response()->json(request());
             return response()->json(['message' => 'User Id or password is invalid'], 401);
         }
     }
@@ -111,6 +112,7 @@ class UserController extends Controller
     public function details(Request $request)
     {
         $id = $request->id;
+        return $id;
         $user = Auth::user();
         $userInfo = UserInfo::where('user_id', $user->id)->get();
         //return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $userInfo], $this-> successStatus);
@@ -133,6 +135,8 @@ class UserController extends Controller
 
 
     public function updateInfo(Request $request){
+
+        //return $request->image;
 
         $validator = Validator::make($request->all(), [
 
@@ -168,7 +172,7 @@ class UserController extends Controller
         //return $data;
 
 
-        /* unblock photo save after test
+        /* unblock photo save after test*/
         if($file = $request->image) {
             //return $file;
             $name = time() . $file->getClientOriginalName();
@@ -182,7 +186,7 @@ class UserController extends Controller
             ]);
 
         }
-        */
+
 
 
         /*
@@ -239,7 +243,7 @@ class UserController extends Controller
             'description'     => $data['description'],
             'weight'          => $data['weight'],
             'marital_status'  => $data['marital_status'],
-            'photo_id'        => 1,
+            'photo_id'        => $photo->id,
             'gender'          => $data['gender'],
             'active_status'   => 1,
 
