@@ -24,8 +24,9 @@
 
 </head>
 <body>
-<nav class=" navbar navbar-inverse navbar-fixed-top " >
-    <div class="container-fluid col-xl-12" style=" alignment: center; max-width: 1000px" >
+
+<nav class=" navbar navbar-inverse navbar-fixed-top " style="max-height: 56px" >
+    <div class="container-fluid col-xl-12" style=" alignment: center; max-width: 1000px; max-height: 50px" >
         <a class="navbar-brand w3-left" href="#">Sohozogi Foundation</a>
         <button type="button"  class="navbar-toggle w3-left" data-toggle="collapse" data-target="#myNavbar">
             <span class="icon-bar"></span>
@@ -33,8 +34,7 @@
             <span class="icon-bar"></span>
         </button>
         <!--<a class="navbar-brand w3-right sticky-top" style="font-size: 14px" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a>-->
-        <a class="navbar-brand w3-right sticky-top small" id="loginVisibility" style="font-size: 14px; display: block" data-toggle="modal" data-target="#login" href="#" ><span class="glyphicon glyphicon-log-in"></span> Login</a>
-        <ul class="navbar-brand w3-right sticky-top small" id="profileVisibility" style="padding-left: 0px; padding-top: 0px; display: none">
+        <ul class="navbar-brand w3-right sticky-top small" style="padding-left: 0px; padding-top: 0px">
             <div class="user-area dropdown float-right">
                 <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="user-avatar rounded-circle" src="images/admin.jpg" style="border-radius: 50%" alt="User Avatar">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </ul>
-        <ul class="navbar-brand w3-right sticky-top small" id="messageVisibility" style="width: 40px;padding-top: 0px; margin-left: 5px; padding-right: 1px; display: none">
+        <ul class="navbar-brand w3-right sticky-top small" style="width: 40px;padding-top: 0px; margin-left: 5px; padding-right: 1px">
             <div class="user-area dropdown float-right">
                 <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
                     <i class="fa fa-envelope" style="font-size: 20px; color: white"></i>
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </ul>
-        <ul class="navbar-brand w3-right sticky-top small" id="notificationVisibility" style="width: 40px;padding-top: 0px; margin-left: 5px; padding-right: 1px; display: none">
+        <ul class="navbar-brand w3-right sticky-top small"style="width: 40px;padding-top: 0px; margin-left: 5px; padding-right: 1px">
             <div class="user-area dropdown  float-right">
                 <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
                     <i class="fa fa-bell" style="font-size: 20px; color: white; padding-right: 5px"></i>
@@ -95,6 +95,8 @@
                 </div>
             </div>
         </ul>
+
+
 
         <ul class="nav navbar-nav collapse navbar-collapse" id="myNavbar" style="margin-top: 0px" >
             <li class="active"><a href="#">Home</a></li>
@@ -512,27 +514,7 @@
 
 
     <script>
-            var allCookieArray = document.cookie.split(';');
-            alert(document.cookie)
-            if(allCookieArray.length>6){
-                document.getElementById('loginVisibility').style.display = 'none';
-                document.getElementById('profileVisibility').style.display = 'block';
-                document.getElementById('messageVisibility').style.display = 'block';
-                document.getElementById('notificationVisibility').style.display = 'block';
-            }
-            else {
-                document.getElementById('loginVisibility').style.display = 'block';
-                document.getElementById('profileVisibility').style.display = 'none';
-                document.getElementById('messageVisibility').style.display = 'none';
-                document.getElementById('notificationVisibility').style.display = 'none';
-            }
-            alert(allCookieArray.length);
-
-
-
-
-
-            function userRegistration(theForm) {
+        function userRegistration(theForm) {
 
             var data = JSON.stringify({
                 'name' :document.getElementById("r_name").value,
@@ -541,6 +523,8 @@
                 'password' : document.getElementById("r_password").value,
                 'c_password' :document.getElementById("r_c_password").value,
             });
+            alert(data['password']);
+            alert(data['c_password']);
 
             var request = new XMLHttpRequest();
             request.open("POST", "http://donor.test/api/v1/register", false);
@@ -548,32 +532,8 @@
             //request.body(data);
             request.send(data);
             // view request status
-            setCookies(request.response);
-            //response.innerHTML = request.responseText;
-        }
-
-        function setCookies(data) {
-
-
-            var date = new Date();
-                //date.setTime(date.getTime() + (60*24*60*60*1000));
-            date.setTime(date.getTime() + (60*24*60*60*1000));
-
-            var respons = JSON.parse(data);
-                var u_id = respons['data']['id'];
-                var u_name = respons['data']['name'];
-                var u_token = respons['data']['token'];
-                var expires = date.toUTCString();
-                try {
-                    document.cookie = 'name =' + u_name + ";" + "expires=" + expires + "; path=/";
-                    document.cookie = 'id =' + u_id + ";" + "expires=" + expires + "; path=/";
-                    document.cookie = 'token =' + u_token + ";" + "expires="+ expires + "; path=/";
-                }
-                catch (e) {
-                    console.log('something wrong with cookies');
-                }
-
-
+            alert(request.response);
+            response.innerHTML = request.responseText;
         }
 
         function userLogin() {
@@ -588,14 +548,7 @@
             //request.body(data);
             request.send(data);
             // view request status
-            if(request.status = 200) {
-                setCookies(request.response);
-            }
-
-
-
-
-
+            alert(request.response);
             response.innerHTML = request.responseText;
         }
 

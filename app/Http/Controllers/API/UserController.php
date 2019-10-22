@@ -54,10 +54,10 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         //$input['email']
         $users = User::create($input);
-        $success['token'] = $users->createToken('MyApp')-> accessToken;
         $success['id']    = $users->id;
         $success['name']  = $users->name;
-        $success['email'] = $users->email;
+        $success['token'] = $users->createToken('MyApp')-> accessToken;
+
 
         return response()->json(['message' => 'you are logged in', 'data'=>$success], $this-> successStatus);
     }
@@ -74,17 +74,18 @@ class UserController extends Controller
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             $success['id']    = $user->id;
+            $success['name']  = $user->name;
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
             return response()->json(['message' => 'you are logged in', 'data' => $success], $this-> successStatus);
         }
         elseif (Auth::attempt(['mobile' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             $success['id']    = $user->id;
+            $success['name']  = $user->name;
             $success['token'] =  $user->createToken('MyApp')-> accessToken;
             return response()->json(['message' => 'you are logged in', 'data' => $success],  $this-> successStatus);
         }
         else{
-            return response()->json(request());
             return response()->json(['message' => 'User Id or password is invalid'], 401);
         }
     }

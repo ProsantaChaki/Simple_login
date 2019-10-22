@@ -60,3 +60,7 @@ Route::get('userDashboardlayout', function () {
     return view('layouts.userDashboardLayout');
 
 });
+Route::get('temp', function () {
+    return view('layouts.temp');
+
+});
