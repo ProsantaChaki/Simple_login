@@ -64,3 +64,11 @@ Route::get('temp', function () {
     return view('layouts.temp');
 
 });
+Route::get('profile', function () {
+    return view('user.profile');
+
+});
+Route::get('updateprofile', function () {
+    return view('user.updateProfile');
+
+});

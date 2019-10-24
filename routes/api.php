@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('v1/users/{id}', 'API\UserController@details');
     Route::get('v1/logout/{id}','API\UserController@logout');
     Route::post('v1/users/{id}/update','API\UserController@updateInfo');
+    Route::post('v1/users/{id}/photo/update','API\UserController@photoUpdate');
+
 
 
 
@@ -51,3 +53,5 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 Route::get('v1/all/post/view','API\PostController@index');
 Route::get('v1/post/{id}/details','API\PostController@details'); //use post method
+
+Route::get('v1/area/{type}/{name}','FormResourceController@area');

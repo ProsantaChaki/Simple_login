@@ -15,7 +15,7 @@ class CreateAreasTable extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('devision');
+            $table->string('division');
             $table->string('district');
             $table->string('subordinate');
             $table->string('branch');

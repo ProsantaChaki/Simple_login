@@ -147,7 +147,7 @@
                             </label>
 
                         </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" onclick="userLogin()">Sign in</button>
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" onclick="userLogin(this.form)">Sign in</button>
                         <label class="pull-right">
                             <a style="font-size: 14px; color: #fb9678" data-toggle="modal" data-target="#register" data-dismiss="modal" > Don't have an account yet?</a>
                         </label>
@@ -513,8 +513,7 @@
 
     <script>
             var allCookieArray = document.cookie.split(';');
-            alert(document.cookie)
-            if(allCookieArray.length>6){
+            if(allCookieArray.length>4){
                 document.getElementById('loginVisibility').style.display = 'none';
                 document.getElementById('profileVisibility').style.display = 'block';
                 document.getElementById('messageVisibility').style.display = 'block';
@@ -526,11 +525,6 @@
                 document.getElementById('messageVisibility').style.display = 'none';
                 document.getElementById('notificationVisibility').style.display = 'none';
             }
-            alert(allCookieArray.length);
-
-
-
-
 
             function userRegistration(theForm) {
 
@@ -545,38 +539,35 @@
             var request = new XMLHttpRequest();
             request.open("POST", "http://donor.test/api/v1/register", false);
             request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-            //request.body(data);
             request.send(data);
-            // view request status
-            setCookies(request.response);
-            //response.innerHTML = request.responseText;
+            if(request.status = 200) {
+                setCookies(request.response);
+                document.getElementById("r_password").value= '';
+                document.getElementById("r_c_password").value= '';
+
+            }
         }
 
         function setCookies(data) {
-
-
             var date = new Date();
-                //date.setTime(date.getTime() + (60*24*60*60*1000));
             date.setTime(date.getTime() + (60*24*60*60*1000));
 
-            var respons = JSON.parse(data);
-                var u_id = respons['data']['id'];
-                var u_name = respons['data']['name'];
-                var u_token = respons['data']['token'];
-                var expires = date.toUTCString();
-                try {
-                    document.cookie = 'name =' + u_name + ";" + "expires=" + expires + "; path=/";
-                    document.cookie = 'id =' + u_id + ";" + "expires=" + expires + "; path=/";
-                    document.cookie = 'token =' + u_token + ";" + "expires="+ expires + "; path=/";
-                }
-                catch (e) {
-                    console.log('something wrong with cookies');
-                }
-
-
+            var respons  = JSON.parse(data);
+            var u_id     = respons['data']['id'];
+            var u_name   = respons['data']['name'];
+            var u_token  = respons['data']['token'];
+            var expires  = date.toUTCString();
+            try {
+                document.cookie = 'name=' + u_name + ";" + "expires=" + expires + ";path=/";
+                document.cookie = 'id=' + u_id + ";" + "expires=" + expires + ";path=/";
+                document.cookie = 'token=' + u_token + ";" + "expires="+ expires + ";path=/";
+            }
+            catch (e) {
+                console.log(e);
+            }
         }
 
-        function userLogin() {
+        function userLogin(form) {
             // New XMLHTTPRequest
             var data = JSON.stringify({
                 'email' : document.getElementById("email").value,
@@ -585,18 +576,12 @@
             var request = new XMLHttpRequest();
             request.open("POST", "http://donor.test/api/v1/login", false);
             request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-            //request.body(data);
             request.send(data);
-            // view request status
             if(request.status = 200) {
                 setCookies(request.response);
+                document.getElementById("email").value = '';
+                document.getElementById("password").value= '';
             }
-
-
-
-
-
-            response.innerHTML = request.responseText;
         }
 
         function navMargin() {
@@ -604,18 +589,6 @@
                 document.getElementById("myNavbar").style.marginTop = '56px';
             }
         }
-
-        $(window).resize(function(){
-            if($(window).width()<769){
-                document.getElementById("myNavbar").style.marginTop = '56px';
-            }
-            else {
-                document.getElementById("myNavbar").style.marginTop = '0px';
-
-            }
-        });
-        document.getElementById("myNavbar").style.marginTop = '0px';
-
         // Script to open and close sidebar when on tablets and phones
         function w3_open() {
             document.getElementById("mySidebar").style.display = "block";
@@ -626,6 +599,16 @@
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
+            $(window).resize(function(){
+                if($(window).width()<769){
+                    document.getElementById("myNavbar").style.marginTop = '56px';
+                }
+                else {
+                    document.getElementById("myNavbar").style.marginTop = '0px';
+
+                }
+            });
+            document.getElementById("myNavbar").style.marginTop = '0px';
 
     </script>
 </div>

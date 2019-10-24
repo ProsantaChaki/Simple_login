@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\API;
+use App\Area;
 use App\MapLocation;
 use App\Photo;
 use App\UserInfo;
@@ -63,8 +64,6 @@ class UserController extends Controller
     }
 
 
-
-
     /*
      * user can login by using either mobile no or email
      */
@@ -91,7 +90,6 @@ class UserController extends Controller
     }
 
 
-
     public function logout(Request $request)
     {
         $id = $request->id;
@@ -108,27 +106,44 @@ class UserController extends Controller
     }
 
 
-
-
     public function details(Request $request)
     {
         $id = $request->id;
-        return $id;
         $user = Auth::user();
         $userInfo = UserInfo::where('user_id', $user->id)->get();
-        //return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $userInfo], $this-> successStatus);
+        //return $userInfo[0]['photo_id'];
+        if(sizeof($userInfo)>0){
+            if($userInfo[0]['photo_id']>0){
+                $photo = Photo::where('id',$userInfo[0]['photo_id'])->select('path')->get();
+                unset($userInfo[0]['photo_id']);
+                $userInfo[0]['photo'] = '/images/'.$photo[0]['path'];
+            }
+            else{
+                unset($userInfo[0]['photo_id']);
+                $userInfo[0]['photo'] = '/images/avatar.png';
+            }
+        }
+        else{
+            $user['photo'] = '/images/avatar.png';
 
+        }
+
+        //return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $userInfo], $this-> successStatus);
         if ( json_decode($userInfo,true) != null){
             //return $userInfo;
             $userInfo[0]['name'] = $user['name'];
             $userInfo[0]['email'] = $user ['email'];
             $userInfo[0]['mobile'] = $user ['mobile'];
+            if($userInfo[0]['area_id']){
+                $area = Area::where('id', $userInfo[0]['area_id'])->get();
+                $userInfo[0]['area'] = $area[0]['branch'].';'.$area[0]['subordinate'].';'.$area[0]['district'].';'.$area[0]['division'].';'.$area[0]['post_code'].';';
+            }
             //return $user['name'];
 
-            return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $userInfo], $this-> successStatus);
+            return response()->json(['message' => 'your request has been processed', 'data' =>  $userInfo[0]], $this-> successStatus);
         }
         else{
-            return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $user], $this-> successStatus);
+            return response()->json(['message' => 'your request has been processed', 'data' =>  $user], $this-> successStatus);
         }
 
             //return typeOf($user);
@@ -137,8 +152,8 @@ class UserController extends Controller
 
     public function updateInfo(Request $request){
 
-        //return $request->image;
-
+        //return $request;
+/*
         $validator = Validator::make($request->all(), [
 
             'area_id'           => 'integer',
@@ -149,14 +164,9 @@ class UserController extends Controller
             'occupation'        => 'string | max:255',
             'description'       => ' string ',
             'weight'            => 'integer',
-            'marital_status'    => 'boolean ',
+            'marital_status'    => 'string ',
             'email'             => 'email | regex:/\S+@\S+\.\S+/  ',
             'mobile'            => 'regex:/(01)[0-9]{9}/ | digits:11 ',
-
-
-            //'latitude'          => 'regex: /^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)/',
-            //'longitude'         => 'regex: /^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)/',
-
 
         ]);
 
@@ -170,40 +180,11 @@ class UserController extends Controller
          * -------------------------------------------
          */
         $data = $request->all();
-        //return $data;
+        //return $data['photo'];
 
-
-        /* unblock photo save after test*/
-        if($file = $request->image) {
-            //return $file;
-            $name = time() . $file->getClientOriginalName();
-            //return $name;
-            $file->move('images', $name);
-
-            $photo = Photo::create([
-                'path' => $name,
-                'imageable_id' => Auth::user()->id,
-                'imageable_type'=> 'App/User'
-            ]);
-
-        }
-
-
-
-        /*
-         * -------------------------------------------
-         * save the maplocation and store in database
-         * -------------------------------------------
-         */
-       /*
-        $mapLocation = MapLocation::create([
-            'latitude'    => $data['latitude'],
-            'longitude'   => $data['longitude'],
-        ]);
-       */
         $id = Auth::user()->id;
+        //return 'user';
 
-//return $request->email;
        if($request->email != null){
            //return 'ok';
 
@@ -231,7 +212,7 @@ class UserController extends Controller
                return response()->json(['message' => 'validation error', 'data'=>$error], 401);
            }
        }
-
+        //return $photo->id;
         $userInfo = [
 
             'user_id'         => Auth::user()->id,
@@ -244,7 +225,7 @@ class UserController extends Controller
             'description'     => $data['description'],
             'weight'          => $data['weight'],
             'marital_status'  => $data['marital_status'],
-            'photo_id'        => $photo->id,
+            //'photo_id'        => $photo->id,
             'gender'          => $data['gender'],
             'active_status'   => 1,
 
@@ -262,7 +243,46 @@ class UserController extends Controller
         }
 
 
-        return response()->json(['status' => 200,'message' => 'your information has been updated', 'data'=>$userInfo], $this-> successStatus);
+        return response()->json(['message' => 'your information has been updated', 'data'=>$userInfo], $this-> successStatus);
+
+    }
+
+    public function photoUpdate(Request $request){
+        $data = $request->all();
+        //return $data['photo'];
+
+        if($file = $request->photo) {
+            //return $file;
+            $name = time() . $file->getClientOriginalName();
+            //return $name;
+            $file->move('images', $name);
+
+            $photo = Photo::create([
+                'path' => $name,
+                'imageable_id' => Auth::user()->id,
+                'imageable_type'=> 'App/User'
+            ]);
+            //return $photo->id;
+
+        }
+
+        $id = Auth::user()->id;
+
+        $userInfo = [
+            'user_id'         => Auth::user()->id,
+            'photo_id'        => $photo->id,
+        ];
+
+        $checkUser = UserInfo::where('user_id', $id)->get('user_id');
+
+        if (json_decode($checkUser,true) == null){
+            UserInfo::create($userInfo);
+        }
+        else{
+            UserInfo::where( 'user_id', $checkUser[0]['user_id'])->update($userInfo);
+        }
+        return response()->json(['message' => 'your information has been updated', 'data'=>$userInfo], $this-> successStatus);
+
 
     }
 

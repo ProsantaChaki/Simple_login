@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
-    <title>Donor Home</title>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sohozogi Foundation</title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/newStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 
     <style>
         body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
@@ -35,7 +44,7 @@
     <div class="container-fluid col-xl-12" style=" alignment: center; max-width: 1000px" >
 
         <div class="top-left" >
-            <a class="navbar-brand w3-left" href="#" style="color: white">Sohozogi Foundation</a>
+            <a class="navbar-brand w3-left" href="#" style="color: white">Sohozogi</a>
 
 
 
@@ -115,24 +124,22 @@
 
 
     <!-- Sidebar/menu -->
-    <nav class=" w3-sidebar w3-light-grey w3-collapse w3-top navbar navbar-expand-sm navbar-default" style="z-index:3;width:260px; margin-top: 56px" id="mySidebar">
+    <nav class=" w3-sidebar w3-light-grey w3-collapse w3-top navbarleft navbar-expand-sm navbar-default" style="z-index:3;width:260px; margin-top: 56px" id="mySidebar">
         <div class=" nav w3-container w3-display-container w3-padding-16 overlay zoom">
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-transparent w3-display-topright"></i>
 
        <!-- <div id="main-menu" class="main-menu collapse navbar-collapse">-->
-            <ul class="hover-li nav navbar-nav left-nav">
+            <ul class="hover-li nav navbar-nav left-nav" style="size: 14px">
 
                 <li class="menu-title">Manu</li>
                 <li><i class=""></i><a href="#">Profile</a></li>
-                <li><i class=""></i><a href="#">Update</a></li>
-                <li><i class=""></i><a href="#">Verification</a></li>
-                <li><i class=""></i><a href="#">Memberships</a></li>
+                <li><i class=""></i><a href="#">Update Information</a></li>
+                <li><i class=""></i><a href="#">Connections</a></li>
                 <li><i class=""></i><a href="#">Activities</a></li>
-                <li><i class=""></i><a href="#">Status</a></li>
-                <li><i class=""></i><a href="#">All</a></li>
-                <li><i class=""></i><a href="#">Create</a></li>
-                <li><i class=""></i><a href="#">Update</a></li>
-                <li><i class=""></i><a href="#">Delete</a></li>
+                <li><i class=""></i><a href="#">All Post</a></li>
+                <li><i class=""></i><a href="#">Create Post</a></li>
+                <li><i class=""></i><a href="#">Update Post</a></li>
+                <li><i class=""></i><a href="#">Delete Post</a></li>
             </ul>
         </div>
     </nav>
@@ -258,9 +265,11 @@
 
     <!-- !PAGE CONTENT! -->
 
+
     <div class="w3-main w3-white" style="margin-left:260px; margin-top: 56px">
         <div class="w3-container">
 
+            @yield('content')
 
         </div>
         <!-- End page content -->
