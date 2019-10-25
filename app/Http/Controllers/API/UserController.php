@@ -249,10 +249,10 @@ class UserController extends Controller
 
     public function photoUpdate(Request $request){
         $data = $request->all();
-        //return $data['photo'];
+        return $data['photo'];
 
         if($file = $request->photo) {
-            //return $file;
+            return $file;
             $name = time() . $file->getClientOriginalName();
             //return $name;
             $file->move('images', $name);
@@ -267,7 +267,7 @@ class UserController extends Controller
         }
 
         $id = Auth::user()->id;
-
+/*
         $userInfo = [
             'user_id'         => Auth::user()->id,
             'photo_id'        => $photo->id,
@@ -283,7 +283,7 @@ class UserController extends Controller
         }
         return response()->json(['message' => 'your information has been updated', 'data'=>$userInfo], $this-> successStatus);
 
-
+*/
     }
 
 

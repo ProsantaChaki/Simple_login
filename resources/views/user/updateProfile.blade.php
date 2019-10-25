@@ -16,7 +16,7 @@
                                 <div class="col-md-7 text-center">
                                     <img id="photo" name="photo" src="#" class="avatar img-circle img-thumbnail" alt="avatar" style="max-height: 200px; width: auto">
                                     <h6>Upload a different photo...</h6>
-                                    <button id="imageUpload" type="submit" class="btn btn-primary ext-center center-block"  style="display: none; margin-bottom: 7px ">
+                                    <button id="imageUpload" type="submit" class="btn btn-primary ext-center center-block"  style="display: none; margin-bottom: 7px">
                                         <i class="fa fa-cloud-upload" style="font-size: 20px"></i>
                                         Update Image
                                     </button>
@@ -54,6 +54,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group row">
                                 <label for="birthday" class="col-md-4 col-form-label text-md-right" >Date of Birth</label>
 
@@ -133,8 +134,6 @@
                                 </div>
                             </div>
 
-
-
                             <div class="form-group row">
                                 <label for="address" class="col-md-4 col-form-label text-md-right" >Address</label>
 
@@ -142,7 +141,6 @@
                                     <input id="address" type="text" class="form-control " name="address" value="{{ old('address') }}" placeholder="Your Address" required>
                                 </div>
                             </div>
-
 
                             <div class="form-group row">
                                 <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
@@ -160,7 +158,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -171,7 +168,6 @@
         $(document).ready(function() { /*  here */
 
             var CookieArray = document.cookie.split(';');
-
 
             for(var i=0; CookieArray.length>i; i++){
                if(CookieArray[i].split('=')[0]==' id'){
@@ -330,8 +326,26 @@
         }
 
         function updatePhoto() {
-        }
+           // alert('update photo')
+            var dataa={}
 
+            var image = document.getElementById('photo').src;
+            dataa['photo'] = image;
+            //var data = json.encode('dataa')
+            //for(var i in dataa['photo']){
+                alert (dataa['photo']['blob']);
+
+            //}
+
+            var data = JSON.stringify(dataa);
+            var url = 'http://donor.test/api/v1/users/'+ id + '/photo/update';
+            var method =  'POST';
+            var request= httpRequest(method, url, data);
+            alert(request.response);
+
+
+
+        }
 
 
     </script>

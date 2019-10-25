@@ -946,6 +946,16 @@ header .form-inline .search-form.close {
 .for-notification .dropdown-menu .dropdown-item p {
     padding: 0 !important;
     text-overflow: ellipsis; }
+.user-profile{
+    float: right;
+    padding-right: 0;
+    position: relative;
+    padding-left: 5px;
+}
+.user-profile .items-list {
+    background-color: #00aced;
+}
+
 
 .user-area {
     float: right;
@@ -1048,3 +1058,65 @@ header .form-inline .search-form.close {
 .message-show + .dropdown-menu,
 .language-show + .dropdown-menu {
     display: block; }
+
+
+
+/*Style for the profile page*/
+.profile-panel {
+    box-shadow: none;
+}
+.profile-panel-heading {
+    border-bottom: 0;
+}
+.profile-panel-title {
+    font-size: 17px;
+}
+.profile-panel-title > small {
+    font-size: .75em;
+    color: #999999;
+}
+.profile-panel-body *:first-child {
+    margin-top: 0;
+}
+
+.profile-panel-default > .profile-panel-heading {
+    color: #333333;
+    background-color: transparent;
+    border-color: rgba(0, 0, 0, 0.07);
+}
+.profile-panel__avatar {
+    float: left;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+    overflow: hidden;
+}
+@media (min-width: 768px) {
+    .profile-panel__avatar {
+        width: 100px;
+        height: 100px;
+    }
+}
+.profile-panel__avatar > img {
+    width: 100%;
+    height: auto;
+}
+.profile-panel__header {
+    overflow: hidden;
+}
+.profile-panel__header p {
+    margin: 20px 0;
+}
+/*** Profile: Table ***/
+@media (min-width: 992px) {
+    .profile-panel__table tbody th {
+        width: auto;
+    }
+}
+
+/*End style for the profile page*/
+
+
+/* custome div style*/
+

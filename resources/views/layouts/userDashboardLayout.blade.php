@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/newStyle.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
     <style>
@@ -25,6 +24,19 @@
         {
             opacity:0.5 !important;
         }
+        /*used in profile.blade.php page*/
+        .border-bottom-line{
+            margin-bottom: 2px;
+            margin-top: 2px;
+            border-bottom-color: #5897fb;
+            border-bottom-style: solid;
+            border-bottom-width: thin;
+            max-width: 730px;"
+        }
+        .border-bottom-line p{
+            font-size: 15px;
+            color: #5a6268;
+        }
 
 
 
@@ -33,6 +45,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 </head>
 <body>
