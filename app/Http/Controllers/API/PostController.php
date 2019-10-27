@@ -25,13 +25,14 @@ class PostController extends Controller
 
             'title'             => 'required | string | max:255',
             'sub_title'         => ' string | max:255',
-            'description'       => ' string ',
+            'description'       => ' string | max:255',
             'area_id'           => 'integer',
+            'category_id'       => 'integer',
             'address'           => ' string ',
             'quality'           => ' integer ',
             'mobile'            => ' string | regex:/(01)[0-9]{9}/ | digits:11',
-            'post_status'            => ' string ',
-            'post_type'              => 'string ',
+            'post_status'       => ' string ',
+            'post_type'         => 'string ',
             'financial_value'   => 'integer',
             //'latitude'          => 'regex: /^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)/',
             //'longitude'         => 'regex: /^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)/',
@@ -41,7 +42,8 @@ class PostController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 401,
-                'error'=>$validator->errors()], 401);
+                'error'=>$validator->errors(),
+                'data' =>$request], 401);
         }
         else{
             return response()->json(['status' => 200]);
@@ -57,27 +59,20 @@ class PostController extends Controller
 
     public function create(Request $request)
     {
-        //
-        //return 'ok';
+
         $validation = $this->postValidator($request)->status();
 
         if($validation == 200){
             $postData = $request->all();
-            $image = $request->image;
-            $request = $request->except('image');
-            //return $request;
-
 
             $postData['user_id'] = $user = Auth::user()->id;
             $postData['map_location_id'] = 1;
-            //if($request->id)
-            //return $postData['post_status'];
+            $postData['post_status'] = 'Available';
             $postData = Post::create($postData);
 
-            //return $postData['id'];
 
 
-            if($file =  $image) {
+            /*if($file =  $image) {
                 $name = time() . $file->getClientOriginalName();
                 $file->move('images', $name);
 
@@ -87,8 +82,8 @@ class PostController extends Controller
                     'imageable_type'=> 'App/Post'
                 ]);
                 return response()->json(['status => 200', 'message' => 'post with image is submitted','post'=>$postData, 'photo' =>$photo]);
-            }
-            return response()->json(['status => 200', 'message' => 'post without image is submitted','success'=>$postData]);
+            }*/
+            return response()->json(['message' => 'post without image is submitted','data'=>$postData]);
         }
         else{
             return $this->postValidator($request);

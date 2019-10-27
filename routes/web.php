@@ -49,6 +49,9 @@ Route::resource('/user/user', 'UserController',['names'=>[
 Route::get('users/{user}',  ['as' => 'users.edit', 'uses' => 'UserController@edit']);
 Route::patch('users/{user}/update',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 
+Route::post('v1/photo','API\ResourcesController@photo');
+
+
 Route::get('masterlayout', function () {
     return view('layouts.masterLayout');
 });
@@ -72,3 +75,8 @@ Route::get('updateprofile', function () {
     return view('user.updateProfile');
 
 });
+Route::get('createpost', function () {
+    return view('user.post.create');
+
+});
+

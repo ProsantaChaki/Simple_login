@@ -16,6 +16,7 @@ class UserInfo extends Model
         'blood_group',
         'birthday',
         'occupation',
+        'organization',
         'description',
         'photo_id',
         'weight',

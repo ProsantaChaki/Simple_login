@@ -22,6 +22,7 @@ class CreateUserInfosTable extends Migration
             $table->date('birthday');
             $table->string('gender');
             $table->string('occupation');
+            $table->string('organization')->default(null);
             $table->string('description')->default(' ');
             $table->integer('photo_id')->nullable();
             $table->integer('weight')->nullable();

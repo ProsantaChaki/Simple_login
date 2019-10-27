@@ -222,6 +222,7 @@ class UserController extends Controller
             'blood_group'     => $data['blood_group'],
             'birthday'        => $data['birthday'],
             'occupation'      => $data['occupation'],
+            'organization'    => $data['organization'],
             'description'     => $data['description'],
             'weight'          => $data['weight'],
             'marital_status'  => $data['marital_status'],
@@ -249,10 +250,17 @@ class UserController extends Controller
 
     public function photoUpdate(Request $request){
         $data = $request->all();
-        return $data['photo'];
+       return $data;
+
+
+       foreach ($data as $datae){
+           return $datae;
+        }
+
+
 
         if($file = $request->photo) {
-            return $file;
+            //return $file;
             $name = time() . $file->getClientOriginalName();
             //return $name;
             $file->move('images', $name);
@@ -264,6 +272,10 @@ class UserController extends Controller
             ]);
             //return $photo->id;
 
+        }
+        else
+        {
+            return 'not ok';
         }
 
         $id = Auth::user()->id;

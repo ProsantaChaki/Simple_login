@@ -84,6 +84,14 @@
                                         <p id="occupation">Self Employed </p>
                                     </div>
                                 </div>
+                                <div class="col-sm-12 " style="margin-left: 0px; padding-left: 0px">
+                                    <div style="width: 110px; float: left; margin-top: 2px">
+                                        <label >Organization<label>:</label></label>
+                                    </div>
+                                    <div class="info border-bottom-line" id="info" style="min-width: 310px ;float: left">
+                                        <p id="organization">None</p>
+                                    </div>
+                                </div>
                                 <div class="col-sm-12" style="margin-left: 0px; padding-left: 0px">
                                     <div style="width: 110px; float: left; margin-top: 2px">
                                         <label >Marital Status<label>:</label></label>
@@ -133,66 +141,10 @@
             </div>
         </div>
     </div>
-<script>
-    var idlist = ['photo','mobile','name','email','gender','birthday','occupation','marital_status','blood_group','weight','address','description','area'];
-    var id='', token='', respons;
 
-    $(document).ready(function() { /*  here */
+    <script src="{{ url('/') }}/js/userProfile.js">
 
-        var CookieArray = document.cookie.split(';');
-
-        for(var i=0; CookieArray.length>i; i++){
-            if(CookieArray[i].split('=')[0]==' id'){
-                id=CookieArray[i].split('=')[1];
-            }
-            else if(CookieArray[i].split('=')[0]==' token'){
-                token=CookieArray[i].split('=')[1];
-            }
-        }
-        try{
-            var request = new XMLHttpRequest();
-            var url = 'http://donor.test/api/v1/users/'+ id;
-            request.open("GET", url, false);
-            request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-            request.setRequestHeader("Authorization", 'Bearer '+token);
-
-            request.send();
-            respons  = JSON.parse(request.response);
-
-            respons['data']['photo']= "{{ url('/') }}"+respons['data']['photo'];
-            for(var i=0; i<idlist.length; i++){
-                if (idlist[i] in respons['data']){
-                    if(idlist[i]=='photo'){
-                        document.getElementById(idlist[i]).src =respons['data'][idlist[i]];
-                    }
-                    else if(idlist[i]=='area'){
-                        document.getElementById(idlist[i]).innerHTML =respons['data'][idlist[i]];
-                        areaId = respons['data']['area_id'];
-                    }
-                    else{
-                        document.getElementById(idlist[i]).innerHTML =respons['data'][idlist[i]];
-                    }
-                }
-            }
-        }
-        catch (e) {
-            console.log(e)
-        }
-    });
-
-    if($(window).width()>768){
-        var x = document.getElementsByClassName("info");
-        for(var i=0; i<x.length;i++){
-            x[i].style.width = '330px';
-        }
-    }
-    if($(window).width()<769 & $(window).width()>500){
-        var x = document.getElementsByClassName("info");
-        for(var i=0; i<x.length;i++){
-            x[i].style.width =($(window).width()-190)+'px';
-        }
-    }
-</script>
+    </script>
 
 
 @endsection

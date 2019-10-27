@@ -21,8 +21,9 @@ class CreatePostsTable extends Migration
             $table->text('description');
             $table->integer('area_id');
             $table->string('address');
+            $table->integer('category_id');
             $table->integer('map_location_id');
-            $table->integer('quality')->default(1);
+            $table->integer('quality')->default(5);
             $table->string('mobile');
             $table->string('post_status');
             $table->string('post_type')->default('Donate');

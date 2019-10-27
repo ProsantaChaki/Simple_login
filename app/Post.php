@@ -14,6 +14,7 @@ class Post extends Model
         'description',
         'area_id',
         'address',
+        'category_id',
         'map_location_id',
         'quality',
         'mobile',

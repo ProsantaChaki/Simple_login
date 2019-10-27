@@ -25,18 +25,9 @@
             opacity:0.5 !important;
         }
         /*used in profile.blade.php page*/
-        .border-bottom-line{
-            margin-bottom: 2px;
-            margin-top: 2px;
-            border-bottom-color: #5897fb;
-            border-bottom-style: solid;
-            border-bottom-width: thin;
-            max-width: 730px;"
-        }
-        .border-bottom-line p{
-            font-size: 15px;
-            color: #5a6268;
-        }
+
+
+
 
 
 

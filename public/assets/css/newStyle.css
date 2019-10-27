@@ -1062,61 +1062,122 @@ header .form-inline .search-form.close {
 
 
 /*Style for the profile page*/
-.profile-panel {
-    box-shadow: none;
-}
-.profile-panel-heading {
-    border-bottom: 0;
-}
-.profile-panel-title {
-    font-size: 17px;
-}
-.profile-panel-title > small {
-    font-size: .75em;
-    color: #999999;
-}
-.profile-panel-body *:first-child {
-    margin-top: 0;
-}
 
-.profile-panel-default > .profile-panel-heading {
-    color: #333333;
-    background-color: transparent;
-    border-color: rgba(0, 0, 0, 0.07);
+.border-bottom-line{
+    margin-bottom: 2px;
+    margin-top: 2px;
+    border-bottom-color: #5897fb;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    max-width: 730px;"
 }
-.profile-panel__avatar {
-    float: left;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-right: 20px;
-    overflow: hidden;
+.border-bottom-line p{
+    font-size: 15px;
+    color: #5a6268;
 }
-@media (min-width: 768px) {
-    .profile-panel__avatar {
-        width: 100px;
-        height: 100px;
-    }
-}
-.profile-panel__avatar > img {
-    width: 100%;
-    height: auto;
-}
-.profile-panel__header {
-    overflow: hidden;
-}
-.profile-panel__header p {
-    margin: 20px 0;
-}
-/*** Profile: Table ***/
-@media (min-width: 992px) {
-    .profile-panel__table tbody th {
-        width: auto;
-    }
-}
-
 /*End style for the profile page*/
 
+.range {
+    display: table;
+    position: relative;
+    height: 25px;
+    background-color: rgb(245, 245, 245);
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.range input[type="range"] {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    -ms-appearance: none !important;
+    -o-appearance: none !important;
+    appearance: none !important;
+
+    display: table-cell;
+    width: 100%;
+    background-color: transparent;
+    height: 25px;
+    cursor: pointer;
+}
+.range input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    -ms-appearance: none !important;
+    -o-appearance: none !important;
+    appearance: none !important;
+
+    width: 11px;
+    height: 25px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0px;
+    background-color: rgb(153, 153, 153);
+}
+
+.range input[type="range"]::-moz-slider-thumb {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    -ms-appearance: none !important;
+    -o-appearance: none !important;
+    appearance: none !important;
+
+    width: 11px;
+    height: 25px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0px;
+    background-color: rgb(153, 153, 153);
+}
+
+.range output {
+    display: table-cell;
+    padding: 3px 5px 2px;
+    min-width: 40px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(153, 153, 153);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+}
+.range input[type="range"] {
+    outline: none;
+}
+
+.range.range-primary input[type="range"]::-webkit-slider-thumb {
+    background-color: rgb(66, 139, 202);
+}
+.range.range-primary input[type="range"]::-moz-slider-thumb {
+    background-color: rgb(66, 139, 202);
+}
+.range.range-primary output {
+    background-color: rgb(66, 139, 202);
+}
+.range.range-primary input[type="range"] {
+    outline-color: rgb(66, 139, 202);
+}
 
 /* custome div style*/
 

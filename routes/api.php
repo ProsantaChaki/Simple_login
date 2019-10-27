@@ -54,4 +54,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 Route::get('v1/all/post/view','API\PostController@index');
 Route::get('v1/post/{id}/details','API\PostController@details'); //use post method
 
-Route::get('v1/area/{type}/{name}','FormResourceController@area');
+Route::get('v1/area/{type}/{name}','API\ResourcesController@area');
+Route::get('v1/category/{column}/{name}','API\ResourcesController@category');
+
+Route::get('v1/organizations','API\ResourcesController@organization');
+

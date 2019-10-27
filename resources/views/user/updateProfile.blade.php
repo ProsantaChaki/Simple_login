@@ -8,19 +8,21 @@
                     <div class="card-header"><h4>Update Information </h4></div>
                     <hr/>
                     <div class="card-body">
-                        <form>
+                        <form method="POST" action="{{ url('/') }}/v1/photo" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right"></label>
 
                                 <div class="col-md-7 text-center">
-                                    <img id="photo" name="photo" src="#" class="avatar img-circle img-thumbnail" alt="avatar" style="max-height: 200px; width: auto">
+                                    <img id="photo" src="#" class="avatar img-circle img-thumbnail" alt="avatar" style="max-height: 200px; width: auto">
                                     <h6>Upload a different photo...</h6>
-                                    <button id="imageUpload" type="submit" class="btn btn-primary ext-center center-block"  style="display: none; margin-bottom: 7px">
+                                    <button id="imageUpload" type="submit" class="btn btn-primary ext-center center-block"  style="display: none; margin-bottom: 7px" >
                                         <i class="fa fa-cloud-upload" style="font-size: 20px"></i>
                                         Update Image
                                     </button>
-                                    <input type="file" id="photoupload" name="photoupload" class="text-center center-block well well-sm" accept="image/*" onchange="document.getElementById('photo').src = window.URL.createObjectURL(this.files[0]); document.getElementById('imageUpload').style.display = 'block'">
+                                    <input type="number" id="user_id" value=8 name="imageable_id" style="display: none">
+                                    <input type="text" name="imageable_type" value="App/User" style="display: none">
+                                    <input type="file" id="photoupload" name="photo" class="text-center center-block well well-sm" accept="image/*" onchange="document.getElementById('photo').src = window.URL.createObjectURL(this.files[0]); document.getElementById('imageUpload').style.display = 'block'">
 
                                 </div>
                             </div>
@@ -31,6 +33,14 @@
 
                                 <div class="col-md-7">
                                     <input id="name" type="text" class="form-control" name="name" placeholder="Full Name" required autocomplete="name" autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="mobile" class="col-md-4 col-form-label text-md-right">Mobile Number</label>
+
+                                <div class="col-md-7">
+                                    <input id="mobile" type="mobile" disabled class="form-control " name="mobile">
                                 </div>
                             </div>
 
@@ -75,6 +85,21 @@
                                         <option value="Teacher">Teacher</option>
                                     </select>
                                 </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="organization" class="col-md-4 col-form-label text-md-right">Organization</label>
+                                <div class="col-md-7">
+                                    <input list="organizationList" id="organization" class="chosen md-3 form-control" placeholder="Type Your Organization"  onclick="organizationLoad(); this.onclick=null;">
+                                    <datalist id="organizationList">
+                                        <!--option value=" Dhaka">
+                                        <option value="Firefox">
+                                        <option value="Chrome">
+                                        <option value="Opera"-->
+                                    </datalist>
+
+                                </div>
+
                             </div>
 
                             <div class="form-group row">
@@ -163,190 +188,7 @@
             </div>
         </div>
     </div>
-    <script>
-
-        $(document).ready(function() { /*  here */
-
-            var CookieArray = document.cookie.split(';');
-
-            for(var i=0; CookieArray.length>i; i++){
-               if(CookieArray[i].split('=')[0]==' id'){
-                    id=CookieArray[i].split('=')[1];
-               }
-               else if(CookieArray[i].split('=')[0]==' token'){
-                    token=CookieArray[i].split('=')[1];
-               }
-            }
-
-            try{
-                var request = new XMLHttpRequest();
-                var url = 'http://donor.test/api/v1/users/'+ id;
-                request.open("GET", url, false);
-                request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-                request.setRequestHeader("Authorization", 'Bearer '+token);
-                request.send(data);
-
-                respons  = JSON.parse(request.response);
-
-                respons['data']['photo']= "{{ url('/') }}"+respons['data']['photo'];
-            }
-            catch (e) {
-                console.log(e)
-            }
-            for(var i=0; i<idlist.length; i++){
-                if (idlist[i] in respons['data']){
-                    if(idlist[i]=='photo'){
-                        document.getElementById(idlist[i]).src =respons['data'][idlist[i]];
-                    }
-                    else if(idlist[i]=='area'){
-                        document.getElementById(idlist[i]).value =respons['data'][idlist[i]];
-                        areaId = respons['data']['area_id'];
-                    }
-                    else{
-                        document.getElementById(idlist[i]).value =respons['data'][idlist[i]];
-                    }
-                }
-            }
-
-        });
-
-
-
-        var division = ['Dhaka','Chittagong', 'Khulna', 'Sylhet','Barisal','Rajshahi'];
-        var idlist = ['photo','name','email','gender','birthday','occupation','marital_status','blood_group','weight','address','description','area'];
-        var areaTypes =['division','district','subordinate','branch'];
-        var selectedArea = [], areaId = 0 , areaTypeId=0, areaType=[];
-        var id='', token='';
-        var onloadData = {};
-        var respons;
-
-        function activateArea() {
-            selectedArea = [];
-            areaId = 0;
-            areaTypeId=0;
-            areaType=[];
-
-            document.getElementById('area').value = '';
-            document.getElementById('area').placeholder = 'Select Your Division';
-            document.getElementById('selectarea').value = '';
-            document.getElementById('selectarea').style.display = 'block';
-            document.getElementById('selectarea').placeholder = 'Select Division';
-            document.getElementById('data').innerHTML = areaDataGenerator(division);
-            areaType = division;
-            areaTypeId++;
-        }
-
-        function areaDataFeatch(areaTypes , name, areaTypesNext){
-            var request = new XMLHttpRequest();
-            var url = 'http://donor.test/api/v1/area/'+ areaTypes + '/' + name;
-            request.open("GET", url, false);
-            request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-            request.send(data);
-            if(request.status = 200) {
-                var tem = JSON.parse(request.response);
-                if(selectedArea.length==4){
-                    var temt= '';
-                    for(i=3; i>-1; i--){
-                        temt = temt + selectedArea[i] + ' , ';
-                    }
-                    temt = temt + tem['data']['post_code'];
-                    areaId = tem['data']['id']
-                    document.getElementById('area').value = temt;
-                    document.getElementById('selectarea').style.display = 'none';
-                }
-                else {
-                    areaType = tem['data'][areaTypesNext];
-                    return  areaDataGenerator(areaType);
-                }
-            }
-            else{
-                alert('something wrong');
-                return '<option value= none>';
-            }
-        }
-
-        function areaDataGenerator(name) {
-
-            var htmldata = '';
-            for(var i=0; name.length>i; i++){
-                htmldata = htmldata + "<option value= '"+ name[i] +"'>"
-            }
-            return htmldata;
-
-        }
-
-        function addressPickup(){
-
-            var selectedAreaData = document.getElementById('selectarea').value
-
-
-            if(areaType.indexOf(selectedAreaData)>-1){
-                selectedArea[selectedArea.length] =  selectedAreaData;
-                document.getElementById('selectarea').style.backgroundColor = '#ffffff';
-
-                    var optionList = areaDataFeatch(areaTypes[selectedArea.length-1], selectedAreaData, areaTypes[selectedArea.length]) ;
-
-                    document.getElementById('data').innerHTML = optionList;
-                    document.getElementById('area').placeholder = 'Select Your '+ areaTypes[selectedArea.length].charAt(0).toUpperCase() + areaTypes[selectedArea.length].slice(1);
-                    document.getElementById('selectarea').placeholder = 'Select '+ areaTypes[selectedArea.length].charAt(0).toUpperCase() + areaTypes[selectedArea.length].slice(1);
-                    document.getElementById('selectarea').value = '';
-            }
-            else {
-                document.getElementById('selectarea').style.backgroundColor = '#FFA07A';
-             }
-        }
-
-        function userInformationUpdate(form) {
-            var data={}
-            for(var i=0; i<idlist.length; i++){
-                if(idlist[i]!='photo'){
-                    data[idlist[i]]=document.getElementById(idlist[i]).value;
-                }
-            }
-            data['area_id'] = areaId;
-            var data = JSON.stringify(data);
-            var url = 'http://donor.test/api/v1/users/'+ id + '/update';
-            var method =  'POST';
-            var request= httpRequest(method, url, data);
-
-            alert(request.status)
-            alert(request.response)
-
-
-        }
-
-        function httpRequest(method, url, data) {
-            var request = new XMLHttpRequest();
-            request.open(method, url, false);
-            request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-            request.setRequestHeader("Authorization", 'Bearer '+token);
-            request.send(data);
-            return request;
-
-        }
-
-        function updatePhoto() {
-           // alert('update photo')
-            var dataa={}
-
-            var image = document.getElementById('photo').src;
-            dataa['photo'] = image;
-            //var data = json.encode('dataa')
-            //for(var i in dataa['photo']){
-                alert (dataa['photo']['blob']);
-
-            //}
-
-            var data = JSON.stringify(dataa);
-            var url = 'http://donor.test/api/v1/users/'+ id + '/photo/update';
-            var method =  'POST';
-            var request= httpRequest(method, url, data);
-            alert(request.response);
-
-
-
-        }
-
-
+    <script src="{{ url('/') }}/js/userUpdate.js">
     </script>
+
 @endsection
