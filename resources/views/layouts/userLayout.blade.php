@@ -16,6 +16,13 @@
         {
             opacity:0.5 !important;
         }
+        .font-normal label{
+             font-weight: normal;
+        }
+        .pagination>li>a {
+            border-radius: 50% !important;
+            margin: 0 5px;
+        }
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -23,10 +30,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </head>
-<body>
+<body style="overflow-y: scroll;">
 <nav class=" navbar navbar-inverse navbar-fixed-top " >
     <div class="container-fluid col-xl-12" style=" alignment: center; max-width: 1000px" >
-        <a class="navbar-brand w3-left" href="#">Sohozogi Foundation</a>
+        <a class="navbar-brand w3-left" href="#">Sohozogi</a>
         <button type="button"  class="navbar-toggle w3-left" data-toggle="collapse" data-target="#myNavbar">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -34,20 +41,24 @@
         </button>
         <!--<a class="navbar-brand w3-right sticky-top" style="font-size: 14px" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a>-->
         <a class="navbar-brand w3-right sticky-top small" id="loginVisibility" style="font-size: 14px; display: block" data-toggle="modal" data-target="#login" href="#" ><span class="glyphicon glyphicon-log-in"></span> Login</a>
+        <!--
+        -------------------------------Right side of Menu bar after Login---------------------------------------
+        -->
+
         <ul class="navbar-brand w3-right sticky-top small" id="profileVisibility" style="padding-left: 0px; padding-top: 0px; display: none">
             <div class="user-area dropdown float-right">
                 <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar rounded-circle" src="images/admin.jpg" style="border-radius: 50%" alt="User Avatar">
+                    <img class="user-avatar rounded-circle" id="profilePhoto" src="images/admin.jpg" style="border-radius: 50%" alt="User Avatar">
                 </a>
 
                 <div class="user-menu dropdown-menu">
-                    <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                    <a class="nav-link" href="http://donor.test/profile"><i class="fa fa- user"></i>My Profile</a>
 
-                    <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+                    <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
-                    <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                     <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>-->
 
-                    <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                    <a class="nav-link" id="logout" onclick="logout()"><i class="fa fa-power -off"></i>Logout</a>
                 </div>
             </div>
         </ul>
@@ -95,10 +106,12 @@
                 </div>
             </div>
         </ul>
-
+        <!--
+        -------------------------------Left side of Menu bar ---------------------------------------
+        -->
         <ul class="nav navbar-nav collapse navbar-collapse" id="myNavbar" style="margin-top: 0px" >
             <li class="active"><a href="#">Home</a></li>
-            <li class="dropdown">
+            <!--<li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Services <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Volunteering</a></li>
@@ -107,11 +120,15 @@
                 </ul>
             </li>
             <li><a href="#">Books</a></li>
-            <li><a href="#">Blood</a></li>
+            <li><a href="#">Blood</a></li>-->
         </ul>
 
     </div>
 </nav>
+
+<!--
+-------------------------------Login Modal---------------------------------------
+-->
 <div class="modal" id="login" class="modal fade text-center">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -123,7 +140,7 @@
 
             <div class="modal-body">
                 <div class="login-form">
-                    <form>
+                    <form id="loginForm" onsubmit="userLogin()">
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label text-sm-right">User Id</label>
 
@@ -140,14 +157,14 @@
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"> Remember Me
+                                <input class="messageCheckbox" type="checkbox" id="rememberme" value="1"> Remember Me
                             </label>
                             <label class="pull-right">
                                 <a href="#">Forgotten Password?</a><br>
                             </label>
 
                         </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" onclick="userLogin(this.form)">Sign in</button>
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
                         <label class="pull-right">
                             <a style="font-size: 14px; color: #fb9678" data-toggle="modal" data-target="#register" data-dismiss="modal" > Don't have an account yet?</a>
                         </label>
@@ -157,6 +174,10 @@
         </div>
     </div>
 </div>
+
+<!--
+-------------------------------Registration Modal---------------------------------------
+-->
 
 <div class="modal" id="register" class="modal fade text-center">
     <div class="modal-dialog">
@@ -214,6 +235,11 @@
                                 <input id="r_c_password" type="password" class="form-control" name="c_password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Retype Password" required>
                             </div>
                         </div>
+                        <div class="checkbox">
+                            <label>
+                                <input class="messageCheckbox" type="checkbox" id="rememberme" value="1"> Remember Me
+                            </label>
+                        </div>
 
                         <div class="form-group row sm-0">
                             <div class="col-sm-6 offset-sm-4">
@@ -230,102 +256,125 @@
     </div>
 </div>
 
-<div class="w3-content w3-border-left w3-border-right">
+<div class="w3-content w3-border-left w3-border-right font-normal" style=" font-weight: normal">
 
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-light-grey w3-collapse w3-top" style="z-index:3;width:260px; margin-top: 56px" id="mySidebar">
+    <nav class="w3-sidebar w3-light-grey w3-collapse w3-top " style="z-index:3;width:260px; margin-top: 56px; " id="mySidebar">
 
 
-        <div class="w3-container w3-display-container w3-padding-16">
+        <div class="w3-container w3-display-container w3-padding-16 overflow-auto " style="overflow-y: scroll; height: 93vh; ">
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-transparent w3-display-topright"></i>
             <h3>Filters</h3>
-
-            <div class="row form-group">
-                <div class="col col-md-12"><label for="selectSm" class=" form-control-label">Sort Results By</label></div>
+            <div class="row form-group" >
+                <div class="col col-md-12"><label for="sortby" class=" form-control-label">Sort Results By</label></div>
                 <div class="col-12 col-md-12">
-                    <select name="selectSm" id="selectSm" class="form-control-sm form-control">
-                        <option value="0">Please select</option>
-                        <option value="1">Date</option>
-                        <option value="2">Popular</option>
-                        <option value="3">Quality</option>
+                    <select name="sortby" id="sortby" class="form-control-sm form-control">
+                        <option value="">Please select</option>
+                        <option value="Date">Date</option>
+                        <option value="Popularity">Popularity</option>
+                        <option value="Quality">Quality</option>
                     </select>
                 </div>
             </div>
 
-
             <div class="row form-group">
-                <div class="col col-md-12"><label class=" form-control-label">Type of Post</label></div>
                 <div class="col col-md-12">
-                    <div class="form-check" style="font-style: normal;">
+                    <label class=" form-control-label" style="font-weight: bold">Type of Post</label>
+                </div>
+                <div class="col col-md-12">
+                    <div class="form-check" id="typeof">
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="donate" name="radios" value="donate" class="custom-control-input">
-                            <label for="donate" class="form-check-label ">
-                                Available Donations
+                            <input type="radio" id="donate" name="typeofvalue" value="" class="custom-control-input">
+                            <label for="donate" class="form-check-label " >
+                                All Post
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="donate" name="typeofvalue" value="Want to Donate" class="custom-control-input">
+                            <label for="donate" class="form-check-label " >
+                                Available Items
                             </label>
                         </div>
                         <div class="custom-control custom-radio ">
-                            <input type="radio" id="help" name="radios" value="help" class="custom-control-input">
+                            <input type="radio" id="help" name="typeofvalue" value="Asking For Donation" class="custom-control-input">
                             <label for="help" class="form-check-label ">
-                                Required Donations
+                                Required Items
                             </label>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="row form-group">
-                <div class="col col-md-12"><label class=" form-control-label">Categories</label></div>
+                <div class="col col-md-12"><label class=" form-control-label" style="font-weight: bold">Category</label></div>
                 <div class=" col-md-12">
-                    <form action="/action_page.php">
+                    <div class="control-group"  id="category">
                         <div class="custom-control custom-checkbox ">
-                            <input type="checkbox" class="custom-control-input" id="1" name="example1">
+                            <input type="checkbox" class="custom-control-input" id="1" name="catagory[]" value="Education">
                             <label class="custom-control-label" for="customCheck">Education</label>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">
-                            <input type="checkbox" class="custom-control-input" id="2" name="example1">
+                            <input type="checkbox" class="custom-control-input" id="2" name="catagory2" value="Cloths">
                             <label class="custom-control-label" for="customCheck">Cloths </label>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">
-                            <input type="checkbox" class="custom-control-input" id="3" name="example1">
+                            <input type="checkbox" class="custom-control-input" id="3" name="catagory3" value="Sports">
                             <label class="custom-control-label" for="customCheck">Sports</label>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">
-                            <input type="checkbox" class="custom-control-input" id="4" name="example1">
-                            <label class="custom-control-label" for="customCheck">Furniture </label>
+                            <input type="checkbox" class="custom-control-input" id="4" name="catagory4" value="Home Appliances">
+                            <label class="custom-control-label" for="customCheck">Home Appliances </label>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">
-                            <input type="checkbox" class="custom-control-input" id="5" name="example1">
-                            <label class="custom-control-label" for="customCheck">Pet & Hobbies</label>
+                            <input type="checkbox" class="custom-control-input" id="5" name="catagory5" value="Food">
+                            <label class="custom-control-label" for="customCheck">Food</label>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">
-                            <input type="checkbox" class="custom-control-input" id="6" name="example1">
-                            <label class="custom-control-label" for="customCheck">Electronics</label>
+                            <input type="checkbox" class="custom-control-input" id="6" name="catagory6" value="Hobby">
+                            <label class="custom-control-label" for="customCheck">Hobby</label>
                         </div>
-                    </form>
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox" class="custom-control-input" id="6" name="catagory7" value="Others">
+                            <label class="custom-control-label" for="customCheck">Others</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row form-group" style="display: none">
+                <div class="col col-md-12"><label for="sub-category" class=" form-control-label" style="font-weight: bold">Sub-Category</label></div>
+                <div class="col-12 col-md-12">
+                    <select name="sub-category" id="sub_category" class="form-control-sm form-control">
+                    </select>
                 </div>
             </div>
             <div class="row form-group">
-                <div class="col col-md-12"><label for="selectSm" class=" form-control-label">Location</label></div>
+                <div class="col col-md-12"><label for="division" class=" form-control-label" style="font-weight: bold">Division</label></div>
                 <div class="col-12 col-md-12">
-                    <select name="selectSm" id="selectSma" class="form-control-sm form-control">
+                    <select name="division" id="division" class="form-control-sm form-control">
                         <option value="0">Please select</option>
-                        <option value="1">Dhaka</option>
-                        <option value="2">Khulna</option>
-                        <option value="3">Chittagong</option>
+                        <option value="Dhaka">Dhaka</option>
+                        <option value="Khulna">Khulna</option>
+                        <option value="Chittagong">Chittagong</option>
+                        <option value="Sylhet">Sylhet</option>
+                        <option value="Barisal">Barisal</option>
+                        <option value="Rajshahi">Rajshahi</option>
                     </select>
                 </div>
-                <div class="col col-md-12"><label for="selectSm" class=" form-control-label">Area</label></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-12"><label for="district" class=" form-control-label" style="font-weight: bold">District</label></div>
                 <div class="col-12 col-md-12">
-                    <select name="selectSm" id="selectSmda" class="form-control-sm form-control">
+                    <select name="district" id="district" class="form-control-sm form-control">
                         <option value="0">Please select</option>
-                        <option value="1">Mirpur</option>
-                        <option value="2">Mohammudpur</option>
-                        <option value="3">Banani</option>
+
                     </select>
                 </div>
             </div>
 
         </div>
+
 
     </nav>
 
@@ -339,30 +388,35 @@
 
     <!-- !PAGE CONTENT! -->
 
-    <div class="w3-main w3-white" style="margin-left:260px; margin-top: 56px">
-        <div class="w3-container">
+    <div class="w3-main w3-white " style="margin-left:260px; margin-top: 56px">
+        <div class="w3-container" id="posts">
+
+
 
             <!-- Push down content on small screens -->
-            <div class="col-md-12 col-sm-12 ftco-animate d-md-flex w3-light-grey" style="margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px" >
+            <!--<div class="col-md-12 col-sm-12 ftco-animate d-md-flex w3-light-grey" style="margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px" >
                 <div  class="col-xl-4 col-lg-4 col-md-4 col-sm-4 " style="alignment: left">
                     <a href="single.html" class="img img-2">
                         <img src="images/image_1.jpg" style="height: auto; width: 100%; max-width: 300px; ">
                     </a>
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8" style="alignment: right;">
-                    <h4 class="mb-2"><a href="#">A Loving Heart is the Truest Wisdom</a></h4>
+                    <h4 class="mb-2"><a href="#" name="title">A Loving Heart is the Truest Wisdom</a></h4>
                     <div class="text text-2 pl-md-4">
+                        <p class="mb-4" name="sub_title">A small river named Duden flows by their place.</p>
                         <div class="meta-wrap">
                             <p class="meta">
-                                <span><i class="icon-calendar mr-2"></i>June 28, 2019</span>
-                                <span><a href="single.html"><i class="icon-folder-o mr-2"></i>Travel</a></span>
-                                <span><i class="icon-comment2 mr-2"></i>5 Comment</span>
+                                <span name="date"><i class="icon-calendar mr-2"></i>June 28, 2019</span>
+                                <span class="text-primary" style="font-weight: bold" name="type"><i class="mr-2 "></i>Available Item</span>
                             </p>
                         </div>
-                        <p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        <p>
-                            <a href="#" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a>
-                        </p>
+                        <p class="mb-4" name="area">Mirpur, Dhaka, Dhaka,1215</p>
+                        <div class="meta-wrap">
+                            <label class="text-primary" name="status" >Avalible</label>
+                            <label style="float: right; display: block" name><i class="fa fa-heart-o" style="font-size:24px;" ></i></label>
+                            <label style="float: right; display: none "><i class="fa fa-heart" style="font-size:24px; color: blueviolet"></i></label>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -504,113 +558,302 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-12 col-sm-12 ftco-animate d-md-flex " style="padding-top: 10px; text-align: center;" >
+                 <ul class="pagination">
+                     <li class="page-item "><a class="page-link" href="#">1</a></li>
+                     <li class="page-item" style="border: none"><a class="page-link" href="#" style="border: none; margin: 0px; padding-left: 0px; padding-right: 3px"> . . . . </a></li>
+                     <li class="page-item"><a class="page-link" href="#">3</a></li>
+                     <li class="page-item active"><a class="page-link" href="#">4</a></li>
+                     <li class="page-item"><a class="page-link" href="#">5</a></li>
+                     <li class="page-item" style="border: none"><a class="page-link" href="#" style="border: none; margin: 0px; padding-left: 0px; padding-right: 3px"> . . . . </a></li>
+                     <li class="page-item"><a class="page-link" href="#">7</a></li>
+                 </ul>
+            </div>-->
         </div>
         <!-- End page content -->
     </div>
-
-    <!-- Subscribe Modal -->
-
-
-    <script>
-            var allCookieArray = document.cookie.split(';');
-            if(allCookieArray.length>4){
-                document.getElementById('loginVisibility').style.display = 'none';
-                document.getElementById('profileVisibility').style.display = 'block';
-                document.getElementById('messageVisibility').style.display = 'block';
-                document.getElementById('notificationVisibility').style.display = 'block';
-            }
-            else {
-                document.getElementById('loginVisibility').style.display = 'block';
-                document.getElementById('profileVisibility').style.display = 'none';
-                document.getElementById('messageVisibility').style.display = 'none';
-                document.getElementById('notificationVisibility').style.display = 'none';
-            }
-
-            function userRegistration(theForm) {
-
-            var data = JSON.stringify({
-                'name' :document.getElementById("r_name").value,
-                'email' : document.getElementById("r_email").value,
-                'mobile' : document.getElementById("r_mobile").value,
-                'password' : document.getElementById("r_password").value,
-                'c_password' :document.getElementById("r_c_password").value,
-            });
-
-            var request = new XMLHttpRequest();
-            request.open("POST", "http://donor.test/api/v1/register", false);
-            request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-            request.send(data);
-            if(request.status = 200) {
-                setCookies(request.response);
-                document.getElementById("r_password").value= '';
-                document.getElementById("r_c_password").value= '';
-
-            }
-        }
-
-        function setCookies(data) {
-            var date = new Date();
-            date.setTime(date.getTime() + (60*24*60*60*1000));
-
-            var respons  = JSON.parse(data);
-            var u_id     = respons['data']['id'];
-            var u_name   = respons['data']['name'];
-            var u_token  = respons['data']['token'];
-            var expires  = date.toUTCString();
-            try {
-                document.cookie = 'name=' + u_name + ";" + "expires=" + expires + ";path=/";
-                document.cookie = 'id=' + u_id + ";" + "expires=" + expires + ";path=/";
-                document.cookie = 'token=' + u_token + ";" + "expires="+ expires + ";path=/";
-            }
-            catch (e) {
-                console.log(e);
-            }
-        }
-
-        function userLogin(form) {
-            // New XMLHTTPRequest
-            var data = JSON.stringify({
-                'email' : document.getElementById("email").value,
-                'password' : document.getElementById("password").value
-            });
-            var request = new XMLHttpRequest();
-            request.open("POST", "http://donor.test/api/v1/login", false);
-            request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-            request.send(data);
-            if(request.status = 200) {
-                setCookies(request.response);
-                document.getElementById("email").value = '';
-                document.getElementById("password").value= '';
-            }
-        }
-
-        function navMargin() {
-            if($(window).width()<769){
-                document.getElementById("myNavbar").style.marginTop = '56px';
-            }
-        }
-        // Script to open and close sidebar when on tablets and phones
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
-            $(window).resize(function(){
-                if($(window).width()<769){
-                    document.getElementById("myNavbar").style.marginTop = '56px';
-                }
-                else {
-                    document.getElementById("myNavbar").style.marginTop = '0px';
-
-                }
-            });
-            document.getElementById("myNavbar").style.marginTop = '0px';
-
-    </script>
 </div>
+<script src="{{ url('/') }}/js/userLayout.js"></script>
+<script>
+    var filter = {
+        sort:[],
+        type:[],
+        category: [],
+        sub_category:[],
+        division:[],
+        district:[]
+    }
+    $("#sortby")
+        .change(function(){
+            filter['sort'] = document.getElementById('sortby').value;
+            //alert(filter['sort'])
+            serverPostRequest();
+        });
+
+    $("#typeof")
+        .change(function(){
+            filter['type']=$('input[name="typeofvalue"]:checked', '#typeof').val();
+            serverPostRequest();
+            //alert(filter['type'])
+        });
+
+    $("#category")
+        .change(function(){
+            var categories = [];
+            $(':checkbox:checked').each(function(i){
+                categories[i] = $(this).val();
+            });
+            if(categories.length==0){
+                filter['sub_category'] = [];
+            }
+            filter['category']=categories;
+            var data ={'category': categories}
+            //alert(data['category']);
+            var data = JSON.stringify(data);
+            var url =  "http://donor.test/api/v1/subcategory";
+            var request = httpRequest('POST', url, data);
+            //alert(request.response)
+            var sub_category = JSON.parse(request.response);
+            //alert(request.response);
+            var htmldata = '';
+            for(var i=0; sub_category['data']['sub_category'].length>i; i++){
+                htmldata = htmldata + "<option value= '"+ sub_category['data']['sub_category'][i] +"'>"+ sub_category['data']['sub_category'][i] +"</option>"
+            }
+            document.getElementById('sub_category').innerHTML = htmldata;
+            serverPostRequest();
+        });
+
+    $("#sub_category")
+        .change(function(){
+            filter['sub_category'] = document.getElementById('sub_category').value;
+            serverPostRequest();
+        });
+
+    $("#division")
+        .change(function(){
+            filter['division'] = document.getElementById('division').value;
+            var url = 'http://donor.test/api/v1/area/division/' + document.getElementById('division').value;
+            var request = httpRequest('GET', url, false);
+            var district = JSON.parse(request.response);
+            var htmldata = '';
+            for(var i=0; district['data']['district'].length>i; i++){
+                htmldata = htmldata + "<option value= '"+ district['data']['district'][i] +"'>"+ district['data']['district'][i] +"</option>"
+            }
+            document.getElementById('district').innerHTML = htmldata;
+            serverPostRequest();
+        });
+
+    $("#district")
+        .change(function(){
+            filter['district'] = document.getElementById('district').value;
+            /*alert(filter['district'])
+            alert(filter['division'])
+            alert(filter['sub_category'])
+            alert(filter['category'])
+            alert(filter['type'])
+            alert(filter['sort'])*/
+            serverPostRequest();
+
+        });
+
+    function serverPostRequest() {
+
+        var method = 'POST';
+        var url = 'http://donor.test/api/v1/all/post';
+        var data = JSON.stringify(filter);
+
+        var request = httpRequest(method, 'http://donor.test/api/v1/all/post', data);
+        //alert(request.response)
+        //alert(request.response);
+        var data = JSON.parse(request.response);
+        //alert(filter['type']);
+
+        var htmlData = '';
+        for(var i = 0; i<data[0]['data'].length; i++){
+            htmlData = htmlData + htmlPostDataGenerator(data[0]['data'][i])
+        }
+        //alert(htmlData)
+        //alert(data[0]['first_page_url'])
+        //alert(data[0]['next_page_url'])
+
+        var pagination = paginationGenarator(data[0])
+        document.getElementById('posts').innerHTML = htmlData + pagination;
+        //alert(data[0]['data'])
+    }
+    function getPostData(url) {
+        url = 'http://donor.test/api/v1/all/post?page='+ url;
+        var data = JSON.stringify(filter);
+
+        //alert(url)
+        var request = httpRequest('POST', url, data);
+        var data = JSON.parse(request.response);
+        var htmlData = '';
+        for(var i = 0; i<data[0]['data'].length; i++){
+            htmlData = htmlData + htmlPostDataGenerator(data[0]['data'][i])
+        }
+        //alert(htmlData)
+        var pagination = paginationGenarator(data[0])
+        document.getElementById('posts').innerHTML = htmlData + pagination;
+
+    }
+
+    function htmlPostDataGenerator(data) {
+        //alert(data['id'])
+        var html = '<div class="col-md-12 col-sm-12 ftco-animate d-md-flex w3-light-grey" style="margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px" >\n' +
+            '                <div  class="col-xl-4 col-lg-4 col-md-4 col-sm-4 " style="alignment: left">\n' +
+            '                    <a href="single.html" class="img img-2">\n' +
+            '                        <img src='+ data['photo'][0] +' style=" max-width: 200px; max-height:170px;">\n' +
+            '                    </a>\n' +
+            '                </div>\n' +
+            '                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8" style="alignment: right;">\n' +
+            '                    <h4 class="mb-2"><a href="#" name="title">'+ data['title']+'</a></h4>\n' +
+            '                    <div class="text text-2 pl-md-4">\n' +
+            '                        <p class="mb-4" name="sub_title">'+ data['sub_title']+'</p>\n' +
+            '                        <div class="meta-wrap">\n' +
+            '                            <p class="meta">\n' +
+            '                                <span name="date"><i class="icon-calendar mr-2"></i>'+ data['created_at']+'</span>\n' +
+            '                                <span class="text-primary" style="font-weight: bold" name="type"><i class="mr-2 "></i>'+ data['post_type']+'</span>\n' +
+            '                            </p>\n' +
+            '                        </div>\n' +
+            '                        <p class="mb-4" name="area">'+ data['area']+'</p>\n' +
+            '                        <div class="meta-wrap">\n' +
+            '                            <label class="text-primary" name="status" >'+ data['post_status']+'</label>\n' +
+            '                            <label style="float: right; display: block" name><i class="fa fa-heart-o" style="font-size:24px;" ></i></label>\n' +
+            '                            <label style="float: right; display: none "><i class="fa fa-heart" style="font-size:24px; color: blueviolet"></i></label>\n' +
+            '\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '            </div>\n'
+        return html;
+    }
+
+    function paginationGenarator(data) {
+        var currentPagenumber = data['current_page'];
+        var lastPagenumber = data['last_page'];
+        var url1= data['first_page_url'];
+        //alert(lastPage)
+        var firstPage ='<li class="page-item" ><a class="page-link" onclick= "getPostData(1)">1</a></li>\n';
+        var lastPage ='<li class="page-item" ><a class="page-link" onclick= "getPostData('+lastPagenumber+')" >'+lastPagenumber+'</a></li>\n';
+        var previousPage ='<li class="page-item"><a class="page-link"  onclick= "getPostData('+(currentPagenumber-1)+')">'+(currentPagenumber-1)+'</a></li>\n';
+        var nextPage ='<li class="page-item" ><a class="page-link" onclick= "getPostData('+(currentPagenumber+1)+')">'+(currentPagenumber+1)+'</a></li>\n';
+        var currentPage ='<li class="page-item active"><a class="page-link">'+currentPagenumber+'</a></li>\n';
+        var empty = '<li class="page-item" style="border: none;"><a class="page-link" style="border: none; margin: 0px; padding-left: 0px; padding-right: 3px"> . . . . </a></li>\n';
+        var htmlBefore ='<div class="col-md-12 col-sm-12 ftco-animate d-md-flex " style="padding-top: 10px; text-align: center;" >\n <ul class="pagination">\n';
+        var htmlAfter = '</ul>\n </div>';
+
+        var htmlRespons = '';
+
+
+        if(lastPagenumber==1){
+            htmlRespons = htmlBefore + currentPage + htmlAfter;
+        }
+        else if(lastPagenumber==2){
+
+            if(currentPagenumber == 1){
+                htmlRespons = htmlBefore + currentPage + nextPage + htmlAfter;
+            }
+            else{
+                htmlRespons = htmlBefore + previousPage + currentPage + htmlAfter;
+            }
+        }
+        else if(lastPagenumber==3){
+
+            if(currentPagenumber == 1){
+                htmlRespons = htmlBefore + currentPage + nextPage + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 2){
+                htmlRespons = htmlBefore + previousPage + currentPage + lastPage + htmlAfter;
+            }
+            else{
+                htmlRespons = htmlBefore + firstPage + previousPage + currentPage + htmlAfter;
+            }
+        }
+        else if(lastPagenumber==4){
+
+            if(currentPagenumber == 1){
+                htmlRespons = htmlBefore + currentPage + nextPage + empty + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 2){
+                htmlRespons = htmlBefore + previousPage + currentPage + nextPage + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 3){
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + nextPage + htmlAfter;
+            }
+            else{
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + htmlAfter;
+            }
+        }
+        else if(lastPagenumber==5){
+
+            if(currentPagenumber == 1){
+                htmlRespons = htmlBefore + currentPage + nextPage + empty + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 2){
+                htmlRespons = htmlBefore + previousPage + currentPage + nextPage + empty + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 3){
+                htmlRespons = htmlBefore + firstPage + previousPage + currentPage + nextPage + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 4){
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + nextPage + htmlAfter;
+            }
+            else{
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + htmlAfter;
+            }
+        }
+        else if(lastPagenumber==6){
+
+            if(currentPagenumber == 1){
+                htmlRespons = htmlBefore + currentPage + nextPage + empty + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 2){
+                htmlRespons = htmlBefore + previousPage + currentPage + nextPage + empty + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 3){
+                htmlRespons = htmlBefore + firstPage + previousPage +  currentPage + nextPage  + empty + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 4){
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + nextPage + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 5){
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + nextPage + htmlAfter;
+            }
+            else{
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + htmlAfter;
+            }
+        }
+        else{
+
+            if(currentPagenumber == 1){
+                htmlRespons = htmlBefore + currentPage + nextPage + empty + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 2){
+                htmlRespons = htmlBefore + previousPage + currentPage + nextPage + empty + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == 3){
+                htmlRespons = htmlBefore + firstPage + previousPage + currentPage + nextPage  + empty + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == (lastPagenumber-2)){
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + nextPage + lastPage + htmlAfter;
+            }
+            else if(currentPagenumber == (lastPagenumber-1)){
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + nextPage + htmlAfter;
+            }
+            else if(currentPagenumber == lastPagenumber){
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + htmlAfter;
+            }
+            else{
+                htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + nextPage + empty + lastPage + htmlAfter;
+            }
+        }
+
+        return htmlRespons;
+    }
+
+
+</script>
+
 </body>
 </html>

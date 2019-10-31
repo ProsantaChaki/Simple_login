@@ -94,6 +94,23 @@ class ResourcesController extends Controller
 
     }
 
+    function subCategory(Request $request){
+        //return 'ok';
+       // return typeOf($request['category']);
+        $data = Category::whereIn('category', $request['category'])->select('sub_category')->distinct()->get();
+        //return $data;
+        $respons_data = [];
+        foreach ($data as $value){
+            //return strlen($value['sub_category']);
+            if(strlen($value['sub_category'])>1){
+                array_push($respons_data, $value['sub_category']);
+            }
+        }
+        //return $sub_category;
+        $success['sub_category'] =$respons_data;
+        return response()->json(['message'=> 'your request has been processed','data' => $success ], 200);
+    }
+
 
     public function photo(Request $request){
         return response('ok');

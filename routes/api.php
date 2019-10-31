@@ -51,11 +51,17 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 //Route::post('post/validate','API\PostController@postValidator');
 
-Route::get('v1/all/post/view','API\PostController@index');
+Route::post('v1/all/post','API\PostController@getAllPost');
 Route::get('v1/post/{id}/details','API\PostController@details'); //use post method
+//Route::post('v1/post/none','API\PostController@getAllPost'); //use post method
+
+
+
 
 Route::get('v1/area/{type}/{name}','API\ResourcesController@area');
 Route::get('v1/category/{column}/{name}','API\ResourcesController@category');
+Route::post('v1/subcategory','API\ResourcesController@subCategory');
+
 
 Route::get('v1/organizations','API\ResourcesController@organization');
 

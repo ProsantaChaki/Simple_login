@@ -11,4 +11,8 @@ class PostPhoto extends Model
         'post_id',
         'photo_id',
         ];
+
+    public function photo(){
+        return $this->belongsTo('App\Photo', 'photo_id', 'id');
+    }
 }

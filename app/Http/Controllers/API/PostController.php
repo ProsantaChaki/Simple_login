@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Area;
+use App\Category;
 use App\Photo;
 use App\Post;
+use App\PostPhoto;
 use App\PostReview;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -160,6 +163,90 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getAllPost(Request $request){
+        $area_max = 0;
+        $area_min = 0;
+        //return $request['type'];
+
+        if($request['division']!=[] and $request['district']!=[]){
+            $area = Area::where('division','=' ,$request['division'])->where('district', '=' ,$request['district'])->select('id')->get();
+            $area_min = $area[0]['id'];
+            $area_max = $area[sizeof($area)-1]['id'];
+        }
+        else if($request['division']!=[]){
+            $area = Area::where('division','=' ,$request['division'])->select('id')->get();
+            $area_min = $area[0]['id'];
+            $area_max = $area[sizeof($area)-1]['id'];
+        }
+        $category = [];
+        $category_id = [];
+        //return sizeof($request['category']);
+        if($request['category']!=[]){
+            for ($i = 0; $i< sizeof($request['category']); $i++){
+                $tem = Category::where('category', $request['category'][$i])->select('id')->get();
+                array_push($category,$tem);
+            }
+            for($i=0; $i<sizeof($category); $i++){
+                for ($j=0; $j<sizeof($category[$i]); $j++){
+                    array_push($category_id, $category[$i][$j]['id']);
+                }
+                //array_push($category_id, $category[$i]['id']);
+            }
+        }
+        $type = '';
+        if($request['type']!=[]){
+            $type = $request['type'];
+            //return $type;
+        }
+        //return 'ok';
+        //$post = Post::whereIn('category_id', $category_id)->whereBetween('area_id', [$area_min, $area_max])->where('post_type',$type)->get();
+        //return $post;
+
+        if($request['division']!=[] and $request['category']!=[] and $request['type']!=[]){
+            $post = Post::whereIn('category_id', $category_id)->whereBetween('area_id', [$area_min, $area_max])->where('post_type', $type)->select('id', 'title', 'sub_title', 'area_id', 'post_type', 'post_status', 'created_at')->paginate(5);
+        }
+        elseif ($request['division']!=[] and $request['category']!=[] ){
+            $post = Post::whereIn('category_id', $category_id)->whereBetween('area_id', [$area_min, $area_max])->select('id', 'title', 'sub_title', 'area_id', 'post_type', 'post_status', 'created_at')->paginate(5);
+        }
+        elseif ($request['division']!=[] and $request['type']!=[] ){
+            $post = Post::where('post_type', $type)->whereBetween('area_id', [$area_min, $area_max])->select('id', 'title', 'sub_title', 'area_id', 'post_type', 'post_status', 'created_at')->paginate(5);
+        }
+        elseif ($request['type']!=[] and $request['category']!=[] ){
+
+            $post = Post::whereIn('category_id', $category_id)->where('post_type', $type)->select('id', 'title', 'sub_title', 'area_id', 'post_type', 'post_status', 'created_at')->paginate(5);
+        }
+        elseif ($request['division']!=[]){
+            $post = Post::whereBetween('area_id', [$area_min, $area_max])->select('id', 'title', 'sub_title', 'area_id', 'post_type', 'post_status', 'created_at')->paginate(5);
+        }
+        elseif ($request['category']!=[] ){
+            $post = Post::whereIn('category_id', $category_id)->select('id', 'title', 'sub_title', 'area_id', 'post_type', 'post_status', 'created_at')->paginate(5);
+        }
+        elseif ($request['type']!=[] ){
+            $post = Post::where('post_type', $type)->select('id', 'title', 'sub_title', 'area_id', 'post_type', 'post_status', 'created_at')->paginate(5);
+        }
+        else{
+            $post = Post::select('id', 'title', 'sub_title', 'area_id', 'post_type', 'post_status', 'created_at')->paginate(5);
+        }
+        //return $post;
+
+
+        //$users = DB::table('users')->paginate(15);
+        foreach ($post as $item){
+            $respons_data=[];
+            $postPhoto = PostPhoto::where('post_id', $item['id'])->get();
+
+             //return sizeof($postPhoto);
+            for ($i=0; sizeof($postPhoto)>$i; $i++){
+                $path = $postPhoto[$i]->photo->path;
+                array_push($respons_data, '/images/'.$path);
+            }
+            $item['photo']= $respons_data;
+            $area = Area::find($item['area_id']);
+            $item['area'] = $area['branch'] .', '. $area['subordinate']. ', '. $area['district'] .', '. $area['division'] .', '. $area['post_code'];
+        }
+
+        return response()->json([$post], 200);
     }
 
     public function postReviewSubmission(Request $request){
