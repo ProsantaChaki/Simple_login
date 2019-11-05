@@ -80,3 +80,7 @@ Route::get('createpost', function () {
 
 });
 
+Route::get('postview', function () {
+    return view('post.singlePostView');
+
+});

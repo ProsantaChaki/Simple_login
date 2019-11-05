@@ -20,6 +20,7 @@ class Post extends Model
         'mobile',
         'post_status',
         'post_type',
+        'post_condition',
         'financial_value',
     ];
 

@@ -25,8 +25,9 @@ class CreatePostsTable extends Migration
             $table->integer('map_location_id');
             $table->integer('quality')->default(5);
             $table->string('mobile');
-            $table->string('post_status');
-            $table->string('post_type')->default('Donate');
+            $table->string('post_status')->default('pending for review');
+            $table->string('post_type')->default('Want to Donate');
+            $table->string('post_condition')->default('Used');
             $table->integer('financial_value');
             $table->timestamps();
 
