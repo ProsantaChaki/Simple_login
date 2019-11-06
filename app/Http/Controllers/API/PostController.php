@@ -28,7 +28,7 @@ class PostController extends Controller
 
             'title'             => 'required | string | max:255',
             'sub_title'         => ' string | max:255',
-            'description'       => ' string | max:255',
+            'description'       => ' string ',
             'area_id'           => 'integer',
             'category_id'       => 'integer',
             'address'           => ' string ',
@@ -95,7 +95,40 @@ class PostController extends Controller
     }
 
     public function updatePost(Request $request){
-        return $request['id'];
+        //return $request['id'];
+        //return $request;
+        //
+        $validation = $this->postValidator($request)->status();
+
+        if($validation == 200){
+            $postData = $request->all();
+            $postId = $postData['id'];
+            unset($postData{'id'});
+            unset($postData{'area'});
+
+            $postData['user_id'] = $user = Auth::user()->id;
+            //return $postData;
+            $postData = Post::where('id', $postId )->update($postData);
+
+
+
+            /*if($file =  $image) {
+                $name = time() . $file->getClientOriginalName();
+                $file->move('images', $name);
+
+                $photo = Photo::create([
+                    'path' => $name,
+                    'imageable_id' => $postData['id'],
+                    'imageable_type'=> 'App/Post'
+                ]);
+                return response()->json(['status => 200', 'message' => 'post with image is submitted','post'=>$postData, 'photo' =>$photo]);
+            }*/
+            return response()->json(['message' => 'post without image is submitted','data'=>$postData]);
+        }
+        else{
+            return $this->postValidator($request);
+        }
+
     }
 
     /**
@@ -159,9 +192,9 @@ class PostController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
     }
 
     public function destroy($id)
