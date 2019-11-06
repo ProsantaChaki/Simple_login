@@ -574,9 +574,7 @@
     </div>
 </div>
 <script src="{{ url('/') }}/js/userLayout.js"></script>
-<script>
-
-</script>
+<script src="{{ url('/') }}/js/pagination.js"></script>
 
 </body>
 </html>

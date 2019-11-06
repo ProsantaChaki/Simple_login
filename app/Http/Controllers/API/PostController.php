@@ -94,6 +94,10 @@ class PostController extends Controller
 
     }
 
+    public function updatePost(Request $request){
+        return $request['id'];
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -247,6 +251,50 @@ class PostController extends Controller
         }
 
         return response()->json([$post], 200);
+    }
+
+    public function getUsersPost($userId, $postId){
+        //$userId = Auth::user()->id;
+        $post = Post::where('user_id', $userId)->where('id', $postId)->get();
+        foreach ($post as $item){
+            $respons_data=[];
+            $postPhoto = PostPhoto::where('post_id', $item['id'])->get();
+
+            //return sizeof($postPhoto);
+            for ($i=0; sizeof($postPhoto)>$i; $i++){
+                $path = $postPhoto[$i]->photo->path;
+                array_push($respons_data, '/images/'.$path);
+            }
+            $item['photo']= $respons_data;
+            $area = Area::find($item['area_id']);
+            $item['area'] = $area['branch'] .', '. $area['subordinate']. ', '. $area['district'] .', '. $area['division'] .', '. $area['post_code'];
+
+            $category = Category::find($item['category_id']);
+            $item['category'] = $category['category'].', '.$category['sub_category'];
+        }
+        return response()->json(['message' => 'your request has been processed', 'data' =>  $post[0]]);
+
+    }
+
+    public function getUsersAllPost($userId){
+        $userId = Auth::user()->id;
+        $post = Post::select('id', 'title', 'post_type', 'post_status', 'created_at')->where('user_id', $userId)->paginate(5);
+        foreach ($post as $item){
+            $respons_data=[];
+            $postPhoto = PostPhoto::where('post_id', $item['id'])->get();
+
+            //return sizeof($postPhoto);
+            for ($i=0; sizeof($postPhoto)>$i; $i++){
+                $path = $postPhoto[$i]->photo->path;
+                array_push($respons_data, '/images/'.$path);
+            }
+            $item['photo']= $respons_data;
+            $item['number_people']= 5;
+            $item['receiver_name']= 'Biplob Biswas';
+        }
+
+        return response()->json([$post], 200);
+
     }
 
     public function postReviewSubmission(Request $request){

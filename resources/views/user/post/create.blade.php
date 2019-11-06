@@ -104,6 +104,16 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="post_condition" class="col-md-4 col-form-label text-md-right"> Condition</label>
+
+                                <div class="col-md-7">
+                                    <select id="post_condition" class="chosen md-3 form-control" placeholder="Condition" required>
+                                        <option value="Used" selected>Used</option>
+                                        <option value="New">New</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="financial_value" class="col-md-4 col-form-label text-md-right">Financial Value</label>
 
                                 <div class="col-md-7">

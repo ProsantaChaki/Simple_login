@@ -79,6 +79,15 @@ Route::get('createpost', function () {
     return view('user.post.create');
 
 });
+Route::get('updatepost/{userId}/{postId}', function () {
+    return view('user.post.updatePost');
+
+});
+
+Route::get('userallpost', function () {
+    return view('user.post.userAllPost');
+
+});
 
 Route::get('postview', function () {
     return view('post.singlePostView');
