@@ -66,7 +66,5 @@ Route::get('v1/post/{id}/details','API\PostController@details'); //use post meth
 Route::get('v1/area/{type}/{name}','API\ResourcesController@area');
 Route::get('v1/category/{column}/{name}','API\ResourcesController@category');
 Route::post('v1/subcategory','API\ResourcesController@subCategory');
-
-
 Route::get('v1/organizations','API\ResourcesController@organization');
 

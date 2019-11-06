@@ -8,6 +8,7 @@ use App\Photo;
 use App\Post;
 use App\PostPhoto;
 use App\PostReview;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -58,7 +59,6 @@ class PostController extends Controller
     {
         //
     }
-
 
     public function create(Request $request)
     {
@@ -170,22 +170,33 @@ class PostController extends Controller
         }
     }
 
-
-    public function details(Request $request)
+    public function details($id)
     {
-        //
-        //return $request->id;
-        if(Post::find($request->id)){
-            return response()->json(['status => 200','message' => 'your has been processed', 'data'=>Post::find($request->id)]);
+        $post = Post::where('id', $id)->get();
+        foreach ($post as $item){
+            $respons_data=[];
+            $postPhoto = PostPhoto::where('post_id', $item['id'])->get();
 
-        }
-        else{
-            return response()->json(['message' => 'post not found', 'data'=>[]],401);
+            //return sizeof($postPhoto);
+            for ($i=0; sizeof($postPhoto)>$i; $i++){
+                $path = $postPhoto[$i]->photo->path;
+                array_push($respons_data, '/images/'.$path);
+            }
+            $item['photo']= $respons_data;
+            $area = Area::find($item['area_id']);
+            $item['area'] = $area['branch'] .', '. $area['subordinate']. ', '. $area['district'] .', '. $area['division'] .', '. $area['post_code'];
 
+            $category = Category::find($item['category_id']);
+            $item['category'] = $category['category'];
+            $item['sub_category']= $category['sub_category'];
+            //return $category;
+
+            $user = User::find($item['user_id']);
+            //return $user;
+            $item['name'] = $user['name'];
         }
-        //return $postData;
+        return response()->json(['message' => 'your request has been processed', 'data' =>  $post[0]]);
     }
-
 
     public function edit($id)
     {
@@ -201,6 +212,7 @@ class PostController extends Controller
     {
         //
     }
+
     public function getAllPost(Request $request){
         $area_max = 0;
         $area_min = 0;

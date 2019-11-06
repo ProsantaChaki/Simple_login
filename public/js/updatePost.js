@@ -216,7 +216,6 @@ function optionDataGenerator(name) {
 
 }
 
-
 function updatePost() {
     var data={}
     data['category_id']=categoryId;
@@ -241,9 +240,6 @@ function updatePost() {
     return false;
 
 }
-
-
-
 
 function Validation() {
     if(categoryId==0){

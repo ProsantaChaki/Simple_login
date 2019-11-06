@@ -267,17 +267,12 @@
     -------------------------------Registration Modal END--------------------------------------
     -->
      <div class="container" style="max-width:1000px; margin-top: 60px">
-         <div class="col-md-12 col-sm-12 ftco-animate d-md-flex" >
-             <h3 class="mb-2" style="color: #1d68a7">A Loving Heart is the Truest Wisdom</h3>
-             <div class="meta-wrap">
-                 <p class="meta">
-                     <span><i class="icon-calendar mr-2"></i>June 28, 2019</span>
-                 </p>
-             </div>
+         <div class="col-md-12 col-sm-12 ftco-animate d-md-flex" id="header">
+
          </div>
          <div class="col-md-12 col-sm-12 ftco-animate d-md-flex w3-light-grey" style="margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px" >
-            <div  class="col-xl-8 col-lg-8 col-md-8 col-sm-6 ">
-                <img class="mySlides" src="/images/1570171702DA90208.jpg"  style="max-height: 450px; width: auto; display:none;margin: auto">
+            <div  class="col-xl-8 col-lg-8 col-md-8 col-sm-6 "  id="middleLeft">
+               <!-- <img class="mySlides" src="/images/1570171702DA90208.jpg"  style="max-height: 450px; width: auto; display:none;margin: auto">
                 <img class="mySlides" src="/images/157208025128168192_1644936082262400_7252799108334151554_n.jpg" style="max-height: 450px; width: auto; display:none;margin: auto">
                 <img class="mySlides" src="/images/1572079856IMG_5544.JPG"  style="max-height: 450px; width: auto; display:none;margin: auto">
                 <a class="left carousel-control" onclick="chengeImage(-1)" data-slide="prev">
@@ -288,54 +283,25 @@
                     <span class="glyphicon glyphicon-chevron-right"></span>
                     <span class="sr-only">Next</span>
                 </a>
-                <div class="col-md-12 col-sm-12" style="margin: auto; text-align: center; padding: 10px">
-                    <img class="demo w3-opacity w3-hover-opacity-off"  src="/images/1570171702DA90208.jpg" style=" height: 70px; width:auto;cursor:pointer;" onclick="currentDiv(1)">
-                    <img class="demo w3-opacity w3-hover-opacity-off"  src="/images/1572079856IMG_5544.jpg" style="height: 70px; width:auto; cursor:pointer" onclick="currentDiv(3)">
-                    <img class="demo w3-opacity w3-hover-opacity-off" src="/images/157208025128168192_1644936082262400_7252799108334151554_n.jpg" style="height: 70px; width:auto; cursor:pointer" onclick="currentDiv(2)">
-                </div>
-                <div class="range range-primary" style="margin-top: 5px; background-image: linear-gradient(to right, white , #2a62bc);">
-                    <input type="range" disabled name="range" min="1" max="10" value="5">
-                    <output id="quality">5</output>
+                <div class="col-md-12 col-sm-12" id="imgDown" style="margin: auto; text-align: center; padding: 10px">
                 </div>
 
-                </div>
-             <div  class="col-xl-4 col-lg-4 col-md-4 col-sm-6 " style="alignment: right">
-                 <h4 class="mb-2 border-bottom-line" style="padding: 10px"><a href="#">Available for donation</a></h4>
-                 <h5 class="mb-2 border-bottom-line" style="padding: 10px"><a href="#">Prosanta Kumar Chaki</a></h5>
-                 <p class="mb-2 border-bottom-line" style="padding: 10px">622, West Shawrapara, Mirpur</p>
-                 <p class="mb-2 border-bottom-line" style="padding: 10px">Mirpur, Mirpur 10, Dhaka, Dhaka, 1215</p>
+                <div class="range range-primary" style="margin-top: 5px; background-image: linear-gradient(to right, white , #2a62bc);">
+                    <input type="range" id="quality-" disabled name="range" min="1" max="10" value="5">
+                    <output id="quality">5</output>
+                </div>-->
+
+            </div>
+             <div  class="col-xl-4 col-lg-4 col-md-4 col-sm-6 " style="alignment: right" id="middleRight">
+
              </div>
          </div>
          <div class="col-md-12 col-sm-12 ftco-animate d-md-flex" style="margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px" >
              <div  class="col-xl-10 col-lg-10 col-md-12 col-sm-12 ">
-                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 ">
-                     <h4 style="padding-bottom: 15px">A Loving Heart is the Truest Wisdom</h4>
-
-                     <p style="padding: 10px;">
-                         A small river named Duden flows by their place and supplies it with the necessary regelialia.
-                         A small river named Duden flows by their place and supplies it with the necessary regelialia.
-                         A small river named Duden flows by their place and supplies it with the necessary regelialia.
-                         A small river named Duden flows by their place and supplies it with the necessary regelialia.
-                     </p>
-
+                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 " id="buttomLeft">
                  </div>
-                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 ">
-                     <p class="border-bottom-line" style="padding: 10px"><b>Category : </b>Education</p>
-                     <p class="border-bottom-line" style="padding: 10px"><b>Sub-Category : </b>Science</p>
-                     <p class="border-bottom-line" style="padding: 10px"><b>Condition : </b>Used</p>
-                     <p class="border-bottom-line" style="padding: 10px"><b>Status : </b>Avaliable</p>
-                     <p class="border-bottom-line" style="padding: 10px; display: none"><b>Mobile : </b>01757808214</p>
-                     <p class="border-bottom-line" style="padding: 10px; display: block"><b style="background-color: #fde300">Please Login </b></p>
+                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 " id="buttomRight">
 
-
-
-
-                     <div class="border-bottom-line" style="padding: 5px">
-                         <p style="padding-left: 5px">
-                             <span> <b style="padding-right: 5px">I am </b> </span>
-                             <input type="checkbox" checked data-toggle="toggle" data-on="Not Interested" data-off="Interested" data-onstyle="primary" data-offstyle="success">
-                         </p>
-                     </div>
                  </div>
              </div>
          </div>
@@ -348,45 +314,8 @@
      </div>
 
     <script src="{{ url('/') }}/js/userLayout.js"></script>
-    <script>
+    <script src="{{ url('/') }}/js/singlePostView.js"></script>
 
-        var img = 1, imgNumber = 3;
-        function chengeImage(side){
-            if( img == 1 && side == -1){
-                img = imgNumber;
-            }
-            else if (img == imgNumber && side == 1){
-                img = 1;
-            }
-            else{
-                img = img+ side;
-            }
-            currentDiv(img)
-        }
-
-        currentDiv(img)
-        function currentDiv(n) {
-            imageSlide(slideIndex = n);
-            img = n;
-        }
-
-        function imageSlide(n) {
-            var i;
-            var x = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("demo");
-            if (n > x.length) {slideIndex = 1}
-            if (n < 1) {slideIndex = x.length}
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
-            }
-            x[slideIndex-1].style.display = "block";
-            dots[slideIndex-1].className += " w3-opacity-off";
-        }
-
-    </script>
 
 </body>
 </html>
