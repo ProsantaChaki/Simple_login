@@ -37,21 +37,18 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
 
-
     Route::post('v1/post/create','API\PostController@create');
     Route::get('v1/post/user/{userId}','API\PostController@getUsersAllPost');
     Route::get('v1/post/user/{userId}/{postId}','API\PostController@getUsersPost');
     Route::post('v1/post/update/{postId}','API\PostController@updatePost');
 
-
     Route::post('v1/post/{id}/update','API\PostController@updateInfo');
-    Route::post('v1/post/{id}/review/submission','API\PostController@postReview');
+    Route::post('v1/post/{id}/review/submission','API\PostController@postReviewSubmission');
     Route::post('v1/post/{id}/review/view','API\PostController@postReviewView');
-
-
 
 });
 
+Route::get('v1/user/{id}/profile','API\UserController@userPublicInfo');
 
 
 //Route::post('post/validate','API\PostController@postValidator');

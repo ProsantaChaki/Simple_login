@@ -11,8 +11,9 @@ class PostReview extends Model
       'post_id',
       'user_id',
       'financial_value',
-      'review',
-      'comment',
+      'quality',
+      'comment_post',
+      'comment_user',
     ];
 
 }

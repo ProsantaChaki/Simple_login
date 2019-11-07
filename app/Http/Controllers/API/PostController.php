@@ -198,6 +198,8 @@ class PostController extends Controller
         return response()->json(['message' => 'your request has been processed', 'data' =>  $post[0]]);
     }
 
+
+
     public function edit($id)
     {
         //
@@ -348,13 +350,12 @@ class PostController extends Controller
 
         $validator = Validator::make($request->all(), [
 
-            'comment'           => ' string ',
-            'review'            => 'integer | | min:1 | max:10',
-            'post_id'           => ' integer ',
-            'post_id'           => ' integer ',
+            'comment_user'      => ' string | required',
+            'comment_post'      => ' string | required',
+            'quality'           => 'integer | min:1 | max:10',
+            'post_id'           => ' integer| required ',
             'financial_value'   => 'integer',
-            //'latitude'          => 'regex: /^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)/',
-            //'longitude'         => 'regex: /^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)/',
+
         ]);
 
         if ($validator->fails()) {

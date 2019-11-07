@@ -93,3 +93,12 @@ Route::get('postview', function () {
     return view('post.singlePostView');
 
 });
+Route::get('postreview', function () {
+    return view('post.postReview');
+
+});
+
+Route::get('publicprofile', function () {
+    return view('user.profile.publicProfile');
+
+});

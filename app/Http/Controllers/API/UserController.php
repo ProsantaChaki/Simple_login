@@ -149,6 +149,48 @@ class UserController extends Controller
             //return typeOf($user);
     }
 
+    public function userPublicInfo($id){
+        $userInfo = UserInfo::where('user_id', $id)->get();
+        $user = User::find($id);
+
+        //return $userInfo[0]['photo_id'];
+        if(sizeof($userInfo)>0){
+            if($userInfo[0]['photo_id']>0){
+                $photo = Photo::where('id',$userInfo[0]['photo_id'])->select('path')->get();
+                unset($userInfo[0]['photo_id']);
+                $userInfo[0]['photo'] = '/images/'.$photo[0]['path'];
+            }
+            else{
+                unset($userInfo[0]['photo_id']);
+                $userInfo[0]['photo'] = '/images/avatar.png';
+            }
+        }
+        else{
+            $user['photo'] = '/images/avatar.png';
+
+        }
+
+        //return response()->json(['status' => 200,'message' => 'your request has been processed', 'data' =>  $userInfo], $this-> successStatus);
+        if ( json_decode($userInfo,true) != null){
+            //return $userInfo;
+            $userInfo[0]['name'] = $user['name'];
+            $userInfo[0]['email'] = $user ['email'];
+            unset($userInfo[0]['address']);
+
+            if($userInfo[0]['area_id']){
+                $area = Area::where('id', $userInfo[0]['area_id'])->get();
+                $userInfo[0]['area'] = $area[0]['branch'].';'.$area[0]['subordinate'].';'.$area[0]['district'].';'.$area[0]['division'].';'.$area[0]['post_code'].';';
+            }
+            //return $user['name'];
+
+            return response()->json(['message' => 'your request has been processed', 'data' =>  $userInfo[0]], $this-> successStatus);
+        }
+        else{
+            return response()->json(['message' => 'your request has been processed', 'data' =>  $user], $this-> successStatus);
+        }
+
+    }
+
 
     public function updateInfo(Request $request){
 
