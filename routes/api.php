@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('v1/users/{id}/photo/update','API\UserController@photoUpdate');
 
 
+    Route::post('v1/post/user/activities','API\PostController@userActivities');
 
     Route::post('v1/post/create','API\PostController@create');
     Route::get('v1/post/user/{userId}','API\PostController@getUsersAllPost');

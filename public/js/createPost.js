@@ -212,9 +212,9 @@ function createPost() {
     var url = 'http://donor.test/api/v1/post/create';
     var method =  'POST';
     var request= httpRequest(method, url, data);
-    alert(request.response)
+    //alert(request.response)
     postId = JSON.parse(request.response)['data']['id'];
-    alert(postId)
+    //alert(postId)
     return false;
 
 }

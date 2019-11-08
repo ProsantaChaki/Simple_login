@@ -9,19 +9,17 @@ use App\Post;
 use App\PostPhoto;
 use App\PostReview;
 use App\User;
+use App\UserActivities;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use mysql_xdevapi\Exception;
 use Validator;
 use DB;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function postValidator(Request $request)
     {
@@ -72,6 +70,15 @@ class PostController extends Controller
             $postData['map_location_id'] = 1;
             $postData['post_status'] = 'Available';
             $postData = Post::create($postData);
+
+            $userActivities['user_id'] = $postData['user_id'];
+            $userActivities['post_id'] = $postData['id'];
+            $userActivities['created'] = 1;
+
+            UserActivities::create($userActivities);
+
+
+
 
 
 
@@ -131,12 +138,6 @@ class PostController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function updateInfo(Request $request)
     {
         //
@@ -198,8 +199,6 @@ class PostController extends Controller
         return response()->json(['message' => 'your request has been processed', 'data' =>  $post[0]]);
     }
 
-
-
     public function edit($id)
     {
         //
@@ -215,7 +214,10 @@ class PostController extends Controller
         //
     }
 
+    //need validation
+
     public function getAllPost(Request $request){
+
         $area_max = 0;
         $area_min = 0;
         //return $request['type'];
@@ -376,5 +378,48 @@ class PostController extends Controller
         $postReview = PostReview::where('post_id', $request->post_id)->get();
 
         return response()->json(['status' => 200, 'data'=>$postReview]);
+    }
+
+    public function userActivities(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id'        => ' integer ',
+            'post_id'        => ' integer| required ',
+            'created'        => ' integer ',
+            'interested'     => ' integer',
+            'received'       => ' integer',
+        ]);
+        $demoId = ['user_id','post_id', 'created', 'interested','received' ];
+
+        $userActivities = $request->all();
+
+        $userActivities['user_id'] = Auth::user()->id;
+
+        foreach ($demoId as $demo){
+            if(!array_key_exists($demo, $userActivities)){
+                $userActivities[$demo] = 0;
+            }
+        }
+
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 401,
+                'error'=>$validator->errors()], 401);
+        }
+        else{
+            $data = UserActivities::where('user_id',$userActivities['user_id'])
+                ->where('post_id',$userActivities['post_id'])
+                ->where('created',$userActivities['created'])
+                ->where('interested',$userActivities['interested'])
+                ->where('received',$userActivities['received'])
+                ->get();
+
+            if(sizeof($data)<1){
+                $userActivities = UserActivities::create($userActivities);
+            }
+            return response()->json(['status' => 200, 'data'=>$userActivities]);
+
+        }
     }
 }

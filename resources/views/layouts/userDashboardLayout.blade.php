@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -67,9 +68,8 @@
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
 
-                           <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
-
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>-->
+                            <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>-->
 
                             <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
@@ -81,7 +81,6 @@
                             <i class="fa fa-envelope" style="font-size: 20px; color: white"></i>
                             <span class="count bg-primary">4</span>
                         </a>
-
                         <div class="user-menu dropdown-menu" style="width: 250px;">
                             <p class="red">You have 4 Mails</p>
                             <a class="dropdown-item media" href="#">
@@ -102,14 +101,11 @@
                             </a>
                         </div>
                     </div>
-
-
                     <div class="user-area dropdown  float-right">
                         <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
                             <i class="fa fa-bell" style="font-size: 20px; color: white; padding-right: 5px"></i>
                             <span class="count bg-primary">4</span>
                         </a>
-
                         <div class="user-menu dropdown-menu" style="width: 250px">
                             <p class="red">You have 3 Notification</p>
                             <a class="dropdown-item media" href="#">
@@ -133,7 +129,7 @@
         <div class=" nav w3-container w3-display-container w3-padding-16 overlay zoom">
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-transparent w3-display-topright"></i>
 
-       <!-- <div id="main-menu" class="main-menu collapse navbar-collapse">-->
+            <!-- <div id="main-menu" class="main-menu collapse navbar-collapse">-->
             <ul class="hover-li nav navbar-nav left-nav" style="size: 14px">
 
                 <li class="menu-title">Menu</li>
@@ -167,12 +163,10 @@
 
 
     <script>
-
         var id=-1, token='', photo='';
         window.onload = function(){
             userInformationLoad();
         };
-
         function userInformationLoad() {
             // alert('successful')
             try{
@@ -191,7 +185,6 @@
                 alert ('alert');
             }
             //alert ('alert no');
-
             if(id>0){
                 var url = 'http://donor.test/api/v1/users/'+ id;
                 var method = 'GET';
@@ -202,7 +195,6 @@
                     document.getElementById('profilePhoto').src ='{{ url('/') }}/'+ respons['data']['photo'];
             }
         }
-
         function myAccFunc() {
             var x = document.getElementById("demoAcc");
             if (x.className.indexOf("w3-show") == -1) {
@@ -216,29 +208,24 @@
                 document.getElementById("navMenu").style.marginTop = '56px';
             }
         }
-
         $(window).resize(function(){
             if($(window).width()>769){
                 document.getElementById("navMenu").style.display = none;
             }
             else {
                 document.getElementById("navMenu").style.marginTop = '0px';
-
             }
         });
         document.getElementById("navMenu").style.display = none;
-
         // Script to open and close sidebar when on tablets and phones
         function w3_open() {
             document.getElementById("mySidebar").style.display = "block";
             document.getElementById("myOverlay").style.display = "block";
         }
-
         function w3_close() {
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
-
         function httpRequest(method, url, data) {
             var request = new XMLHttpRequest();
             request.open(method, url, false);
@@ -246,9 +233,7 @@
             request.setRequestHeader("Authorization", 'Bearer '+token);
             request.send(data);
             return request;
-
         }
-
     </script>
 </div>
 </body>

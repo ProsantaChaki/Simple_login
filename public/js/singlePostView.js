@@ -111,6 +111,14 @@ $("#interest")
             //run code
             if(id>0){
                 document.getElementById('mobile').style.display = 'block';
+                var data={};
+                data['post_id'] = postId;
+                data['interested'] = 1;
+                var data = JSON.stringify(data);
+
+                var url = 'http://donor.test/api/v1/post/user/activities'
+                var request = httpRequest('POST', url, data);
+                alert(request.response)
             }
             else{
                 document.getElementById('mobile').style.display = 'block';
