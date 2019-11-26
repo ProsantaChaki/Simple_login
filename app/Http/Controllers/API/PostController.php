@@ -373,6 +373,11 @@ class PostController extends Controller
         }
 
     }
+    public function updateStatus($postId, $status){
+        $userId = Auth::user()->id;
+        $updatePost = Post::where('id',$postId)->where('user_id', $userId)->update(['post_status'=>$status]);
+        return response()->json(['data'=>$updatePost]);
+    }
 
     public function postReviewView(Request $request){
         $postReview = PostReview::where('post_id', $request->post_id)->get();

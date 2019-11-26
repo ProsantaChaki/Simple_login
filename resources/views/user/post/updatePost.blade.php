@@ -147,7 +147,7 @@
             </div>
         </div>
     </div>
-
+    <script src="{{ url('/') }}/js/common.js"></script>
     <script src="{{ url('/') }}/js/updatePost.js"></script>
 
 @endsection

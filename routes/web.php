@@ -53,9 +53,11 @@ Route::post('v1/photo','API\ResourcesController@photo');
 
 
 Route::get('masterlayout', function () {
+
     return view('layouts.masterLayout');
 });
-Route::get('userlayout', function () {
+
+Route::get('post', function () {
     return view('layouts.userLayout');
 
 });
@@ -89,8 +91,8 @@ Route::get('userallpost', function () {
 
 });
 
-Route::get('postview', function () {
-    return view('post.singlePostView');
+Route::get('postview/{postId}', function ($postId) {
+    return view('post.singlePostView')->with('postId',$postId);
 
 });
 Route::get('postreview', function () {
@@ -98,7 +100,7 @@ Route::get('postreview', function () {
 
 });
 
-Route::get('publicprofile', function () {
-    return view('user.profile.publicProfile');
+Route::get('publicprofile/{id}', function ($id) {
+    return view('user.profile.publicProfile')->with('uid',$id);
 
 });

@@ -103,8 +103,6 @@ function addressPickup(){
     }
 }
 
-
-
 function activateCategory() {
     selectedCategory = [];
     categoryId = 0;
@@ -173,18 +171,6 @@ function CategoryPickup(){
         }
 
     }
-
-}
-
-
-
-function httpRequest(method, url, data) {
-    var request = new XMLHttpRequest();
-    request.open(method, url, false);
-    request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-    request.setRequestHeader("Authorization", 'Bearer '+token);
-    request.send(data);
-    return request;
 
 }
 

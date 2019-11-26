@@ -46,6 +46,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('v1/post/{id}/update','API\PostController@updateInfo');
     Route::post('v1/post/{id}/review/submission','API\PostController@postReviewSubmission');
     Route::post('v1/post/{id}/review/view','API\PostController@postReviewView');
+    Route::get('v1/post/{postId}/{status}','API\PostController@updateStatus');
+
 
 });
 
@@ -55,7 +57,7 @@ Route::get('v1/user/{id}/profile','API\UserController@userPublicInfo');
 //Route::post('post/validate','API\PostController@postValidator');
 
 Route::post('v1/all/post','API\PostController@getAllPost');
-Route::get('v1/post/{id}/details','API\PostController@details'); //use post method
+Route::get('v1/single/post/{id}/details','API\PostController@details'); //use post method
 //Route::post('v1/post/none','API\PostController@getAllPost'); //use post method
 
 

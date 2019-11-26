@@ -1,11 +1,12 @@
 
 var idlist = ['title', 'sub_title', 'description', 'address', 'quality', 'mobile', 'post_status', 'post_type', 'post_condition', 'created_at', 'photo', 'area', 'category', 'sub_category', 'name' ]
 var id='', token='';
-var respons, postId = 2;
+var respons, postId = 4;
 var img = 0, imgNumber = 0;
 
 loadData()
 function loadData() {
+    postId = document.getElementById('postId').value;
     var CookieArray = document.cookie.split(';');
 
     for(var i=0; CookieArray.length>i; i++){
@@ -18,13 +19,12 @@ function loadData() {
     }
 
     try{
-        var url = 'http://donor.test/api/v1/post/'+ postId +'/details';
+        var url = 'http://donor.test/api/v1/single/post/'+ postId +'/details';
         var method= 'GET';
         var data = false;
+        //alert('ok')
         var request = httpRequest(method, url, data);
-        //alert(request.response)
         respons  = JSON.parse(request.response);
-        //alert(respons['data']['id'])
 
         document.getElementById("header").innerHTML='<h3 class="mb-2" id="title" style="color: #1d68a7">'+ respons['data']['title']+'</h3>\n' +
             '             <div class="meta-wrap">\n' +
@@ -34,7 +34,7 @@ function loadData() {
             '             </div>'
 
         document.getElementById('middleRight').innerHTML=' <h4 class="mb-2 border-bottom-line" style="padding: 10px"><a href="#">'+ respons['data']['post_type']+'</a></h4>\n' +
-            '                 <h5 class="mb-2 border-bottom-line"  style="padding: 10px"><a href="#">'+ respons['data']['name']+'</a></h5>\n' +
+            '                 <h5 class="mb-2 border-bottom-line"  style="padding: 10px"><a href="http://donor.test/publicprofile/'+ respons['data']['user_id']+'">'+ respons['data']['name']+'</a></h5>\n' +
             '                 <p class="mb-2 border-bottom-line"  style="padding: 10px">'+ respons['data']['address']+'</p>\n' +
             '                 <p class="mb-2 border-bottom-line"  style="padding: 10px">'+ respons['data']['area']+'</p>'
 
@@ -148,15 +148,6 @@ function imageSlide(n) {
     dots[slideIndex-1].className += " w3-opacity-off";
 }
 
-function httpRequest(method, url, data) {
-    var request = new XMLHttpRequest();
-    request.open(method, url, false);
-    request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-    request.setRequestHeader("Authorization", 'Bearer '+token);
-    request.send(data);
-    return request;
-
-}
 
 
 

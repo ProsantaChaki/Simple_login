@@ -110,7 +110,7 @@
         -------------------------------Left side of Menu bar ---------------------------------------
         -->
         <ul class="nav navbar-nav collapse navbar-collapse" id="myNavbar" style="margin-top: 0px" >
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="http://donor.test/post">Home</a></li>
             <!--<li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Services <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -573,6 +573,7 @@
         <!-- End page content -->
     </div>
 </div>
+<script src="{{ url('/') }}/js/common.js"></script>
 <script src="{{ url('/') }}/js/userLayout.js"></script>
 <script src="{{ url('/') }}/js/pagination.js"></script>
 

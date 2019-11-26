@@ -5,10 +5,26 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/createPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/createPost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/postReview.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/postReview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/publicProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/publicProfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/singlePostView.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/singlePostView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/updatePost.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/updatePost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/userAllPost.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/userAllPost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/userLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/userLayout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/userUpdate.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/userUpdate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/userDashboardLayout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/userDashboardLayout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/userLayout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/userLayout.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/post/postReview.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/post/postReview.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/post/singlePostView.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/post/singlePostView.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/post/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/post/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/post/updatePost.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/post/updatePost.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/post/userAllPost.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/post/userAllPost.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/profile/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profile/profile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/profile/publicProfile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profile/publicProfile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/updateProfile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/updateProfile.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,8 +45,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -149,7 +165,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -209,7 +225,13 @@
       <workItem from="1571474950525" duration="30990000" />
       <workItem from="1572203706940" duration="95282000" />
       <workItem from="1572931244943" duration="6516000" />
-      <workItem from="1572961906220" duration="57236000" />
+      <workItem from="1572961906220" duration="57877000" />
+      <workItem from="1573539568674" duration="4137000" />
+      <workItem from="1573702763283" duration="603000" />
+      <workItem from="1573746943871" duration="2418000" />
+      <workItem from="1573995125883" duration="1675000" />
+      <workItem from="1574006978698" duration="32000" />
+      <workItem from="1574704890055" duration="12345000" />
     </task>
     <servers />
   </component>

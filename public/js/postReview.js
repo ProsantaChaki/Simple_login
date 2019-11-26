@@ -102,17 +102,6 @@ function imageSlide(n) {
     dots[slideIndex-1].className += " w3-opacity-off";
 }
 
-function httpRequest(method, url, data) {
-    var request = new XMLHttpRequest();
-    request.open(method, url, false);
-    request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-    request.setRequestHeader("Authorization", 'Bearer '+token);
-    request.send(data);
-    return request;
-
-}
-
-
 function submitReview() {
     var reviewId = ['comment_post', 'comment_user', 'financial_value', 'quality']
     var data={}

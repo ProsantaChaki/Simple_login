@@ -141,10 +141,8 @@
             </div>
         </div>
     </div>
-
-    <script src="{{ url('/') }}/js/userProfile.js">
-
-    </script>
+    <script src="{{ url('/') }}/js/common.js"></script>
+    <script src="{{ url('/') }}/js/userProfile.js"></script>
 
 
 @endsection

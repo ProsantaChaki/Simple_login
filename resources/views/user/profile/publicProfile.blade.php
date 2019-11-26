@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/newStyle.css">
+    <link rel="stylesheet" href="http://donor.test/assets/css/newStyle.css">
 
 
 
@@ -118,7 +118,7 @@
         -------------------------------Left side of Menu bar ---------------------------------------
         -->
         <ul class="nav navbar-nav collapse navbar-collapse" id="myNavbar" style="margin-top: 0px" >
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="http://donor.test/post">Home</a></li>
             <!--<li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Services <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -375,10 +375,10 @@
         </div>
 
     </div>
-
+<input type="hidden" id="uid" value="{{$uid}}">
 
 </div>
-
+<script src="{{ url('/') }}/js/common.js"></script>
 <script src="{{ url('/') }}/js/publicProfile.js"></script>
 <script src="{{ url('/') }}/js/userLayout.js"></script>
 

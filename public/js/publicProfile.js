@@ -4,6 +4,7 @@ var id='', token='', respons, uid= 3;
 
 
 $(document).ready(function() {
+    uid = document.getElementById('uid').value;
     var CookieArray = document.cookie.split(';');
 
     for(var i=0; CookieArray.length>i; i++){

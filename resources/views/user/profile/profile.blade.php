@@ -82,7 +82,7 @@
                             <option value="">Select</option>
                             <option value="active"><b>Active</b></option>
                             <option value="inactive"><b>Inactive</b></option>
-                        </select></td
+                        </select></td>
 
                 </form>
             </tr>

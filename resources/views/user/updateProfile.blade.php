@@ -188,7 +188,7 @@
             </div>
         </div>
     </div>
-    <script src="{{ url('/') }}/js/userUpdate.js">
-    </script>
+    <script src="{{ url('/') }}/js/common.js"></script>
+    <script src="{{ url('/') }}/js/userUpdate.js"></script>
 
 @endsection

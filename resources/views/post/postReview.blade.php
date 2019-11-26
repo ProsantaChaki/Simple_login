@@ -334,7 +334,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
          </div>
 
      </div>
-
+    <script src="{{ url('/') }}/js/common.js"></script>
     <script src="{{ url('/') }}/js/userLayout.js"></script>
     <script src="{{ url('/') }}/js/postReview.js"></script>
 

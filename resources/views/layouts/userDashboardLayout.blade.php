@@ -133,13 +133,12 @@
             <ul class="hover-li nav navbar-nav left-nav" style="size: 14px">
 
                 <li class="menu-title">Menu</li>
-                <li><i class=""></i><a href="#">Profile</a></li>
-                <li><i class=""></i><a href="#">Update Information</a></li>
-                <li><i class=""></i><a href="#">Connections</a></li>
+                <li><i class=""></i><a href="http://donor.test/profile">Profile</a></li>
+                <li><i class=""></i><a href="http://donor.test/updateprofile">Update Information</a></li>
                 <li><i class=""></i><a href="#">Activities</a></li>
-                <li><i class=""></i><a href="#">All Post</a></li>
-                <li><i class=""></i><a href="#">Create Post</a></li>
-                <li><i class=""></i><a href="#">Update Post</a></li>
+                <li><i class=""></i><a href="http://donor.test/userallpost">All Post</a></li>
+                <li><i class=""></i><a href="http://donor.test/createpost">Create Post</a></li>
+                <li><i class=""></i><a href="http://donor.test/userallpost">Update Post</a></li>
                 <li><i class=""></i><a href="#">Delete Post</a></li>
             </ul>
         </div>
@@ -161,6 +160,7 @@
 
     <!-- Subscribe Modal -->
 
+    <script src="{{ url('/') }}/js/common.js"></script>
 
     <script>
         var id=-1, token='', photo='';
@@ -225,14 +225,6 @@
         function w3_close() {
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
-        }
-        function httpRequest(method, url, data) {
-            var request = new XMLHttpRequest();
-            request.open(method, url, false);
-            request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-            request.setRequestHeader("Authorization", 'Bearer '+token);
-            request.send(data);
-            return request;
         }
     </script>
 </div>
