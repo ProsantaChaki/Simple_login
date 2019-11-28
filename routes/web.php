@@ -56,10 +56,14 @@ Route::get('masterlayout', function () {
 
     return view('layouts.masterLayout');
 });
+
 Route::get('login', function () {
     return view('user.login');
-
 });
+
+
+
+
 
 
 Route::get('post', function () {
@@ -91,6 +95,11 @@ Route::get('updatepost/{userId}/{postId}', function () {
 
 });
 
+Route::get('change/password', function () {
+    return view('user.password.passwordChange');
+});
+
+
 Route::get('userallpost', function () {
     return view('user.post.userAllPost');
 
@@ -102,10 +111,9 @@ Route::get('postview/{postId}', function ($postId) {
 });
 Route::get('postreview', function () {
     return view('post.postReview');
-
 });
+
 
 Route::get('publicprofile/{id}', function ($id) {
     return view('user.profile.publicProfile')->with('uid',$id);
-
 });

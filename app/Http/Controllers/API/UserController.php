@@ -171,7 +171,37 @@ class UserController extends Controller
 
     }
 
+    public function updatePassword(Request $request){
+        $validator = Validator::make($request->all(), [
+            'old_password'   => 'required | string | min:8 ',
+            'new_password'   => 'required | string | min:8 ',
+            'c_new_password' => 'required | same:new_password',
+        ]);
 
+        if ($validator->fails()) {
+            //return 'not';
+            return response()->json(['message' => 'validation error', 'data'=>$validator->errors()], 401);
+        }
+
+        $validity = date_timestamp_get(date_create());
+
+        $id = Auth::user()->id;
+        $input = $request->all();
+
+
+        //return request('email');
+        if(Auth::user(array('id' => $id, 'password' => $request->old_password))){
+            $password=[
+                'password'=> bcrypt($input['old_password'])
+            ];
+            User::where('id',$id)->update($password);
+
+            return response()->json(['message' => 'Password Update Successfully', $this-> successStatus]);
+        }
+        else{
+            return response()->json(['message' => 'Password invalid'], 401);
+        }
+    }
 
     public function logout(Request $request)
     {

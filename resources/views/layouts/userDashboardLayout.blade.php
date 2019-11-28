@@ -139,6 +139,8 @@
                 <li class="menu-title border-bottom-line">Menu</li>
                 <li><i class=""></i><a href="http://donor.test/profile">Profile</a></li>
                 <li><i class=""></i><a href="http://donor.test/updateprofile">Update Information</a></li>
+                <li><i class=""></i><a href="http://donor.test/change/password">Update Password</a></li>
+
                 <li><i class=""></i><a href="#">Activities</a></li>
                 <li><i class=""></i><a href="http://donor.test/userallpost">All Post</a></li>
                 <li><i class=""></i><a href="http://donor.test/createpost">Create Post</a></li>

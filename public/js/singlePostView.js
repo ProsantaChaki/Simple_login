@@ -119,7 +119,7 @@ $("#interest")
 
                 var url = 'http://donor.test/api/v1/post/user/activities'
                 var request = httpRequest('POST', url, data);
-                alert(request.response)
+                //alert(request.response)
             }
             else{
                 $('#login').modal('show');
@@ -127,8 +127,18 @@ $("#interest")
             }
         }else{
             //run code
-            document.getElementById('mobile').style.display = 'none';
 
+            if(id>0){
+                document.getElementById('mobile').style.display = 'block';
+                var data={};
+                data['post_id'] = postId;
+                data['interested'] = 0;
+                var data = JSON.stringify(data);
+
+                var url = 'http://donor.test/api/v1/post/user/activities'
+                var request = httpRequest('POST', url, data);
+                //alert(request.response)
+            }
             document.getElementById('mobile').style.display = 'none';
         }
 
