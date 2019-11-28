@@ -1,4 +1,12 @@
-$(document).ready(function(){
+var id=-1, token='', photo='';
+
+
+$(document).onload(function(){
+    if(id==-1)
+        readCookies()
+});
+
+function readCookies() {
     var CookieArray = document.cookie.split(';');
 
     for(var i=0; CookieArray.length>i; i++){
@@ -25,14 +33,13 @@ $(document).ready(function(){
     catch (e) {
         console.log(e)
     }
-});
+}
 
 function userInformationLoad() {
-    // alert('successful')
+
     try{
         var allCookieArray = document.cookie.split(';');
         for(var i=0; allCookieArray.length>i; i++){
-            //alert(allCookieArray[i].split('=')[0])
             if(allCookieArray[i].split('=')[0]==' id'){
                 id=allCookieArray[i].split('=')[1];
             }
@@ -44,17 +51,21 @@ function userInformationLoad() {
     catch (e) {
         alert ('alert');
     }
-    //alert ('alert no');
 
-    if(id>0){
-        var url = 'http://donor.test/api/v1/users/'+ id;
+    if(id>0) {
+        var url = 'http://donor.test/api/v1/users/' + id;
         var method = 'GET';
         var data = false;
         var request = httpRequest(method, url, data);
-        var respons  = JSON.parse(request.response);
-        if(respons['data']['photo'].length>1)
-            document.getElementById('profilePhoto').src =respons['data']['photo'];
+        var respons = JSON.parse(request.response);
+        if (respons['data']['photo'].length > 1)
+            document.getElementById('profilePhoto').src = respons['data']['photo'];
 
+    }
+}
+
+function menuLoginButton() {
+    if(id>0){
         document.getElementById('loginVisibility').style.display = 'none';
         document.getElementById('profileVisibility').style.display = 'block';
         /* document.getElementById('messageVisibility').style.display = 'block';
@@ -66,6 +77,7 @@ function userInformationLoad() {
         /*document.getElementById('messageVisibility').style.display = 'none';
         document.getElementById('notificationVisibility').style.display = 'none';*/
     }
+
 }
 
 function logout(){
@@ -73,14 +85,23 @@ function logout(){
     var method = 'GET';
     var data = false;
     var request = httpRequest(method, url, data);
+    alert( request.response)
+
     var allCookieArray = document.cookie.split(';');
     for(var i=0; allCookieArray.length>i; i++){
-        document.cookie = allCookieArray[i].split('=')[0]+'=; Max-Age=-99999999;';
+        document.cookie = allCookieArray[i].split('=')[0]+'=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
     }
+
+///////here is the problem
+
     id=-1;
     token='';
     photo='';
+
     userInformationLoad();
+
+    menuLoginButton()
+
     //window.location.reload(true);
 
 }

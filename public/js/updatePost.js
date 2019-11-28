@@ -2,7 +2,6 @@ var division = ['Dhaka','Chittagong', 'Khulna', 'Sylhet','Barisal','Rajshahi'];
 var idlist = [ 'title', 'sub_title', 'description', 'area', 'address', 'category', 'quality', 'mobile', 'post_status' , 'post_type', 'financial_value', 'post_condition'];
 var areaTypes =['division','district','subordinate','branch'];
 var selectedArea = [], areaId = 0 , areaTypeId=0, areaType=[], selectedCategory=[], categoryId=0; categoryType=[]
-var id='', token='';
 var respons, postId = 2;
 
 loadData()

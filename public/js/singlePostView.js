@@ -1,29 +1,29 @@
 
 var idlist = ['title', 'sub_title', 'description', 'address', 'quality', 'mobile', 'post_status', 'post_type', 'post_condition', 'created_at', 'photo', 'area', 'category', 'sub_category', 'name' ]
-var id='', token='';
+
 var respons, postId = 4;
 var img = 0, imgNumber = 0;
 
+$(document).ready(function() {
+    menuLoginButton()
+
+});
+
 loadData()
+
+
 function loadData() {
     postId = document.getElementById('postId').value;
-    var CookieArray = document.cookie.split(';');
 
-    for(var i=0; CookieArray.length>i; i++){
-        if(CookieArray[i].split('=')[0]==' id'){
-            id=CookieArray[i].split('=')[1];
-        }
-        else if(CookieArray[i].split('=')[0]==' token'){
-            token=CookieArray[i].split('=')[1];
-        }
-    }
 
     try{
-        var url = 'http://donor.test/api/v1/single/post/'+ postId +'/details';
+        var url = "http://donor.test/api/v1/single/post/"+ postId +"/details";
         var method= 'GET';
         var data = false;
-        //alert('ok')
         var request = httpRequest(method, url, data);
+        if(request.status==500){
+            window.location.replace("http://donor.test/post");
+        }
         respons  = JSON.parse(request.response);
 
         document.getElementById("header").innerHTML='<h3 class="mb-2" id="title" style="color: #1d68a7">'+ respons['data']['title']+'</h3>\n' +
@@ -86,6 +86,7 @@ function loadData() {
 
 
 
+
 var img = 1, imgNumber = 3;
 function chengeImage(side){
     if( img == 1 && side == -1){
@@ -121,7 +122,8 @@ $("#interest")
                 alert(request.response)
             }
             else{
-                document.getElementById('mobile').style.display = 'block';
+                $('#login').modal('show');
+
             }
         }else{
             //run code

@@ -1,11 +1,10 @@
-
-var id=-1, token='', photo='';
 window.onload = function(){
-    userInformationLoad();
     serverPostRequest();
+    menuLoginButton();
 };
+userInformationLoad();
+
 //document.getElementById("fname").onchange = function() {myFunction()};
-document.getElementById("myNavbar").style.marginTop = '0px';
 
 
 var filter = {
@@ -74,11 +73,12 @@ $("#sub_category")
 
 $("#division")
     .change(function(){
+        filter['district'] = ''
         filter['division'] = document.getElementById('division').value;
         var url = 'http://donor.test/api/v1/area/division/' + document.getElementById('division').value;
         var request = httpRequest('GET', url, false);
         var district = JSON.parse(request.response);
-        var htmldata = '';
+        var htmldata = '<option value="0">Please select</option>';
         for(var i=0; district['data']['district'].length>i; i++){
             htmldata = htmldata + "<option value= '"+ district['data']['district'][i] +"'>"+ district['data']['district'][i] +"</option>"
         }
@@ -90,12 +90,6 @@ $("#division")
 $("#district")
     .change(function(){
         filter['district'] = document.getElementById('district').value;
-        /*alert(filter['district'])
-        alert(filter['division'])
-        alert(filter['sub_category'])
-        alert(filter['category'])
-        alert(filter['type'])
-        alert(filter['sort'])*/
         serverPostRequest();
 
     });
@@ -104,7 +98,7 @@ function serverPostRequest() {
     var method = 'POST';
     var url = 'http://donor.test/api/v1/all/post';
     var data = JSON.stringify(filter);
-    var request = httpRequest(method, 'http://donor.test/api/v1/all/post', data);
+    var request = httpRequest(method, url , data);
     var data = JSON.parse(request.response);
     var htmlData = '';
     for(var i = 0; i<data[0]['data'].length; i++){
@@ -136,7 +130,7 @@ function htmlPostDataGenerator(data) {
     //alert(data['id'])
     var html = '<div class="col-md-12 col-sm-12 ftco-animate d-md-flex w3-light-grey" style="margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px" >\n' +
         '                <div  class="col-xl-4 col-lg-4 col-md-4 col-sm-4 " style="alignment: left">\n' +
-        '                    <a href="single.html" class="img img-2">\n' +
+        '                    <a href="#" class="img img-2">\n' +
         '                        <img src='+ data['photo'][0] +' style=" max-width: 200px; max-height:170px;">\n' +
         '                    </a>\n' +
         '                </div>\n' +
@@ -170,6 +164,15 @@ function navMargin() {
     }
 }
 // Script to open and close sidebar when on tablets and phones
+function sideBar() {
+    if(document.getElementById("mySidebar").style.display == "block"){
+        w3_close()
+    }
+    else{
+        w3_open()
+    }
+}
+
 function w3_open() {
     document.getElementById("mySidebar").style.display = "block";
     document.getElementById("myOverlay").style.display = "block";

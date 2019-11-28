@@ -1,8 +1,6 @@
+userInformationLoad()
+serverPostRequest();
 
-var id=-1, token='', photo='';
-userInformationLoad();
-
-serverPostRequest()
 
 function serverPostRequest() {
     var method = 'GET';
@@ -10,6 +8,7 @@ function serverPostRequest() {
     var data = false;
     var request = httpRequest(method, url, data);
     var data = JSON.parse(request.response);
+
     var htmlData = '';
     for(var i = 0; i<data[0]['data'].length; i++){
         htmlData = htmlData + htmlPostDataGenerator(data[0]['data'][i])

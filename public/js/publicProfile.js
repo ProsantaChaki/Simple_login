@@ -1,20 +1,13 @@
 
 var idlist = ['photo','name','email','gender','birthday','occupation','organization','marital_status','blood_group','weight','description','area'];
-var id='', token='', respons, uid= 3;
+var respons, uid= 3;
 
 
 $(document).ready(function() {
-    uid = document.getElementById('uid').value;
-    var CookieArray = document.cookie.split(';');
+    menuLoginButton()
 
-    for(var i=0; CookieArray.length>i; i++){
-        if(CookieArray[i].split('=')[0]==' id'){
-            id=CookieArray[i].split('=')[1];
-        }
-        else if(CookieArray[i].split('=')[0]==' token'){
-            token=CookieArray[i].split('=')[1];
-        }
-    }
+    uid = document.getElementById('uid').value;
+
     try{
         var request = new XMLHttpRequest();
         var url = 'http://donor.test/api/v1/user/'+ uid+'/profile';

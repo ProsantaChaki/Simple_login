@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/newStyle.css">
+    <link rel="stylesheet" href="{{ url('/') }}/assets/css/newStyle.css">
 
     <style>
         body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
@@ -33,8 +33,8 @@
 <body style="overflow-y: scroll;">
 <nav class=" navbar navbar-inverse navbar-fixed-top " >
     <div class="container-fluid col-xl-12" style=" alignment: center; max-width: 1000px" >
-        <a class="navbar-brand w3-left" href="#">Sohozogi</a>
-        <button type="button"  class="navbar-toggle w3-left" data-toggle="collapse" data-target="#myNavbar">
+        <a class="navbar-brand w3-left" href="{{ url('/') }}/post">Sohozogi</a>
+        <button type="button"  class="navbar-toggle w3-left" data-toggle="collapse" onclick="sideBar()">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -52,7 +52,7 @@
                 </a>
 
                 <div class="user-menu dropdown-menu">
-                    <a class="nav-link" href="http://donor.test/profile"><i class="fa fa- user"></i>My Profile</a>
+                    <a class="nav-link" href="{{ url('/') }}/profile"><i class="fa fa- user"></i>My Profile</a>
 
                     <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
@@ -108,153 +108,22 @@
         </ul>
         <!--
         -------------------------------Left side of Menu bar ---------------------------------------
-        -->
+
         <ul class="nav navbar-nav collapse navbar-collapse" id="myNavbar" style="margin-top: 0px" >
             <li class="active"><a href="http://donor.test/post">Home</a></li>
-            <!--<li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Services <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Volunteering</a></li>
-                    <li><a href="#">Lending</a></li>
-                    <li><a href="#">Donation</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Books</a></li>
-            <li><a href="#">Blood</a></li>-->
-        </ul>
+        </ul>-->
 
     </div>
 </nav>
 
-<!--
--------------------------------Login Modal---------------------------------------
--->
-<div class="modal" id="login" class="modal fade text-center">
-    <div class="modal-dialog">
-        <div class="modal-content">
+@include('user.login')
 
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Login</h4>
-            </div>
+@include('user.registration')
 
-            <div class="modal-body">
-                <div class="login-form">
-                    <form id="loginForm" onsubmit="userLogin()">
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label text-sm-right">User Id</label>
+@include('user.password.forgotPassword')
 
-                            <div class="col-sm-6">
-                                <input  type="text" id="email" class="form-control" placeholder="Email or Mobile Number">
-                            </div>
-                        </div>
+@include('user.password.passwordReset')
 
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label text-sm-right">Password</label>
-                            <div class="col-sm-6">
-                                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input class="messageCheckbox" type="checkbox" id="rememberme" value="1"> Remember Me
-                            </label>
-                            <label class="pull-right">
-                                <a href="#">Forgotten Password?</a><br>
-                            </label>
-
-                        </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
-                        <label class="pull-right">
-                            <a style="font-size: 14px; color: #fb9678" data-toggle="modal" data-target="#register" data-dismiss="modal" > Don't have an account yet?</a>
-                        </label>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--
--------------------------------Registration Modal---------------------------------------
--->
-
-<div class="modal" id="register" class="modal fade text-center">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Registration</h4>
-            </div>
-
-            <div class="modal-body">
-                <div class="login-form">
-                    <form  action="#" onsubmit="return userRegistration(this);">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-4 col-form-label text-sm-right">Name</label>
-
-                            <div class="col-sm-6">
-                                <input id="r_name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Enter Your Name">
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-sm-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-sm-6">
-                                <input id="r_email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" pattern="\S+@\S+\.\S+" placeholder="Enter Your Email Address">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="mobile" class="col-sm-4 col-form-label text-sm-right">Mobile Number</label>
-
-                            <div class="col-sm-6">
-                                <input id="r_mobile" type="tel" class="form-control" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" pattern="(01)[0-9]{9}" placeholder="Enter Your Mobile Number">
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-sm-4 col-form-label text-sm-right">{{ __('Password') }}</label>
-
-                            <div class="col-sm-6">
-                                <input id="r_password" type="password" class="form-control" name="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password" required>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-sm-4 col-form-label text-sm-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-sm-6">
-                                <input id="r_c_password" type="password" class="form-control" name="c_password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Retype Password" required>
-                            </div>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input class="messageCheckbox" type="checkbox" id="rememberme" value="1"> Remember Me
-                            </label>
-                        </div>
-
-                        <div class="form-group row sm-0">
-                            <div class="col-sm-6 offset-sm-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="w3-content w3-border-left w3-border-right font-normal" style=" font-weight: normal">
 
@@ -378,10 +247,10 @@
 
     </nav>
 
-    <!-- Top menu on small screens -->
+    <!-- Top menu on small screens
     <footer class="w3-bar w3-bottom w3-hide-large w3-small">
         <a style="border-radius: 20px ;" href="javascript:void(0)" class="w3-right w3-bar-item w3-button w3-gray w3-large"  onclick="w3_open() ">Filter</a>
-    </footer>
+    </footer>-->
 
     <!-- Overlay effect when opening sidebar on small screens -->
     <div class="w3-overlay w3-hide-large w3-Xlarge" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>

@@ -27,6 +27,9 @@ Route::get('users', 'UserController@getUsers')->middleware('auth:api');
 
 Route::post('v1/login', 'API\UserController@login');
 Route::post('v1/register', 'API\UserController@register');
+Route::post('v1/password/recovery', 'API\UserController@recoveryCode');
+Route::post('v1/password/reset', 'API\UserController@passwordReset');
+
 
 Route::group(['middleware' => 'auth:api'], function(){
 

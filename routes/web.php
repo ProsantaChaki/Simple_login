@@ -56,6 +56,11 @@ Route::get('masterlayout', function () {
 
     return view('layouts.masterLayout');
 });
+Route::get('login', function () {
+    return view('user.login');
+
+});
+
 
 Route::get('post', function () {
     return view('layouts.userLayout');

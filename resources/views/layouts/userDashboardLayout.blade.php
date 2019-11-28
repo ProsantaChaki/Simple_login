@@ -47,22 +47,23 @@
     <div class="container-fluid col-xl-12" style=" alignment: center; max-width: 1000px" >
 
         <div class="top-left" >
-            <a class="navbar-brand w3-left" href="#" style="color: white">Sohozogi</a>
-
+            <a class="navbar-brand w3-left" href="http://donor.test/post" style="color: white">Sohozogi</a>
 
 
             <a  href="javascript:void(0)" class="w3-left btn-lg w3-hide-large"  onclick="w3_open() ">
                 <span class="glyphicon glyphicon-align-justify" style="color: white"></span>
             </a>
 
+
         </div>
+
 
         <div class="top-right" style="background: transparent">
             <div class="header-menu" >
                 <div class="header-left" >
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" id="profilePhoto" src="images/admin.jpg" style="border-radius: 50%" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" id="profilePhoto" src="" style="border-radius: 50%" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -119,6 +120,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 </header>
 <div class="aside left-panel w3-content w3-border-left w3-border-right">
@@ -132,7 +135,8 @@
             <!-- <div id="main-menu" class="main-menu collapse navbar-collapse">-->
             <ul class="hover-li nav navbar-nav left-nav" style="size: 14px">
 
-                <li class="menu-title">Menu</li>
+
+                <li class="menu-title border-bottom-line">Menu</li>
                 <li><i class=""></i><a href="http://donor.test/profile">Profile</a></li>
                 <li><i class=""></i><a href="http://donor.test/updateprofile">Update Information</a></li>
                 <li><i class=""></i><a href="#">Activities</a></li>
@@ -142,7 +146,9 @@
                 <li><i class=""></i><a href="#">Delete Post</a></li>
             </ul>
         </div>
+
     </nav>
+
     <!-- Overlay effect when opening sidebar on small screens -->
     <div class="w3-overlay w3-hide-large w3-Xlarge" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
@@ -160,73 +166,43 @@
 
     <!-- Subscribe Modal -->
 
-    <script src="{{ url('/') }}/js/common.js"></script>
-
-    <script>
-        var id=-1, token='', photo='';
-        window.onload = function(){
-            userInformationLoad();
-        };
-        function userInformationLoad() {
-            // alert('successful')
-            try{
-                var allCookieArray = document.cookie.split(';');
-                for(var i=0; allCookieArray.length>i; i++){
-                    //alert(allCookieArray[i].split('=')[0])
-                    if(allCookieArray[i].split('=')[0]==' id'){
-                        id=allCookieArray[i].split('=')[1];
-                    }
-                    else if(allCookieArray[i].split('=')[0]==' token'){
-                        token=allCookieArray[i].split('=')[1];
-                    }
-                }
-            }
-            catch (e) {
-                alert ('alert');
-            }
-            //alert ('alert no');
-            if(id>0){
-                var url = 'http://donor.test/api/v1/users/'+ id;
-                var method = 'GET';
-                var data = false;
-                var request = httpRequest(method, url, data);
-                var respons  = JSON.parse(request.response);
-                if(respons['data']['photo'].length>1)
-                    document.getElementById('profilePhoto').src ='{{ url('/') }}/'+ respons['data']['photo'];
-            }
-        }
-        function myAccFunc() {
-            var x = document.getElementById("demoAcc");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-        function navMargin() {
-            if($(window).width()<769){
-                document.getElementById("navMenu").style.marginTop = '56px';
-            }
-        }
-        $(window).resize(function(){
-            if($(window).width()>769){
-                document.getElementById("navMenu").style.display = none;
-            }
-            else {
-                document.getElementById("navMenu").style.marginTop = '0px';
-            }
-        });
-        document.getElementById("navMenu").style.display = none;
-        // Script to open and close sidebar when on tablets and phones
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
-    </script>
 </div>
+
+<script src="{{ url('/') }}/js/common.js"></script>
+
+<script>
+    userInformationLoad();
+    function myAccFunc() {
+        var x = document.getElementById("demoAcc");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+    function navMargin() {
+        if($(window).width()<769){
+            document.getElementById("navMenu").style.marginTop = '56px';
+        }
+    }
+    $(window).resize(function(){
+        if($(window).width()>769){
+            document.getElementById("navMenu").style.display = none;
+        }
+        else {
+            document.getElementById("navMenu").style.marginTop = '0px';
+        }
+    });
+    document.getElementById("navMenu").style.display = none;
+    // Script to open and close sidebar when on tablets and phones
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+        document.getElementById("myOverlay").style.display = "block";
+    }
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+        document.getElementById("myOverlay").style.display = "none";
+    }
+</script>
 </body>
 </html>

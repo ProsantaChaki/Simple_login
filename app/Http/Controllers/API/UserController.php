@@ -4,6 +4,7 @@ use App\Area;
 use App\MapLocation;
 use App\Photo;
 use App\UserInfo;
+use App\VerificationCode;
 use http\Env\Response;
 use http\Message;
 use Illuminate\Http\Request;
@@ -70,6 +71,8 @@ class UserController extends Controller
     public function login(){
 
         //return request('email');
+
+
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             $success['id']    = $user->id;
@@ -88,6 +91,86 @@ class UserController extends Controller
             return response()->json(['message' => 'User Id or password is invalid'], 401);
         }
     }
+
+    public function recoveryCode(Request $request){
+
+        //return request('email');
+        $validity = date_timestamp_get(date_create())+900;
+
+        if(User::where('email', request('email'))->exists()){
+            $user = User::where('email', request('email'))->get();
+            $input=[
+                'user_id'=>$user[0]['id'],
+                'verification_code'=> '123456',
+                'validity'=>$validity
+            ];
+            $verificationCode = VerificationCode::create($input);
+            return response()->json(['message' => 'Verification code generated', 'data' => $verificationCode], $this-> successStatus);
+        }
+        elseif(User::where('mobile', request('email'))->exists()){
+            $user = User::where('mobile', request('email'))->get();
+            $input=[
+                'user_id'=>$user[0]['id'],
+                'verification_code'=> '123456',
+                'validity'=>$validity
+            ];
+            $verificationCode = VerificationCode::create($input);
+            return response()->json(['message' => 'Verification code generated', 'data' => $verificationCode], $this-> successStatus);        }
+        else{
+            return response()->json(['message' => 'User Id is invalid'], 401);
+        }
+
+    }
+
+
+    public function passwordReset(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'password'   => 'required | string | min:8 ',
+            'c_password' => 'required | same:password',
+        ]);
+
+        if ($validator->fails()) {
+            //return 'not';
+            return response()->json(['message' => 'validation error', 'data'=>$validator->errors()], 401);
+        }
+
+        $validity = date_timestamp_get(date_create());
+
+        //return request('email');
+        if(User::where('email', request('email'))->exists()){
+            $user = User::where('email', request('email'))->get();
+            $verificationCode = VerificationCode::select('validity')->where([['user_id','=', $user[0]['id']],['verification_code', '=', request('verification_code')]])->orderBy('id', 'desc')->first();
+            if($verificationCode['validity']<$validity){
+                $input = $request->all();
+                $password=[
+                    'password'=> bcrypt($input['password'])
+                ];
+                VerificationCode::where('user_id', $user[0]['id'])->delete();
+                User::where('id',$user[0]['id'])->update($password);
+
+            }
+            return response()->json(['message' => 'Password Reset Successfully', $this-> successStatus]);
+        }
+        elseif(User::where('mobile', request('email'))->exists()){
+            $user = User::where('mobile', request('email'))->get();
+            $verificationCode = VerificationCode::select('validity')->where([['user_id','=', $user[0]['id']],['verification_code', '=', request('verification_code')]])->orderBy('id', 'desc')->first();
+            if($verificationCode['validity']<$validity){
+                $input = $request->all();
+                $password=[
+                    'password'=> bcrypt($input['password'])
+                ];
+                VerificationCode::where('user_id', $user[0]['id'])->delete();
+                User::where('id',$user[0]['id'])->update($password);
+            }
+            return response()->json(['message' => 'Password Reset Successfully', $this-> successStatus]);
+        }
+        else{
+            return response()->json(['message' => 'User Id is invalid'], 401);
+        }
+
+    }
+
 
 
     public function logout(Request $request)
@@ -243,7 +326,7 @@ class UserController extends Controller
        }
        if($request->mobile != null){
            /*
-            * mobile number varification code will be here
+            * mobile number verification code will be here
             */
            $idDuplicate = User::where('mobile',$request->mobile )->get('id');
            if (json_decode($idDuplicate,true) == null || $idDuplicate[0]['id'] == $id){

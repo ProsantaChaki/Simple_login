@@ -196,7 +196,14 @@ class PostController extends Controller
             //return $user;
             $item['name'] = $user['name'];
         }
-        return response()->json(['message' => 'your request has been processed', 'data' =>  $post[0]]);
+        if( sizeof($post)>0){
+            return response()->json(['message' => 'your request has been processed', 'data' =>  $post[0]]);
+
+        }
+        else
+            return response()->json(['message' => 'Data not found'],500);
+
+
     }
 
     public function edit($id)

@@ -116,9 +116,9 @@
         <script src="{{ url('/') }}/js/common.js"></script>
         <script src="{{ url('/') }}/js/pagination.js"></script>
         <script src="{{ url('/') }}/js/userAllPost.js"></script>
+        <script>
 
-
-
+        </script>
 
         <!-- End page content -->
 
