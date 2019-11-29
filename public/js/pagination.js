@@ -2,7 +2,6 @@ function paginationGenarator(data) {
     var currentPagenumber = data['current_page'];
     var lastPagenumber = data['last_page'];
     var url1= data['first_page_url'];
-    //alert(lastPage)
     var firstPage ='<li class="page-item" ><a class="page-link" onclick= "getPostData(1)">1</a></li>\n';
     var lastPage ='<li class="page-item" ><a class="page-link" onclick= "getPostData('+lastPagenumber+')" >'+lastPagenumber+'</a></li>\n';
     var previousPage ='<li class="page-item"><a class="page-link"  onclick= "getPostData('+(currentPagenumber-1)+')">'+(currentPagenumber-1)+'</a></li>\n';
@@ -13,7 +12,6 @@ function paginationGenarator(data) {
     var htmlAfter = '</ul>\n </div>';
 
     var htmlRespons = '';
-
 
     if(lastPagenumber==1){
         htmlRespons = htmlBefore + currentPage + htmlAfter;
@@ -117,6 +115,6 @@ function paginationGenarator(data) {
             htmlRespons = htmlBefore + firstPage + empty + previousPage + currentPage + nextPage + empty + lastPage + htmlAfter;
         }
     }
-
     return htmlRespons;
 }
+

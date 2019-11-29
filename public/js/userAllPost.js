@@ -19,6 +19,24 @@ function serverPostRequest() {
     //alert(data[0]['data'])
 }
 
+function getPostData(urlId) {
+    url = 'http://donor.test/api/v1/post/user/'+id+'?page='+ urlId;
+
+    //alert(url)
+    var request = httpRequest('GET', url, false);
+    var data = JSON.parse(request.response);
+    var htmlData = '';
+    for(var i = 0; i<data[0]['data'].length; i++){
+
+        htmlData = htmlData + htmlPostDataGenerator(data[0]['data'][i])
+    }
+    //alert(htmlData)
+    var pagination = paginationGenarator(data[0])
+    document.getElementById('posts').innerHTML = htmlData + pagination;
+
+}
+
+
 function htmlPostDataGenerator(data) {
     //alert(data['id'])
     var comment = '';

@@ -335,6 +335,8 @@ class PostController extends Controller
     public function getUsersAllPost($userId){
         $userId = Auth::user()->id;
         $post = Post::select('id', 'title', 'post_type', 'post_status', 'created_at')->where('user_id', $userId)->paginate(5);
+        //return response()->json([$post], 200);
+
         foreach ($post as $item){
             $respons_data=[];
             $postPhoto = PostPhoto::where('post_id', $item['id'])->get();
