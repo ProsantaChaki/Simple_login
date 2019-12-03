@@ -146,6 +146,8 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="postId" value="{{$postId}}">
+
     </div>
     <script src="{{ url('/') }}/js/common.js"></script>
     <script src="{{ url('/') }}/js/updatePost.js"></script>

@@ -110,6 +110,7 @@
                                     <input id="financial_value" type="number" class="form-control " name="financial_value" placeholder="Approximate Financial Value" required>
                                 </div>
                             </div>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-7 offset-md-4">
                                     <button type="submit" class="btn btn-primary" onclick="Validation()" >

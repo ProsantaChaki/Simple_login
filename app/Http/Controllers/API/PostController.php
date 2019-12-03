@@ -309,8 +309,9 @@ class PostController extends Controller
         return response()->json([$post], 200);
     }
 
-    public function getUsersPost($userId, $postId){
-        //$userId = Auth::user()->id;
+    public function getUsersPost($postId){
+        $userId = Auth::user()->id;
+        //return $userId;
         $post = Post::where('user_id', $userId)->where('id', $postId)->get();
         foreach ($post as $item){
             $respons_data=[];

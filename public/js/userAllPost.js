@@ -55,7 +55,7 @@ function htmlPostDataGenerator(data) {
         '                    </a>\n' +
         '                </div>\n' +
         '                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8" >\n' +
-        '                    <h4 class="mb-2"><a href="http://donor.test/updatepost/'+id+'/'+data['id']+'" name="title">'+ data['title'] +' </a></h4>\n' +
+        '                    <h4 class="mb-2"><a href="http://donor.test/update/post/'+data['id']+'" name="title">'+ data['title'] +' </a></h4>\n' +
         '                    <div class="text text-2 pl-md-4">\n' +
         '                        <div class="meta-wrap">\n' +
         '                            <p class="meta">\n' +
@@ -70,23 +70,11 @@ function htmlPostDataGenerator(data) {
         '                                <span > '+ comment +'</span>\n' +
         '                            </p>\n' +
         '                        </div>\n' +
-        '                        <select id="post_type" onchange="changeStatus('+data['id']+')" class="chosen md-3 form-control " placeholder="ype of Post" required>\n' +
-        '                            <option value="Available" '+ select['Available'] +'>Available</option>\n' +
-        '                            <option value="Reserved" '+ select['Reserved'] +'>Reserved</option>\n' +
-        '                            <option value="Occupied"'+ select['Occupied'] +'>Occupied</option>\n' +
-        '                            <option value="Delete" '+ select['Occupied'] +'>Delete</option>\n' +
-        '                        </select>\n' +
         '                    </div>\n' +
         '                </div>\n' +
         '            </div>\n'
     return html;
 }
 
-function changeStatus(postId) {
-    var status = document.getElementById('post_type').value;
-    var method = 'GET';
-    var url = 'http://donor.test/api/v1/post/'+ postId+'/'+status;
-    var data = false;
-    var request = httpRequest(method, url, data);
-}
+
 
