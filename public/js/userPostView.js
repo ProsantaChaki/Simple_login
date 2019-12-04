@@ -27,7 +27,8 @@ function loadData() {
         respons  = JSON.parse(request.response);
 
         var select = {}
-        select[data['post_status']]= 'selected';
+        select[respons['data']['post_status']]= 'selected';
+        //alert(respons['data']['post_status'])
 
         document.getElementById("header").innerHTML='<h3 class="mb-2" id="title" style="color: #1d68a7">'+ respons['data']['title']+'</h3>\n' +
             '             <div class="meta-wrap">\n' +
@@ -42,7 +43,7 @@ function loadData() {
             '                     <option value="Available" '+ select['Available'] +'>Available</option>\n' +
             '                     <option value="Reserved" '+ select['Reserved'] +'>Reserved</option>\n' +
             '                     <option value="Occupied"'+ select['Occupied'] +'>Occupied</option>\n' +
-            '                     <option value="Delete" '+ select['Occupied'] +'>Delete</option>\n' +
+            '                     <option value="Delete" '+ select['Deleted'] +'>Delete</option>\n' +
             '                   </select>\n' +
             '                 </div>'
 
@@ -50,7 +51,6 @@ function loadData() {
             '                    <p class="border-bottom-line" id="category" style="padding: 10px"><b>Category : </b>'+ respons['data']['category']+'</p>\n' +
             '                     <p class="border-bottom-line" id="sub_category" style="padding: 10px"><b>Sub-Category : </b>'+ respons['data']['sub_category']+'</p>\n' +
             '                     <p class="border-bottom-line" id="post_condition" style="padding: 10px"><b>Condition : </b>'+ respons['data']['post_condition']+'</p>\n' +
-            '                     <p class="border-bottom-line" id="post_status" style="padding: 10px"><b>Status : </b>'+ respons['data']['post_status']+'</p>\n' +
             '                     <p class="border-bottom-line" id="mobile" style="padding: 10px"><b>Mobile : </b>'+ respons['data']['mobile']+'</p>\n' +
             '                     <p class="mb-2 border-bottom-line"  style="padding: 10px">'+ respons['data']['address']+'</p>\n' +
             '                     <p class="mb-2 border-bottom-line"  style="padding: 10px">'+ respons['data']['area']+'</p>'
@@ -110,43 +110,6 @@ function currentDiv(n) {
     imageSlide(slideIndex = n);
     img = n;
 }
-$("#interest")
-    .change(function(){
-        if($(this).prop("checked") == true){
-            //run code
-            if(id>0){
-                document.getElementById('mobile').style.display = 'block';
-                var data={};
-                data['post_id'] = postId;
-                data['interested'] = 1;
-                var data = JSON.stringify(data);
-
-                var url = 'http://donor.test/api/v1/post/user/activities'
-                var request = httpRequest('POST', url, data);
-                //alert(request.response)
-            }
-            else{
-                $('#login').modal('show');
-
-            }
-        }else{
-            //run code
-
-            if(id>0){
-                document.getElementById('mobile').style.display = 'block';
-                var data={};
-                data['post_id'] = postId;
-                data['interested'] = 0;
-                var data = JSON.stringify(data);
-
-                var url = 'http://donor.test/api/v1/post/user/activities'
-                var request = httpRequest('POST', url, data);
-                //alert(request.response)
-            }
-            document.getElementById('mobile').style.display = 'none';
-        }
-
-    });
 
 function imageSlide(n) {
     var i;

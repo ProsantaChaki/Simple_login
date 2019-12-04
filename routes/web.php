@@ -92,7 +92,7 @@ Route::get('createpost', function () {
     return view('user.post.create');
 
 });
-Route::get('update/post/{postId}', function ($postId) {
+Route::get('user/post/update/{postId}', function ($postId) {
     return view('user.post.updatePost', ['postId'=>$postId ]);
 });
 Route::get('user/post/view/{postId}', function ($postId) {

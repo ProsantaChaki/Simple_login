@@ -8,6 +8,7 @@ use App\Photo;
 use App\Post;
 use App\PostPhoto;
 use App\PostReview;
+use App\PostStatus;
 use App\User;
 use App\UserActivities;
 use http\Env\Response;
@@ -383,10 +384,13 @@ class PostController extends Controller
         }
 
     }
-    public function updateStatus($postId, $status){
+    public function updateStatus(Request $request){
         $userId = Auth::user()->id;
-        $updatePost = Post::where('id',$postId)->where('user_id', $userId)->update(['post_status'=>$status]);
-        return response()->json(['data'=>$updatePost]);
+        $data = $request->all();
+        $updateStatus = PostStatus::create($data);
+        $post = Post::where('id', $data['post_id'])->update(['post_status'=>$data['status']]);
+        //$updatePost = Post::where('id',$postId)->where('user_id', $userId)->update(['post_status'=>$status]);
+        return response()->json(['data'=>[$updateStatus,$post]]);
     }
 
     public function postReviewView(Request $request){

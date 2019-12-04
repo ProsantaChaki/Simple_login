@@ -453,5 +453,17 @@ class UserController extends Controller
 */
     }
 
+    public function getMobileNo($mobile){
+
+        if(User::where('mobile',$mobile)->count()>0){
+            $user = User::where('mobile',$mobile)->select('id','name')->get();
+            return response()->json(['message' => 'User found', 'data'=>$user[0]], $this-> successStatus);
+        }
+        else{
+            return response()->json(['message' => 'User does not exist'], 400);
+        }
+
+    }
+
 
 }

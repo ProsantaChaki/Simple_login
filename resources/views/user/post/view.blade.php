@@ -12,9 +12,12 @@
             </div>
             <div  class="col-xl-4 col-lg-4 col-md-4 col-sm-6 " style="alignment: right">
                 <div>
-                    <button type="button" class="btn btn-primary" style="width: 100%">
+                    <button type="button" id="editPost" class="btn btn-primary" style="width: 100%">
                         Edit this post
                     </button>
+                </div>
+                <div style="margin-top: 5px">
+                    <p style="color: #1b4b72; size: 13px; font-style: italic"> <a>5 people are interested</a></p>
                 </div>
                 <div id="middleRight" ></div>
                 <div id="statusOption" style="display: none">
@@ -45,6 +48,8 @@
                         <input type="text" class="form-control " id="respons_mobile" name="mobile" style="display: none; flex: 1" placeholder="Mobile Number" autocomplete="mobile" pattern="(01)[0-9]{9}">
                         <button type="button" id="respons_mobile_submit" style="display: none">Submit</button>
                     </from>
+                    <p id="userFound" style="color: #1b4b72; font-size: 14px; font-style: italic; margin-bottom: 0px;display: none"></p>
+
                     <p id="userNotFound" style="color: red; font-size: 11px; font-style: italic; margin-bottom: 0px;display: none">User not found, enter correct mobile number to avoid fraudulent activities. This is very important for this service</p>
                     <p id="successMessage" style="color: green; font-size: 13px; font-style: italic; margin-bottom: 0px; display: none">Successfully updated</p>
                 </div>
@@ -74,6 +79,7 @@
 
     <script>
         var status='', note='';
+
         function changeStatus(postId) {
             status = document.getElementById('post_type').value;
             $("#reserved").css("display", "none");
@@ -84,6 +90,9 @@
             $("#getUserMobile1").css("display", "none");
             $("#getUserMobile2").css("display", "none");
             $("#respons_mobile").css("display", "none");
+            $("#userNotFound").css("display", "none");
+            $("#userFound").css("display", "none");
+
             $("#respons_mobile_submit").css("display", "none")
 
             if(status=='Reserved'){
@@ -100,9 +109,19 @@
             }
             else if(status == 'Available'){
                 note='';
+                var data ={
+                    'user_id': null
+                }
+                postStatusUpdate(data)
             }
 
         }
+
+        $('#editPost').click(function() {
+            window.location = "http://donor.test/user/post/update/" + postId;
+        });
+
+
 
 
         $('#poststatus input').on('change', function() {
@@ -112,8 +131,51 @@
                 $("#getUserMobile2").css("display", "block");
                 $("#respons_mobile").css("display", "block");
                 $("#respons_mobile_submit").css("display", "block")
+            }
+            else{
+                var data ={
+                    'user_id': null
+                }
+                postStatusUpdate(data)
 
             }
         });
+
+        $('#respons_mobile_submit').click(function() {
+
+            var url= 'http://donor.test/api/v1/user/post/mobile-search/'+$('#respons_mobile').val();
+
+            var request =httpRequest('GET', url, false)
+            //alert(request.status)
+            if(request.status==400){
+                $("#userNotFound").css("display", "block");
+            }
+            else if(request.status==200){
+                var datas = JSON.parse(request.response);
+                $("#userNotFound").css("display", "none");
+                $("#userFound").css("display", "block");
+                $("#userFound").html(datas['data']['name']);
+
+                var data ={
+                    'user_id': datas['data']['id']
+                }
+                postStatusUpdate(data)
+            }
+            //alert(data['data']['id'])
+            //window.location = "http://donor.test/user/post/update/" + postId;
+        });
+
+
+        function postStatusUpdate(data) {
+            data['post_id']=postId;
+            data['status']= status;
+            data['note']=note;
+            var data = JSON.stringify(data);
+            var url= 'http://donor.test/api/v1/user/post/status-update/'+postId;
+            alert('3')
+            var request =httpRequest('POST',url,data);
+            alert(request.response)
+
+        }
     </script>
 @endsection
