@@ -1,5 +1,6 @@
 <?php
 
+use App\Role;
 use Illuminate\Http\Request;
 
 /*
@@ -41,18 +42,20 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
 
-
     Route::post('v1/post/user/activities','API\PostController@userActivities');
-
     Route::post('v1/post/create','API\PostController@create');
     Route::get('v1/post/user/{userId}','API\PostController@getUsersAllPost');
-    Route::get('v1/post/user/{userId}/{postId}','API\PostController@getUsersPost');
+    Route::get('v1/post/user/editview/{postId}','API\PostController@getUsersPost');
     Route::post('v1/post/update/{postId}','API\PostController@updatePost');
 
     Route::post('v1/post/{id}/update','API\PostController@updateInfo');
     Route::post('v1/post/{id}/review/submission','API\PostController@postReviewSubmission');
     Route::post('v1/post/{id}/review/view','API\PostController@postReviewView');
-    Route::get('v1/post/{postId}/{status}','API\PostController@updateStatus');
+    //Route::get('v1/post/{postId}/{status}','API\PostController@updateStatus');
+    Route::get('v1/user/post/mobile-search/{mobile}','API\Usercontroller@getMobileNo');
+    Route::post('v1/user/post/status-update/{postId}','API\Postcontroller@updateStatus');
+
+
 
 
 });

@@ -2,40 +2,28 @@ var division = ['Dhaka','Chittagong', 'Khulna', 'Sylhet','Barisal','Rajshahi'];
 var idlist = [ 'title', 'sub_title', 'description', 'area', 'address', 'category', 'quality', 'mobile', 'post_status' , 'post_type', 'financial_value', 'post_condition'];
 var areaTypes =['division','district','subordinate','branch'];
 var selectedArea = [], areaId = 0 , areaTypeId=0, areaType=[], selectedCategory=[], categoryId=0; categoryType=[]
-var respons, postId = 2;
+var respons, postId = 0;
 
-loadData()
+$(document).ready(function() {
+    getCookies()
+    loadData()
+
+});
+
 function loadData() {
-    var CookieArray = document.cookie.split(';');
+    postId=document.getElementById('postId').value;
 
-    for(var i=0; CookieArray.length>i; i++){
-        if(CookieArray[i].split('=')[0]==' id'){
-            id=CookieArray[i].split('=')[1];
-        }
-        else if(CookieArray[i].split('=')[0]==' token'){
-            token=CookieArray[i].split('=')[1];
-        }
-    }
-
-    var CookieArray = document.cookie.split(';');
-
-    for(var i=0; CookieArray.length>i; i++){
-        if(CookieArray[i].split('=')[0]==' id'){
-            id=CookieArray[i].split('=')[1];
-        }
-        else if(CookieArray[i].split('=')[0]==' token'){
-            token=CookieArray[i].split('=')[1];
-        }
-    }
     try{
         var url = project_url+'api/v1/post/user/'+ 7 + '/'+ 2;
+
         var method= 'GET';
         var data = false;
+
         var request = httpRequest(method, url, data);
+
         //alert(request.response)
         respons  = JSON.parse(request.response);
         //alert(respons['data']['id'])
-
 
 
         for(var i = 0; i<idlist.length; i++){
@@ -51,6 +39,7 @@ function loadData() {
     catch (e) {
         console.log(e)
     }
+
 
 }
 
@@ -205,6 +194,8 @@ function optionDataGenerator(name) {
 }
 
 function updatePost() {
+    postId=document.getElementById('postId').value;
+
     var data={}
     data['category_id']=categoryId;
     data['area_id'] = areaId;

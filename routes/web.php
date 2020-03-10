@@ -11,6 +11,8 @@
 |
 */
 
+use http\Client\Curl\User;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -90,9 +92,11 @@ Route::get('createpost', function () {
     return view('user.post.create');
 
 });
-Route::get('updatepost/{userId}/{postId}', function () {
-    return view('user.post.updatePost');
-
+Route::get('user/post/update/{postId}', function ($postId) {
+    return view('user.post.updatePost', ['postId'=>$postId ]);
+});
+Route::get('user/post/view/{postId}', function ($postId) {
+    return view('user.post.view', ['postId'=>$postId ]);
 });
 
 Route::get('change/password', function () {
@@ -105,10 +109,15 @@ Route::get('userallpost', function () {
 
 });
 
+Route::get('user/{id}/post/{postId}/view', function ($id, $postId) {
+    return view('user.post.creatorPostView')->with('id',$id)->with('postId',$postId);
+});
+
 Route::get('postview/{postId}', function ($postId) {
     return view('post.singlePostView')->with('postId',$postId);
 
 });
+
 Route::get('postreview', function () {
     return view('post.postReview');
 });

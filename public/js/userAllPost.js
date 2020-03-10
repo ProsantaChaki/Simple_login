@@ -70,12 +70,6 @@ function htmlPostDataGenerator(data) {
         '                                <span > '+ comment +'</span>\n' +
         '                            </p>\n' +
         '                        </div>\n' +
-        '                        <select id="post_type" onchange="changeStatus('+data['id']+')" class="chosen md-3 form-control " placeholder="ype of Post" required>\n' +
-        '                            <option value="Available" '+ select['Available'] +'>Available</option>\n' +
-        '                            <option value="Reserved" '+ select['Reserved'] +'>Reserved</option>\n' +
-        '                            <option value="Occupied"'+ select['Occupied'] +'>Occupied</option>\n' +
-        '                            <option value="Delete" '+ select['Occupied'] +'>Delete</option>\n' +
-        '                        </select>\n' +
         '                    </div>\n' +
         '                </div>\n' +
         '            </div>\n'

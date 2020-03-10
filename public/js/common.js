@@ -157,6 +157,31 @@ function setCookies(data ) {
 
 }
 
+function getCookies() {
+    var CookieArray = document.cookie.split(';');
+
+    for(var i=0; CookieArray.length>i; i++){
+        if(CookieArray[i].split('=')[0]==' id'){
+            id=CookieArray[i].split('=')[1];
+        }
+        else if(CookieArray[i].split('=')[0]==' token'){
+            token=CookieArray[i].split('=')[1];
+        }
+    }
+
+    var CookieArray = document.cookie.split(';');
+
+    for(var i=0; CookieArray.length>i; i++){
+        if(CookieArray[i].split('=')[0]==' id'){
+            id=CookieArray[i].split('=')[1];
+        }
+        else if(CookieArray[i].split('=')[0]==' token'){
+            token=CookieArray[i].split('=')[1];
+        }
+    }
+
+}
+
 function userLogin(form) {
     // var checkedValue = document.querySelector('.messageCheckbox:checked').value;
     // New XMLHTTPRequest
