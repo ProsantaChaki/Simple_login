@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     try{
         var request = new XMLHttpRequest();
-        var url = 'http://donor.test/api/v1/user/'+ uid+'/profile';
+        var url = project_url+'api/v1/user/'+ uid+'/profile';
         request.open("GET", url, false);
         request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
         request.setRequestHeader("Authorization", 'Bearer '+token);

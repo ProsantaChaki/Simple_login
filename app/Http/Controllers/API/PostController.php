@@ -311,12 +311,13 @@ class PostController extends Controller
 
     public function getUsersPost($userId, $postId){
         //$userId = Auth::user()->id;
+        //return 1; die;
         $post = Post::where('user_id', $userId)->where('id', $postId)->get();
         foreach ($post as $item){
             $respons_data=[];
             $postPhoto = PostPhoto::where('post_id', $item['id'])->get();
 
-            //return sizeof($postPhoto);
+            return sizeof($postPhoto);
             for ($i=0; sizeof($postPhoto)>$i; $i++){
                 $path = $postPhoto[$i]->photo->path;
                 array_push($respons_data, '/images/'.$path);

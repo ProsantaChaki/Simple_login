@@ -61,7 +61,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
                 </a>
 
                 <div class="user-menu dropdown-menu">
-                    <a class="nav-link" href="http://donor.test/profile"><i class="fa fa- user"></i>My Profile</a>
+                    <a class="nav-link" href="{{ url('/') }}/profile"><i class="fa fa- user"></i>My Profile</a>
 
                     <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
@@ -334,6 +334,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
          </div>
 
      </div>
+    <script src="{{ url('/') }}/js/staticText.js"></script>
+
     <script src="{{ url('/') }}/js/common.js"></script>
     <script src="{{ url('/') }}/js/userLayout.js"></script>
     <script src="{{ url('/') }}/js/postReview.js"></script>

@@ -17,12 +17,12 @@ function loadData() {
 
 
     try{
-        var url = "http://donor.test/api/v1/single/post/"+ postId +"/details";
+        var url = project_url+"api/v1/single/post/"+ postId +"/details";
         var method= 'GET';
         var data = false;
         var request = httpRequest(method, url, data);
         if(request.status==500){
-            window.location.replace("http://donor.test/post");
+            window.location.replace(project_url+"post");
         }
         respons  = JSON.parse(request.response);
 
@@ -34,7 +34,7 @@ function loadData() {
             '             </div>'
 
         document.getElementById('middleRight').innerHTML=' <h4 class="mb-2 border-bottom-line" style="padding: 10px"><a href="#">'+ respons['data']['post_type']+'</a></h4>\n' +
-            '                 <h5 class="mb-2 border-bottom-line"  style="padding: 10px"><a href="http://donor.test/publicprofile/'+ respons['data']['user_id']+'">'+ respons['data']['name']+'</a></h5>\n' +
+            '                 <h5 class="mb-2 border-bottom-line"  style="padding: 10px"><a href="'+project_url+'publicprofile/'+ respons['data']['user_id']+'">'+ respons['data']['name']+'</a></h5>\n' +
             '                 <p class="mb-2 border-bottom-line"  style="padding: 10px">'+ respons['data']['address']+'</p>\n' +
             '                 <p class="mb-2 border-bottom-line"  style="padding: 10px">'+ respons['data']['area']+'</p>'
 
@@ -117,7 +117,7 @@ $("#interest")
                 data['interested'] = 1;
                 var data = JSON.stringify(data);
 
-                var url = 'http://donor.test/api/v1/post/user/activities'
+                var url = project_url+'api/v1/post/user/activities'
                 var request = httpRequest('POST', url, data);
                 //alert(request.response)
             }
@@ -135,7 +135,7 @@ $("#interest")
                 data['interested'] = 0;
                 var data = JSON.stringify(data);
 
-                var url = 'http://donor.test/api/v1/post/user/activities'
+                var url = project_url+'api/v1/post/user/activities'
                 var request = httpRequest('POST', url, data);
                 //alert(request.response)
             }

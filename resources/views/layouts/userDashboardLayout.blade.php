@@ -47,7 +47,7 @@
     <div class="container-fluid col-xl-12" style=" alignment: center; max-width: 1000px" >
 
         <div class="top-left" >
-            <a class="navbar-brand w3-left" href="http://donor.test/post" style="color: white">Sohozogi</a>
+            <a class="navbar-brand w3-left" href="{{ url('/') }}/post" style="color: white">Sohozogi</a>
 
 
             <a  href="javascript:void(0)" class="w3-left btn-lg w3-hide-large"  onclick="w3_open() ">
@@ -137,14 +137,14 @@
 
 
                 <li class="menu-title border-bottom-line">Menu</li>
-                <li><i class=""></i><a href="http://donor.test/profile">Profile</a></li>
-                <li><i class=""></i><a href="http://donor.test/updateprofile">Update Information</a></li>
-                <li><i class=""></i><a href="http://donor.test/change/password">Update Password</a></li>
+                <li><i class=""></i><a href="{{ url('/') }}/profile">Profile</a></li>
+                <li><i class=""></i><a href="{{ url('/') }}/updateprofile">Update Information</a></li>
+                <li><i class=""></i><a href="{{ url('/') }}/change/password">Update Password</a></li>
 
                 <li><i class=""></i><a href="#">Activities</a></li>
-                <li><i class=""></i><a href="http://donor.test/userallpost">All Post</a></li>
-                <li><i class=""></i><a href="http://donor.test/createpost">Create Post</a></li>
-                <li><i class=""></i><a href="http://donor.test/userallpost">Update Post</a></li>
+                <li><i class=""></i><a href="{{ url('/') }}/userallpost">All Post</a></li>
+                <li><i class=""></i><a href="{{ url('/') }}/createpost">Create Post</a></li>
+                <li><i class=""></i><a href="{{ url('/') }}/userallpost">Update Post</a></li>
                 <li><i class=""></i><a href="#">Delete Post</a></li>
             </ul>
         </div>
@@ -169,6 +169,7 @@
     <!-- Subscribe Modal -->
 
 </div>
+<script src="{{ url('/') }}/js/staticText.js"></script>
 
 <script src="{{ url('/') }}/js/common.js"></script>
 

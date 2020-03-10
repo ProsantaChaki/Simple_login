@@ -110,7 +110,7 @@
         -------------------------------Left side of Menu bar ---------------------------------------
 
         <ul class="nav navbar-nav collapse navbar-collapse" id="myNavbar" style="margin-top: 0px" >
-            <li class="active"><a href="http://donor.test/post">Home</a></li>
+            <li class="active"><a href="{{ url('/') }}post">Home</a></li>
         </ul>-->
 
     </div>
@@ -442,6 +442,7 @@
         <!-- End page content -->
     </div>
 </div>
+<script src="{{ url('/') }}/js/staticText.js"></script>
 <script src="{{ url('/') }}/js/common.js"></script>
 <script src="{{ url('/') }}/js/userLayout.js"></script>
 <script src="{{ url('/') }}/js/pagination.js"></script>

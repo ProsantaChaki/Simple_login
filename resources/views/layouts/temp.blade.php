@@ -123,6 +123,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ url('/') }}/js/staticText.js"></script>
 
 
     <script>
@@ -138,9 +139,9 @@
 
         function serverPostRequest() {
             var method = 'GET';
-            var url = 'donor.test/api/v1/post/user'+;
+            var url = project_url+'api/v1/post/user'+;
             var data = JSON.stringify(filter);
-            var request = httpRequest(method, 'http://donor.test/api/v1/all/post', data);
+            var request = httpRequest(method, project_url+'api/v1/all/post', data);
             var data = JSON.parse(request.response);
             var htmlData = '';
             for(var i = 0; i<data[0]['data'].length; i++){
@@ -152,7 +153,7 @@
         }
 
         function getPostData(url) {
-            url = 'http://donor.test/api/v1/all/post?page='+ url;
+            url = project_url+'api/v1/all/post?page='+ url;
             var data = JSON.stringify(filter);
 
             //alert(url)
@@ -342,7 +343,7 @@
             //alert ('alert no');
 
             if(id>0){
-                var url = 'http://donor.test/api/v1/users/'+ id;
+                var url = project_url+'api/v1/users/'+ id;
                 var method = 'GET';
                 var data = false;
                 var request = httpRequest(method, url, data);
@@ -364,7 +365,7 @@
         }
 
         function logout(){
-            var url= 'http://donor.test/api/v1/logout/'+id;
+            var url= project_url+'api/v1/logout/'+id;
             var method = 'GET';
             var data = false;
             var request = httpRequest(method, url, data);

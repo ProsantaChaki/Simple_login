@@ -4,7 +4,7 @@ serverPostRequest();
 
 function serverPostRequest() {
     var method = 'GET';
-    var url = 'http://donor.test/api/v1/post/user/'+ id;
+    var url = project_url+'api/v1/post/user/'+ id;
     var data = false;
     var request = httpRequest(method, url, data);
     var data = JSON.parse(request.response);
@@ -20,7 +20,7 @@ function serverPostRequest() {
 }
 
 function getPostData(urlId) {
-    url = 'http://donor.test/api/v1/post/user/'+id+'?page='+ urlId;
+    url = project_url+'api/v1/post/user/'+id+'?page='+ urlId;
 
     //alert(url)
     var request = httpRequest('GET', url, false);
@@ -55,7 +55,7 @@ function htmlPostDataGenerator(data) {
         '                    </a>\n' +
         '                </div>\n' +
         '                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8" >\n' +
-        '                    <h4 class="mb-2"><a href="http://donor.test/updatepost/'+id+'/'+data['id']+'" name="title">'+ data['title'] +' </a></h4>\n' +
+        '                    <h4 class="mb-2"><a href="'+project_url+'updatepost/'+id+'/'+data['id']+'" name="title">'+ data['title'] +' </a></h4>\n' +
         '                    <div class="text text-2 pl-md-4">\n' +
         '                        <div class="meta-wrap">\n' +
         '                            <p class="meta">\n' +
@@ -85,7 +85,7 @@ function htmlPostDataGenerator(data) {
 function changeStatus(postId) {
     var status = document.getElementById('post_type').value;
     var method = 'GET';
-    var url = 'http://donor.test/api/v1/post/'+ postId+'/'+status;
+    var url = project_url+'api/v1/post/'+ postId+'/'+status;
     var data = false;
     var request = httpRequest(method, url, data);
 }

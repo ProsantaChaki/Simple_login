@@ -20,7 +20,7 @@ $(document).ready(function(){
     }
     try{
         var request = new XMLHttpRequest();
-        var url = 'http://donor.test/api/v1/users/'+ id;
+        var url = project_url+'api/v1/users/'+ id;
         request.open("GET", url, false);
         request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
         request.setRequestHeader("Authorization", 'Bearer '+token);
@@ -70,7 +70,7 @@ function activateArea() {
 
 function areaDataFeatch(areaTypes , name, areaTypesNext){
     var request = new XMLHttpRequest();
-    var url = 'http://donor.test/api/v1/area/'+ areaTypes + '/' + name;
+    var url = project_url+'api/v1/area/'+ areaTypes + '/' + name;
     var method = 'GET'
     var request = httpRequest(method, url, false)
 
@@ -130,7 +130,7 @@ function addressPickup(){
 function organizationLoad(){
 
     var request = new XMLHttpRequest();
-    var url = 'http://donor.test/api/v1/organizations/';
+    var url = project_url+'api/v1/organizations/';
     var method = 'GET'
     var request = httpRequest(method, url, false)
     var respons = JSON.parse(request.response);
@@ -149,7 +149,7 @@ function userInformationUpdate(form) {
     }
     data['area_id'] = areaId;
     var data = JSON.stringify(data);
-    var url = 'http://donor.test/api/v1/users/'+ id + '/update';
+    var url = project_url+'api/v1/users/'+ id + '/update';
     var method =  'POST';
     var request= httpRequest(method, url, data);
 

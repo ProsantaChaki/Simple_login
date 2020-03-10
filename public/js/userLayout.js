@@ -52,7 +52,7 @@ $("#category")
         var data ={'category': categories}
         //alert(data['category']);
         var data = JSON.stringify(data);
-        var url =  "http://donor.test/api/v1/subcategory";
+        var url =  project_url+"api/v1/subcategory";
         var request = httpRequest('POST', url, data);
         //alert(request.response)
         var sub_category = JSON.parse(request.response);
@@ -75,7 +75,7 @@ $("#division")
     .change(function(){
         filter['district'] = ''
         filter['division'] = document.getElementById('division').value;
-        var url = 'http://donor.test/api/v1/area/division/' + document.getElementById('division').value;
+        var url = project_url+'api/v1/area/division/' + document.getElementById('division').value;
         var request = httpRequest('GET', url, false);
         var district = JSON.parse(request.response);
         var htmldata = '<option value="0">Please select</option>';
@@ -96,7 +96,7 @@ $("#district")
 
 function serverPostRequest() {
     var method = 'POST';
-    var url = 'http://donor.test/api/v1/all/post';
+    var url = project_url+'api/v1/all/post';
     var data = JSON.stringify(filter);
     var request = httpRequest(method, url , data);
     var data = JSON.parse(request.response);
@@ -110,7 +110,7 @@ function serverPostRequest() {
 }
 
 function getPostData(url) {
-    url = 'http://donor.test/api/v1/all/post?page='+ url;
+    url = project_url+'api/v1/all/post?page='+ url;
     var data = JSON.stringify(filter);
 
     //alert(url)
@@ -135,7 +135,7 @@ function htmlPostDataGenerator(data) {
         '                    </a>\n' +
         '                </div>\n' +
         '                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8" style="alignment: right;">\n' +
-        '                    <h4 class="mb-2"><a href="http://donor.test/postview/'+ data['id']+'" name="title">'+ data['title']+'</a></h4>\n' +
+        '                    <h4 class="mb-2"><a href="'+project_url+'postview/'+ data['id']+'" name="title">'+ data['title']+'</a></h4>\n' +
         '                    <div class="text text-2 pl-md-4">\n' +
         '                        <p class="mb-4" name="sub_title">'+ data['sub_title']+'</p>\n' +
         '                        <div class="meta-wrap">\n' +

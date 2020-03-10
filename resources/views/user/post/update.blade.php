@@ -123,6 +123,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ url('/') }}/js/staticText.js"></script>
 
     <script src="{{ url('/') }}/js/common.js"></script>
 

@@ -17,7 +17,7 @@ $(document).ready(function(){
         }
     }
     try{
-        var url = 'http://donor.test/api/v1/users/'+ id;
+        var url = project_url+'api/v1/users/'+ id;
         var method= 'GET';
         var data = false;
         var request = httpRequest(method, url, data);
@@ -54,7 +54,7 @@ function activateArea() {
 
 function areaDataFeatch(areaTypes , name, areaTypesNext){
     var request = new XMLHttpRequest();
-    var url = 'http://donor.test/api/v1/area/'+ areaTypes + '/' + name;
+    var url = project_url+'api/v1/area/'+ areaTypes + '/' + name;
     var method = 'GET'
     var request = httpRequest(method, url, false)
 
@@ -114,7 +114,7 @@ function activateCategory() {
 }
 
 function categoryDataFeatch(Types , name){
-    var url = 'http://donor.test/api/v1/category/'+ Types + '/' + name;
+    var url = project_url+'api/v1/category/'+ Types + '/' + name;
     var method = 'GET';
     var request = httpRequest(method, url, false)
 
@@ -194,7 +194,7 @@ function createPost() {
     }
     //alert(data);
     var data = JSON.stringify(data);
-    var url = 'http://donor.test/api/v1/post/create';
+    var url = project_url+'api/v1/post/create';
     var method =  'POST';
     var request= httpRequest(method, url, data);
     //alert(request.response)

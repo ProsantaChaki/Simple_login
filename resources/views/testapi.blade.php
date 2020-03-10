@@ -14,7 +14,7 @@
 function UserAction() {
     // New XMLHTTPRequest
     var request = new XMLHttpRequest();
-    request.open("GET", "http://donor.test/api/v1/post/2/details", false);
+    request.open("GET", project_url+"api/v1/post/2/details", false);
     request.setRequestHeader("Accept", "application/json");
     request.send();
     // view request status

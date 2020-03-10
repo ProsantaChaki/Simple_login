@@ -41,11 +41,14 @@
         </div>
     </div>
 </div>
+
+<script src="{{ url('/') }}/js/staticText.js"></script>
+
 <script>
 
     $('#password_submit').click(function() {
 
-        var url = 'http://donor.test/api/v1/password/reset';
+        var url = project_url+'api/v1/password/reset';
         var data =JSON.stringify( {
             email: $('#fp_id').val(),
             varificatio_code : $('#code').val(),

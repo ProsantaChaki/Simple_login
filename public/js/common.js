@@ -1,10 +1,9 @@
 var id=-1, token='', photo='';
 
 
-$(document).onload(function(){
     if(id==-1)
         readCookies()
-});
+
 
 function readCookies() {
     var CookieArray = document.cookie.split(';');
@@ -18,7 +17,7 @@ function readCookies() {
         }
     }
     try{
-        var url = 'http://donor.test/api/v1/users/'+ id;
+        var url = project_url+'api/v1/users/'+ id;
         var method= 'GET';
         var data = false;
         var request = httpRequest(method, url, data);
@@ -53,7 +52,7 @@ function userInformationLoad() {
     }
 
     if(id>0) {
-        var url = 'http://donor.test/api/v1/users/' + id;
+        var url = project_url+'api/v1/users/' + id;
         var method = 'GET';
         var data = false;
         var request = httpRequest(method, url, data);
@@ -81,7 +80,7 @@ function menuLoginButton() {
 }
 
 function logout(){
-    var url= 'http://donor.test/api/v1/logout/'+id;
+    var url= project_url+'api/v1/logout/'+id;
     var method = 'GET';
     var data = false;
     var request = httpRequest(method, url, data);
@@ -126,7 +125,7 @@ function userRegistration(theForm) {
     });
 
     var request = new XMLHttpRequest();
-    request.open("POST", "http://donor.test/api/v1/register", false);
+    request.open("POST", project_url+"api/v1/register", false);
     request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     request.send(data);
     if(request.status = 200) {
@@ -166,7 +165,7 @@ function userLogin(form) {
             'email' : document.getElementById("email").value,
             'password' : document.getElementById("password").value
         });
-        var url =  "http://donor.test/api/v1/login";
+        var url =  project_url+"api/v1/login";
         var method = 'POST';
         //var data  = false;
         var request = httpRequest(method, url, data)

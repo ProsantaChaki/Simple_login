@@ -387,6 +387,7 @@
 
     <!-- Subscribe Modal -->
 
+    <script src="{{ url('/') }}/js/staticText.js"></script>
 
     <script>
 

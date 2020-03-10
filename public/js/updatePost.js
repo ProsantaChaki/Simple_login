@@ -28,7 +28,7 @@ function loadData() {
         }
     }
     try{
-        var url = 'http://donor.test/api/v1/post/user/'+ 7 + '/'+ 2;
+        var url = project_url+'api/v1/post/user/'+ 7 + '/'+ 2;
         var method= 'GET';
         var data = false;
         var request = httpRequest(method, url, data);
@@ -73,7 +73,7 @@ function activateArea() {
 
 function areaDataFeatch(areaTypes , name, areaTypesNext){
     var request = new XMLHttpRequest();
-    var url = 'http://donor.test/api/v1/area/'+ areaTypes + '/' + name;
+    var url = project_url+'api/v1/area/'+ areaTypes + '/' + name;
     var method = 'GET'
     var request = httpRequest(method, url, false)
 
@@ -135,7 +135,7 @@ function activateCategory() {
 }
 
 function categoryDataFeatch(Types , name){
-    var url = 'http://donor.test/api/v1/category/'+ Types + '/' + name;
+    var url = project_url+'api/v1/category/'+ Types + '/' + name;
     var method = 'GET';
     var request = httpRequest(method, url, false)
 
@@ -194,7 +194,7 @@ function CategoryPickup(){
 
 }
 
-v
+
 function optionDataGenerator(name) {
     var htmldata = '';
     for(var i=0; name.length>i; i++){
@@ -219,7 +219,7 @@ function updatePost() {
     //alert(data);
     var data = JSON.stringify(data);
     //alert(data)
-    var url = 'http://donor.test/api/v1/post/update/'+ postId;
+    var url = project_url+'api/v1/post/update/'+ postId;
     var method =  'POST';
     var request= httpRequest(method, url, data);
     //alert(request.response)

@@ -18,7 +18,7 @@ function loadData() {
     }
 
     try{
-        var url = 'http://donor.test/api/v1/post/'+ postId +'/details';
+        var url = project_url+'api/v1/post/'+ postId +'/details';
         var method= 'GET';
         var data = false;
         var request = httpRequest(method, url, data);
@@ -114,7 +114,7 @@ function submitReview() {
     data['post_id'] = postId;
     //alert(data);
     var data = JSON.stringify(data);
-    var url = 'http://donor.test/api/v1/post/'+ postId +'/review/submission';
+    var url = project_url+'api/v1/post/'+ postId +'/review/submission';
     var method =  'POST';
     //alert('post')
     var request= httpRequest(method, url, data);

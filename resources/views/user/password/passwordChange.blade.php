@@ -41,12 +41,14 @@
             </div>
         </div>
     </div>
+    <script src="{{ url('/') }}/js/staticText.js"></script>
+
     <script src="{{ url('/') }}/js/common.js"></script>
     <script>
 
         $('#password_change').click(function() {
 
-            var url = 'http://donor.test/api/v1/password/change';
+            var url = project_url+'api/v1/password/change';
             var data =JSON.stringify( {
                 old_password: $('#old_password').val(),
                 new_password : $('#new_password').val(),

@@ -12,7 +12,7 @@
                             <div class="form-group row border-bottom-line" >
                                 <label for="name" class="col-md-4 col-form-label text-md-right"></label>
                                 <div class="col-md-12 text-center">
-                                    <img id="photo" name="photo" src="http://donor.test/images/avatar.png" class="avatar img-circle img-thumbnail" alt="avatar" style="max-height: 200px; width: auto">
+                                    <img id="photo" name="photo" src="{{ url('/') }}/images/avatar.png" class="avatar img-circle img-thumbnail" alt="avatar" style="max-height: 200px; width: auto">
                                 </div>
                                 <div class="col-md-12 text-center">
                                     <h3 id="name">Your Name</h3>
@@ -113,6 +113,7 @@
 <input type="hidden" id="uid" value="{{$uid}}">
 
 </div>
+<script src="{{ url('/') }}/js/staticText.js"></script>
 
 <script src="{{ url('/') }}/js/publicProfile.js"></script>
 <script src="{{ url('/') }}/js/userLayout.js"></script>
