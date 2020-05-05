@@ -141,7 +141,7 @@
                 <li><i class=""></i><a href="{{ url('/') }}/updateprofile">Update Information</a></li>
                 <li><i class=""></i><a href="{{ url('/') }}/change/password">Update Password</a></li>
 
-                <li><i class=""></i><a href="#">Activities</a></li>
+                <li><i class=""></i><a href="{{ url('/') }}/activities">Activities</a></li>
                 <li><i class=""></i><a href="{{ url('/') }}/userallpost">All Post</a></li>
                 <li><i class=""></i><a href="{{ url('/') }}/createpost">Create Post</a></li>
                 <li><i class=""></i><a href="{{ url('/') }}/userallpost">Update Post</a></li>

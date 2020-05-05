@@ -126,3 +126,7 @@ Route::get('postreview', function () {
 Route::get('publicprofile/{id}', function ($id) {
     return view('user.profile.publicProfile')->with('uid',$id);
 });
+
+Route::get('activities',function (){
+    return view('user.profile.activities');
+});

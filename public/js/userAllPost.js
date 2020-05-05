@@ -13,24 +13,18 @@ function serverPostRequest() {
     for(var i = 0; i<data[0]['data'].length; i++){
         htmlData = htmlData + htmlPostDataGenerator(data[0]['data'][i])
     }
-    //document.getElementById('posts').innerHTML = htmlData;
     var pagination = paginationGenarator(data[0])
     document.getElementById('posts').innerHTML = htmlData + pagination;
-    //alert(data[0]['data'])
 }
 
 function getPostData(urlId) {
     url = project_url+'api/v1/post/user/'+id+'?page='+ urlId;
-
-    //alert(url)
     var request = httpRequest('GET', url, false);
     var data = JSON.parse(request.response);
     var htmlData = '';
     for(var i = 0; i<data[0]['data'].length; i++){
-
         htmlData = htmlData + htmlPostDataGenerator(data[0]['data'][i])
     }
-    //alert(htmlData)
     var pagination = paginationGenarator(data[0])
     document.getElementById('posts').innerHTML = htmlData + pagination;
 
@@ -38,7 +32,6 @@ function getPostData(urlId) {
 
 
 function htmlPostDataGenerator(data) {
-    //alert(data['id'])
     var comment = '';
     if(data['post_type'] == 'Want to donate'){
         comment = 'Received this.'

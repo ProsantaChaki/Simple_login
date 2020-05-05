@@ -465,5 +465,18 @@ class UserController extends Controller
 
     }
 
+    public function userActivities(){
+        //return 1;
+        $id = Auth::user()->id;
+        $activities = DB::table('user_activities as ua')
+            ->leftJoin('posts as p','ua.post_id','=','p.id')
+            ->where('ua.user_id',$id)
+            ->select('ua.id','ua.post_id','ua.created','ua.interested','ua.received','ua.verified','p.title', 'p.post_type','ua.updated_at')
+            ->orderBy('ua.updated_at','desc')
+            ->get();
+        return response()->json(['message' => 'Activities found', 'data'=>$activities], $this-> successStatus);
+
+    }
+
 
 }
