@@ -48,7 +48,7 @@ function htmlPostDataGenerator(data) {
         '                    </a>\n' +
         '                </div>\n' +
         '                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8" >\n' +
-        '                    <h4 class="mb-2"><a href="'+project_url+'updatepost/'+id+'/'+data['id']+'" name="title">'+ data['title'] +' </a></h4>\n' +
+        '                    <h4 class="mb-2"><a href="'+project_url+'user/post/view/'+data['id']+'" name="title">'+ data['title'] +' </a></h4>\n' +
         '                    <div class="text text-2 pl-md-4">\n' +
         '                        <div class="meta-wrap">\n' +
         '                            <p class="meta">\n' +
