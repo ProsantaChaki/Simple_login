@@ -8,7 +8,7 @@
                     <div class="card-header"><h4>Update Information </h4></div>
                     <hr/>
                     <div class="card-body">
-                        <form method="POST" action="{{ url('/') }}/v1/photo" enctype="multipart/form-data">
+                        <form name= "updatePhoto" id="updatePhoto" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right"></label>
@@ -16,18 +16,16 @@
                                 <div class="col-md-7 text-center">
                                     <img id="photo" src="#" class="avatar img-circle img-thumbnail" alt="avatar" style="max-height: 200px; width: auto">
                                     <h6>Upload a different photo...</h6>
-                                    <button id="imageUpload" type="submit" class="btn btn-primary ext-center center-block"  style="display: none; margin-bottom: 7px" >
+                                    <!--button id="imageUpload" type="submit" class="btn btn-primary ext-center center-block" onclick="updatePhoto()"  style="display: none; margin-bottom: 7px" >
                                         <i class="fa fa-cloud-upload" style="font-size: 20px"></i>
                                         Update Image
-                                    </button>
+                                    </button-->
                                     <input type="number" id="user_id" value=8 name="imageable_id" style="display: none">
                                     <input type="text" name="imageable_type" value="App/User" style="display: none">
-                                    <input type="file" id="photoupload" name="photo" class="text-center center-block well well-sm" accept="image/*" onchange="document.getElementById('photo').src = window.URL.createObjectURL(this.files[0]); document.getElementById('imageUpload').style.display = 'block'">
-
+                                    <input type="file" id="photoupload" name="photoupload" class="text-center center-block well well-sm" accept="image/*" onchange="document.getElementById('photo').src = window.URL.createObjectURL(this.files[0]); document.getElementById('imageUpload').style.display = 'block'">
                                 </div>
                             </div>
-                        </form>
-                        <form>
+
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
@@ -56,7 +54,7 @@
                                 <label for="gender" class="col-md-4 col-form-label text-md-right">Gender</label>
 
                                 <div class="col-md-7">
-                                    <select id="gender" class="chosen md-3 form-control" placeholder="Your Gender" required>
+                                    <select id="gender" name="gender" class="chosen md-3 form-control" placeholder="Your Gender" required>
                                         <option value="" disabled selected>Your Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -77,7 +75,7 @@
                                 <label for="occupation" class="col-md-4 col-form-label text-md-right">Occupation</label>
 
                                 <div class="col-md-7">
-                                    <select id="occupation" class="chosen md-3 form-control" placeholder="Your Occupation" required>
+                                    <select id="occupation" name="occupation" class="chosen md-3 form-control" placeholder="Your Occupation" required>
                                         <option value="" disabled selected>Your Occupation Type</option>
                                         <option value="Actor">Actor</option>
                                         <option value="Banker">Banker</option>
@@ -90,7 +88,7 @@
                             <div class="form-group row">
                                 <label for="organization" class="col-md-4 col-form-label text-md-right">Organization</label>
                                 <div class="col-md-7">
-                                    <input list="organizationList" id="organization" class="chosen md-3 form-control" placeholder="Type Your Organization"  onclick="organizationLoad(); this.onclick=null;">
+                                    <input list="organizationList" id="organization" name="organization" class="chosen md-3 form-control" placeholder="Type Your Organization"  onclick="organizationLoad(); this.onclick=null;">
                                     <datalist id="organizationList">
                                         <!--option value=" Dhaka">
                                         <option value="Firefox">
@@ -106,7 +104,7 @@
                                 <label for="marital_status" class="col-md-4 col-form-label text-md-right">Marital Status</label>
 
                                 <div class="col-md-7">
-                                    <select id="marital_status" class="chosen md-3 form-control" required>
+                                    <select id="marital_status" name="marital_status" class="chosen md-3 form-control" required>
                                         <option value="" disabled selected>Your Marital Status</option>
                                         <option value="Single">Single</option>
                                         <option value="Married">Married</option>
@@ -121,7 +119,7 @@
                                 <label for="blood_group" class="col-md-4 col-form-label text-md-right">Blood Group</label>
 
                                 <div class="col-md-7">
-                                    <select id="blood_group" class="chosen md-3 form-control" required>
+                                    <select id="blood_group" name="blood_group" class="chosen md-3 form-control" required>
                                         <option value="" disabled selected>Your Blood Group</option>
                                         <option value="A+">A+</option>
                                         <option value="A-">A-</option>
@@ -139,7 +137,7 @@
                                 <label for="weight" class="col-md-4 col-form-label text-md-right">Weight</label>
 
                                 <div class="col-md-7">
-                                    <input id="weight" type="number" class="form-control " name="weight" placeholder="Require if You Want To Donate Blood">
+                                    <input id="weight"  type="number" class="form-control " name="weight" placeholder="Require if You Want To Donate Blood">
                                 </div>
                             </div>
 
@@ -148,7 +146,7 @@
 
                                 <div class="col-md-7">
                                     <input id="area" type="text" class="form-control " name="area" placeholder="Click to Enter Your Address" readonly  onclick="activateArea(); this.onclick=null;" ondblclick="activateArea()" required>
-                                    <input list="data" id="selectarea" class="chosen md-3 form-control" placeholder="Select Division"  onchange="addressPickup()" style="display: none; margin-top: 10px">
+                                    <input list="data" id="selectarea" name="selectarea" class="chosen md-3 form-control" placeholder="Select Division"  onchange="addressPickup()" style="display: none; margin-top: 10px">
                                     <datalist id="data">
                                         <!--option value=" Dhaka">
                                         <option value="Firefox">

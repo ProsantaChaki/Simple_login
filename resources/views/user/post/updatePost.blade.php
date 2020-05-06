@@ -5,6 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 col-xl-12">
                 <div class="card">
+                    <div class="toast">
+                        <div class="toast-header">
+                            Toast Header
+                        </div>
+                        <div class="toast-body">
+                            Some text inside the toast body
+                        </div>
+                    </div>
                     <div class="card-header"><h4>Update Post </h4></div>
                     <hr/>
                     <div class="card-body">

@@ -306,9 +306,10 @@ class UserController extends Controller
 
 
     public function updateInfo(Request $request){
+        //return 1;
 
         //return $request;
-/*
+
         $validator = Validator::make($request->all(), [
 
             'area_id'           => 'integer',
@@ -348,7 +349,7 @@ class UserController extends Controller
                User::where( 'id', $id)->update(array('email' => $request->email));
            }
            else {
-               $error['email'] = ['the email has aready taken'];
+               $error['email'] = ['the email has already taken'];
                return response()->json(['message' => 'validation error', 'data'=>$error], 401);
            }
 
@@ -368,6 +369,28 @@ class UserController extends Controller
            }
        }
         //return $photo->id;
+
+        if($request->file('photoupload')){
+            $attachment = $request->file('photoupload');
+            $attachment_name = time().$attachment->getClientOriginalName();
+            $upload_path = 'images/profileImage';
+            $success=$attachment->move($upload_path,$attachment_name);
+            if($success){
+                $photo = Photo::create([
+                    'path' => $attachment_name,
+                    'imageable_id' => Auth::user()->id,
+                    'imageable_type'=> 'App/User'
+                ]);
+
+
+                //$checkUser = UserInfo::where('user_id', $id)->get('user_id');
+
+                //$photo = Photo::insert()
+            }
+        }
+
+
+
         $userInfo = [
 
             'user_id'         => Auth::user()->id,
@@ -387,7 +410,7 @@ class UserController extends Controller
 
         ];
         //return $userInfo;
-
+        //if(isset($photo->id)) $userInfo->photo_id = $photo->id;
 
         $checkUser = UserInfo::where('user_id', $id)->get('user_id');
 
@@ -397,6 +420,9 @@ class UserController extends Controller
         else{
             UserInfo::where( 'user_id', $checkUser[0]['user_id'])->update($userInfo);
         }
+        if(isset($photo->id)){
+            UserInfo::where('user_id', $id)->update(['photo_id'=>$photo->id]);
+        }
 
 
         return response()->json(['message' => 'your information has been updated', 'data'=>$userInfo], $this-> successStatus);
@@ -404,8 +430,12 @@ class UserController extends Controller
     }
 
     public function photoUpdate(Request $request){
-        $data = $request->all();
-       return $data;
+
+        $attachment = $request->file('photoupload');
+        $attachment_name = time().$attachment->getClientOriginalName();
+        $upload_path = 'images/profileImage';
+        $success=$attachment->move($upload_path,$attachment_name);
+        return $attachment_name;
 
 
        foreach ($data as $datae){

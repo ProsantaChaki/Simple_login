@@ -211,8 +211,30 @@ function userLogin(form) {
 function httpRequest(method, url, data) {
     var request = new XMLHttpRequest();
     request.open(method, url, false);
-    request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+    request.setRequestHeader("Content-Type", "false");
     request.setRequestHeader("Authorization", 'Bearer '+token);
     request.send(data);
     return request;
+}
+
+function fileUpload(url, data) {
+    $.ajax({
+        type: "POST",
+        url: url,
+        beforeSend: function(request) {
+            //ADD CUSTOM HEADER HERE
+            request.setRequestHeader("Authorization", "Bearer " + token);
+        },
+        data: data,
+        contentType: false, //THIS IS REQUIRED
+        processData: false, //THIS IS REQUIRED
+        success: function(data){
+            //Handle success here
+            return(data);
+        },
+        error: function (xhr, textStatus, error) {
+            //Handle error
+            return(reject(error));
+        }
+    });
 }

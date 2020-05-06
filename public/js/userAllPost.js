@@ -52,11 +52,11 @@ function htmlPostDataGenerator(data) {
         '                    <div class="text text-2 pl-md-4">\n' +
         '                        <div class="meta-wrap">\n' +
         '                            <p class="meta">\n' +
-        '                                <span name="date"><i class="icon-calendar mr-2"></i>J'+ data['created_at'] +' </span>\n' +
+        '                                <span name="date"><i class="icon-calendar mr-2"></i>'+ data['created_at'] +' </span>\n' +
         '                                <span class="text-primary" style="font-weight: bold" name="type"><i class="mr-2 "></i>'+ data['post_type'] +'</span>\n' +
         '                            </p>\n' +
         '                        </div>\n' +
-        '                        <p onclick="openSinglePost(1)"><b>'+ data['number_people'] +'</b> People are interested on this</p>\n' +
+        '                        <p><b>'+ data['number_people'] +'</b> People are interested on this</p>\n' +
         '                        <div class="meta-wrap">\n' +
         '                            <p class="meta">\n' +
         '                                <span class="text-primary">'+ data['receiver_name'] +'</span>\n' +

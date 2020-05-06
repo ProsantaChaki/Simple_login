@@ -37,7 +37,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('v1/users/{id}', 'API\UserController@details');
     Route::get('v1/logout/{id}','API\UserController@logout');
     Route::post('v1/users/{id}/update','API\UserController@updateInfo');
-    Route::post('v1/users/{id}/photo/update','API\UserController@photoUpdate');
+    //Route::post('v1/userphoto/update/{id}','API\UserController@photoUpdate');
+    //Route::post('v1/usersupdate/photo','API\UserController@photoUpdate');
+
     Route::post('v1/password/change','API\UserController@updatePassword');
     Route::get('v1/user/activities','API\Usercontroller@userActivities');
 

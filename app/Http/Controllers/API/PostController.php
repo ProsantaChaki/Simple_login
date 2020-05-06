@@ -319,7 +319,7 @@ class PostController extends Controller
             $respons_data=[];
             $postPhoto = PostPhoto::where('post_id', $item['id'])->get();
 
-            return sizeof($postPhoto);
+            //return sizeof($postPhoto);
             for ($i=0; sizeof($postPhoto)>$i; $i++){
                 $path = $postPhoto[$i]->photo->path;
                 array_push($respons_data, '/images/'.$path);

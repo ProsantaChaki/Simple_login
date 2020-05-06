@@ -141,51 +141,13 @@ function organizationLoad(){
 
 
 function userInformationUpdate(form) {
-    var data={}
-    for(var i=0; i<idlist.length; i++){
-        if(idlist[i]!='photo'){
-            data[idlist[i]]=document.getElementById(idlist[i]).value;
-        }
-    }
-    data['area_id'] = areaId;
-    var data = JSON.stringify(data);
+    event.preventDefault()
+    var formData = new FormData($('#updatePhoto')[0]);
+    formData.append('area_id',areaId);
+    var data = formData;
     var url = project_url+'api/v1/users/'+ id + '/update';
-    var method =  'POST';
-    var request= httpRequest(method, url, data);
-
+    var request= httpRequest("POST", url, data);
 }
 
-formElem.onsubmit = async (e) => {
-    e.preventDefault();
-    var from = new FormData(formElem);
-    let response = await fetch('v1/users/'+id+'/photo/update', {
-        method: 'POST',
-        body: from
-    });
-
-for (var n in from){
-    alert(from[n])
-
-}
-    let result = await response.json();
-
-    alert(result.message);
-};
-
-
-function updatePhoto() {
-
-
-    var formData = new FormData($('#upload_form')[0]);
-    formData.append('photo', $('input[type=file]')[0].files[0]);
-
-    //var file_data = $("#photoupload").prop("files")[0];
-    var data = new FormData();
-    var url = 'v1/users/'+id+'/photo/update'
-    var method = 'POST';
-    var request = httpRequest(method, url, formData);
-    alert(request.response);
-
-}
 
 

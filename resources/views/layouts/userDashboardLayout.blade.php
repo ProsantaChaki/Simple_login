@@ -12,11 +12,14 @@
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="{{ url('/') }}/assets/css/donor.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url('/') }}/assets/css/newStyle.css">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <style>
         body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
@@ -143,9 +146,9 @@
 
                 <li><i class=""></i><a href="{{ url('/') }}/activities">Activities</a></li>
                 <li><i class=""></i><a href="{{ url('/') }}/userallpost">All Post</a></li>
-                <li><i class=""></i><a href="{{ url('/') }}/createpost">Create Post</a></li>
-                <li><i class=""></i><a href="{{ url('/') }}/userallpost">Update Post</a></li>
-                <li><i class=""></i><a href="#">Delete Post</a></li>
+                <li><i class=""></i><a href="{{ url('/') }}/createpost">Create Help</a></li>
+                <!--li><i class=""></i><a href="{{ url('/') }}/userallpost">Update Post</a></li>
+                <li><i class=""></i><a href="#">Delete Post</a></li-->
             </ul>
         </div>
 
@@ -190,7 +193,7 @@
     }
     $(window).resize(function(){
         if($(window).width()>769){
-            document.getElementById("navMenu").style.display = none;
+            document.getElementById("navMenu").style.display = 'none';
         }
         else {
             document.getElementById("navMenu").style.marginTop = '0px';

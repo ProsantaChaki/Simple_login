@@ -12,9 +12,10 @@ $(document).ready(function() {
 
 function loadData() {
     postId=document.getElementById('postId').value;
+    //alert (postId)
 
     try{
-        var url = project_url+'api/v1/post/user/'+ 7 + '/'+ 2;
+        var url = project_url+'api/v1/post/user/editview/'+ postId;
 
         var method= 'GET';
         var data = false;
@@ -24,6 +25,7 @@ function loadData() {
         //alert(request.response)
         respons  = JSON.parse(request.response);
         //alert(respons['data']['id'])
+        console.log(respons)
 
 
         for(var i = 0; i<idlist.length; i++){
@@ -33,13 +35,14 @@ function loadData() {
         categoryId = respons['data']['category_id'];
         document.getElementById('quality-').value = respons['data']['quality'];
 
-
-
     }
     catch (e) {
         console.log(e)
     }
 
+
+}
+function loadPost(id){
 
 }
 
@@ -213,7 +216,8 @@ function updatePost() {
     var url = project_url+'api/v1/post/update/'+ postId;
     var method =  'POST';
     var request= httpRequest(method, url, data);
-    //alert(request.response)
+    alert(request.response)
+    $('.toast').toast('show');
     postId = JSON.parse(request.response)['data']['id'];
     //alert(postId)
     return false;
