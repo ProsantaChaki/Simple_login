@@ -399,14 +399,14 @@
 
         $(window).resize(function(){
             if($(window).width()>769){
-                document.getElementById("navMenu").style.display = none;
+                document.getElementById("navMenu").style.display = 'none';
             }
             else {
                 document.getElementById("navMenu").style.marginTop = '0px';
 
             }
         });
-        document.getElementById("navMenu").style.display = none;
+        document.getElementById("navMenu").style.display = 'none';
 
         // Script to open and close sidebar when on tablets and phones
         function w3_open() {

@@ -3,6 +3,7 @@ namespace App\Http\Controllers\API;
 use App\Area;
 use App\MapLocation;
 use App\Photo;
+use App\UserActivities;
 use App\UserInfo;
 use App\VerificationCode;
 use http\Env\Response;
@@ -70,7 +71,7 @@ class UserController extends Controller
      */
     public function login(){
 
-        //return request('email');
+        //return request('password');
 
 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
@@ -229,15 +230,15 @@ class UserController extends Controller
             if($userInfo[0]['photo_id']>0){
                 $photo = Photo::where('id',$userInfo[0]['photo_id'])->select('path')->get();
                 unset($userInfo[0]['photo_id']);
-                $userInfo[0]['photo'] = '/images/'.$photo[0]['path'];
+                $userInfo[0]['photo'] = $photo[0]['path'];
             }
             else{
                 unset($userInfo[0]['photo_id']);
-                $userInfo[0]['photo'] = '/images/avatar.png';
+                $userInfo[0]['photo'] = 'avatar.png';
             }
         }
         else{
-            $user['photo'] = '/images/avatar.png';
+            $user['photo'] = 'avatar.png';
 
         }
 
@@ -271,7 +272,7 @@ class UserController extends Controller
             if($userInfo[0]['photo_id']>0){
                 $photo = Photo::where('id',$userInfo[0]['photo_id'])->select('path')->get();
                 unset($userInfo[0]['photo_id']);
-                $userInfo[0]['photo'] = '/images/'.$photo[0]['path'];
+                $userInfo[0]['photo'] = '/images/profileImage/'.$photo[0]['path'];
             }
             else{
                 unset($userInfo[0]['photo_id']);
@@ -306,13 +307,13 @@ class UserController extends Controller
 
 
     public function updateInfo(Request $request){
-        //return 1;
+        //return json_encode($request->all());
 
         //return $request;
 
         $validator = Validator::make($request->all(), [
 
-            'area_id'           => 'integer',
+            'area_id'           => 'integer | required',
             'address'           => 'required | string | max:255',
             'map_location_id'   => 'integer',
             'blood_group'       => ' string ',
@@ -327,7 +328,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['status' => 401,'message' => 'validation error', 'data'=>$validator->errors()], 401);
+            return response()->json(['message' => 'validation error', 'data'=>$validator->errors()], 401);
         }
 
         /*
@@ -373,7 +374,7 @@ class UserController extends Controller
         if($request->file('photoupload')){
             $attachment = $request->file('photoupload');
             $attachment_name = time().$attachment->getClientOriginalName();
-            $upload_path = 'images/profileImage';
+            $upload_path = 'images/profileImage/';
             $success=$attachment->move($upload_path,$attachment_name);
             if($success){
                 $photo = Photo::create([
@@ -496,16 +497,9 @@ class UserController extends Controller
     }
 
     public function userActivities(){
-        //return 1;
         $id = Auth::user()->id;
-        $activities = DB::table('user_activities as ua')
-            ->leftJoin('posts as p','ua.post_id','=','p.id')
-            ->where('ua.user_id',$id)
-            ->select('ua.id','ua.post_id','ua.created','ua.interested','ua.received','ua.verified','p.title', 'p.post_type','ua.updated_at')
-            ->orderBy('ua.updated_at','desc')
-            ->get();
+        $activities = UserActivities::where('user_id',$id)->with('post')->orderBy('id')->paginate(20);
         return response()->json(['message' => 'Activities found', 'data'=>$activities], $this-> successStatus);
-
     }
 
 

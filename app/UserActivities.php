@@ -15,4 +15,9 @@ class UserActivities extends Model
         'received',
         'verified',
     ];
+
+    public function post()
+    {
+        return $this->hasOne('App\Post','id','post_id');
+    }
 }

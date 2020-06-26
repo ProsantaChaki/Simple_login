@@ -8,7 +8,48 @@ $(document).ready(function() {
     getCookies()
     loadData()
 
+    document.getElementById('pro-image').addEventListener('change', readImage, false);
+
+    $( ".preview-images-zone" ).sortable();
+
+    $(document).on('click', '.image-cancel', function() {
+        let no = $(this).data('no');
+        $(".preview-image.preview-show-"+no).remove();
+    });
+
 });
+
+var num = 4;
+function readImage() {
+    if (window.File && window.FileList && window.FileReader) {
+        var files = event.target.files; //FileList object
+        var output = $(".preview-images-zone");
+
+        for (let i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (!file.type.match('image')) continue;
+
+            var picReader = new FileReader();
+
+            picReader.addEventListener('load', function (event) {
+                var picFile = event.target;
+                var html =  '<div class="preview-image preview-show-' + num + '">' +
+                    '<div class="image-cancel" data-no="' + num + '">x</div>' +
+                    '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
+                    '<div class="tools-edit-image"><a href="javascript:void(0)" data-no="' + num + '" class="btn btn-light btn-edit-image">edit</a></div>' +
+                    '</div>';
+
+                output.append(html);
+                num = num + 1;
+            });
+
+            picReader.readAsDataURL(file);
+        }
+        //$("#pro-image").val('');
+    } else {
+        console.log('Browser not support');
+    }
+}
 
 function loadData() {
     postId=document.getElementById('postId').value;
@@ -29,11 +70,16 @@ function loadData() {
 
 
         for(var i = 0; i<idlist.length; i++){
-            document.getElementById(idlist[i]).value = respons['data'][idlist[i]];
+            if(idlist[i]=='photo'){
+                //console.log(respons['data'][idlist[i]])
+
+            }else document.getElementById(idlist[i]).value = respons['data'][idlist[i]];
+             //alert(idlist[i]+'=>'+respons['data'][idlist[i]])
         }
+        document.getElementById('quality_level').innerHTML = document.getElementById('quality').value
         areaId = respons['data']['area_id'];
         categoryId = respons['data']['category_id'];
-        document.getElementById('quality-').value = respons['data']['quality'];
+        //document.getElementById('quality-').value = respons['data']['quality'];
 
     }
     catch (e) {
@@ -197,7 +243,44 @@ function optionDataGenerator(name) {
 }
 
 function updatePost() {
+    if(Validation()==0) return false
     postId=document.getElementById('postId').value;
+
+    event.preventDefault()
+    var formData = new FormData($('#post_create')[0]);
+    formData.append('category_id', categoryId);
+    formData.append('area_id',areaId)
+    formData.append('id',postId);
+    var data = formData;
+    var url = project_url+'api/v1/post/update/'+ postId;
+    //var request= fileUpload("POST", url, data);
+    $.ajax({
+        type: 'POST',
+        url: url,
+        beforeSend: function(request) {
+            //ADD CUSTOM HEADER HERE
+            request.setRequestHeader("Authorization", "Bearer " + token);
+        },
+        data: data,
+        contentType: false, //THIS IS REQUIRED
+        processData: false, //THIS IS REQUIRED
+        success: function(data){
+            //Handle success here
+            //iss= JSON.parse(data)['data'];
+
+            console.log(data)
+            $('.toast').toast('show');
+
+            //return(data);
+        },
+        error: function (xhr, textStatus, error) {
+            //Handle error
+            console.log(reject(error))
+            //return(reject(error));
+        }
+    });
+
+    return false;
 
     var data={}
     data['category_id']=categoryId;
@@ -225,14 +308,19 @@ function updatePost() {
 }
 
 function Validation() {
+    //alert(1)
     if(categoryId==0){
         activateCategory()
+        return 0
     }
     if(areaId==0){
         alert('area need')
         activateArea()
         document.getElementById('selectarea').style.backgroundColor = '#FFA07A';
         document.getElementById('financial_value').value = null
+        return 0
 
     }
+
+    return 1;
 }

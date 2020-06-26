@@ -22,12 +22,14 @@ $(document).ready(function() {
 
         request.send();
         respons  = JSON.parse(request.response);
+        console.log(respons)
 
         for(var i=0; i<idlist.length; i++){
 
             if (idlist[i] in respons['data']){
                 if(idlist[i]=='photo'){
-                    document.getElementById(idlist[i]).src =respons['data'][idlist[i]];
+                   // alert(respons['data'][idlist[i]])
+                    document.getElementById(idlist[i]).src =user_image_url+respons['data'][idlist[i]];
                 }
                 else if(idlist[i]=='area'){
                     document.getElementById(idlist[i]).innerHTML =respons['data'][idlist[i]];

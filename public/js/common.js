@@ -22,11 +22,22 @@ function readCookies() {
         var data = false;
         var request = httpRequest(method, url, data);
         //alert(request.response)
+        //alert(0)
+
         respons  = JSON.parse(request.response);
-        document.getElementById('area').value =respons['data']['area'];
-        document.getElementById('mobile').value =respons['data']['mobile'];
-        document.getElementById('address').value =respons['data']['address'];
-        areaId = respons['data']['area_id'];
+       // alert(document.getElementById('area').value)
+
+        //document.getElementById('area').value =respons['data']['area'];
+        //alert(1)
+
+        //document.getElementById('mobile').value =respons['data']['mobile'];
+        //alert(2)
+
+        //document.getElementById('address').value =respons['data']['address'];
+        //alert(3)
+
+        //areaId = respons['data']['area_id'];
+        //alert(1)
 
     }
     catch (e) {
@@ -57,8 +68,8 @@ function userInformationLoad() {
         var data = false;
         var request = httpRequest(method, url, data);
         var respons = JSON.parse(request.response);
-        if (respons['data']['photo'].length > 1)
-            document.getElementById('profilePhoto').src = respons['data']['photo'];
+        //if (respons['data']['photo'].length > 1)
+            document.getElementById('profilePhoto').src = respons['data']['photo'].length > 1? user_image_url+respons['data']['photo']:project_url+'image/profileImage/avatar.png';
 
     }
 }
@@ -84,7 +95,7 @@ function logout(){
     var method = 'GET';
     var data = false;
     var request = httpRequest(method, url, data);
-    alert( request.response)
+    //alert( request.response)
 
     var allCookieArray = document.cookie.split(';');
     for(var i=0; allCookieArray.length>i; i++){
@@ -104,6 +115,39 @@ function logout(){
     //window.location.reload(true);
 
 }
+
+function logoutProfile(){
+        //alert(project_url)
+    //window.location.href= project_url+'post'
+    //return false
+    var url= project_url+'api/v1/logout/'+id;
+    var method = 'GET';
+    var data = false;
+    var request = httpRequest(method, url, data);
+    //alert( request.response)
+
+    var allCookieArray = document.cookie.split(';');
+    for(var i=0; allCookieArray.length>i; i++){
+        document.cookie = allCookieArray[i].split('=')[0]+'=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+    }
+
+///////here is the problem
+
+    id=-1;
+    token='';
+    photo='';
+
+    userInformationLoad();
+
+   // menuLoginButton()
+
+    window.location.href= project_url+'post'
+
+    //window.location.reload(true);
+
+}
+
+
 
 function userRegistration(theForm) {
     var time= 0 ;
@@ -190,6 +234,8 @@ function userLogin(form) {
             'email' : document.getElementById("email").value,
             'password' : document.getElementById("password").value
         });
+
+        //alert(document.getElementById("email").value)
         var url =  project_url+"api/v1/login";
         var method = 'POST';
         //var data  = false;
@@ -211,15 +257,15 @@ function userLogin(form) {
 function httpRequest(method, url, data) {
     var request = new XMLHttpRequest();
     request.open(method, url, false);
-    request.setRequestHeader("Content-Type", "false");
+    request.setRequestHeader("Content-Type", "application/json");
     request.setRequestHeader("Authorization", 'Bearer '+token);
     request.send(data);
     return request;
 }
 
-function fileUpload(url, data) {
+function fileUpload(type, url, data) {
     $.ajax({
-        type: "POST",
+        type: type,
         url: url,
         beforeSend: function(request) {
             //ADD CUSTOM HEADER HERE

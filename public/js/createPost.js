@@ -184,23 +184,42 @@ function optionDataGenerator(name) {
 
 
 function createPost() {
-    var data={}
-    data['category_id']=categoryId;
-    data['area_id'] = areaId;
-    //data['user_id']=id;
-    for(var i=0; i<idlist.length; i++){
-        data[idlist[i]]=document.getElementById(idlist[i]).value;
-        //alert(data[idlist[i]]);
-    }
-    //alert(data);
-    var data = JSON.stringify(data);
+
+    //event.preventDefault()
+    var formData = new FormData($('#post_create')[0]);
+    formData.append('category_id', categoryId);
+    formData.append('area_id',areaId)
+    var data = formData;
     var url = project_url+'api/v1/post/create';
-    var method =  'POST';
-    var request= httpRequest(method, url, data);
-    //alert(request.response)
-    postId = JSON.parse(request.response)['data']['id'];
-    //alert(postId)
-    return false;
+    //var request= fileUpload("POST", url, data);
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        beforeSend: function(request) {
+            //ADD CUSTOM HEADER HERE
+            request.setRequestHeader("Authorization", "Bearer " + token);
+        },
+        data: data,
+        contentType: false, //THIS IS REQUIRED
+        processData: false, //THIS IS REQUIRED
+        success: function(data){
+            //Handle success here
+            //return(data);
+            console.log(data)
+        },
+        error: function (xhr, textStatus, error) {
+            //Handle error
+            console.log(error)
+
+            //return(reject(error));
+        }
+    });
+
+
+   // console.log(request)
+
+   // return false;
 
 }
 

@@ -67,34 +67,64 @@ class PostController extends Controller
         if($validation == 200){
             $postData = $request->all();
 
+
+            $columnValue = array(
+                'user_id'           => Auth::user()->id,
+                'title'             => $postData['title'],
+                'sub_title'         => $postData['sub_title'],
+                'description'       => $postData['description'],
+                'area_id'           => $postData['area_id'],
+                'category_id'       => $postData['category_id'],
+                'address'           => $postData['address'],
+                'quality'           => $postData['quality'],
+                'mobile'            => $postData['mobile'],
+                'post_status'       => 'pending for review',
+                'post_type'         => $postData['post_type'],
+                'financial_value'   => $postData['financial_value'],
+                'map_location_id'   => 1,
+                'post_status'       => 'Available',
+            );
+
+
             $postData['user_id'] = $user = Auth::user()->id;
             $postData['map_location_id'] = 1;
             $postData['post_status'] = 'Available';
-            $postData = Post::create($postData);
+            $post = Post::create($columnValue);
+            //return $post['id'];
 
-            $userActivities['user_id'] = $postData['user_id'];
-            $userActivities['post_id'] = $postData['id'];
+            $userActivities['user_id'] = Auth::user()->id;
+            $userActivities['post_id'] = $post['id'];
             $userActivities['created'] = 1;
 
             UserActivities::create($userActivities);
 
+            if($request->file('pro-image')){
+                $attachment_all = $request->file('pro-image');
+                foreach ($attachment_all as $attachment){
+                    //return 1;
+                    $attachment_name = time().$attachment->getClientOriginalName();
+                    $upload_path = 'images/postImage/';
+                    $success=$attachment->move($upload_path,$attachment_name);
 
+                    if($success){
+                        $photo = Photo::create([
+                            'path' => $attachment_name,
+                            'imageable_id' => $post['id'],
+                            'imageable_type'=> 'App/Post'
+                        ]);
 
+                        $photo = PostPhoto::create([
+                            'photo_id' => $photo['id'],
+                            'post_id' => $post['id'],
+                        ]);
+                    }
+                }
 
+            }
+            else return response()->json(['message' => 'post without image is submitted','data'=>$postData]);
 
+         return response()->json(['message' => 'post with image is submitted','data'=>$postData]);
 
-            /*if($file =  $image) {
-                $name = time() . $file->getClientOriginalName();
-                $file->move('images', $name);
-
-                $photo = Photo::create([
-                    'path' => $name,
-                    'imageable_id' => $postData['id'],
-                    'imageable_type'=> 'App/Post'
-                ]);
-                return response()->json(['status => 200', 'message' => 'post with image is submitted','post'=>$postData, 'photo' =>$photo]);
-            }*/
-            return response()->json(['message' => 'post without image is submitted','data'=>$postData]);
         }
         else{
             return $this->postValidator($request);
@@ -111,27 +141,55 @@ class PostController extends Controller
         if($validation == 200){
             $postData = $request->all();
             $postId = $postData['id'];
-            unset($postData{'id'});
-            unset($postData{'area'});
 
-            $postData['user_id'] = $user = Auth::user()->id;
-            //return $postData;
-            $postData = Post::where('id', $postId )->update($postData);
+            //unset($postData['id']);
+            //unset($postData['area']);
+            //unset($postData['_token']);
+           // return response()->json(['respons'=>$postData]);
+            $columnValue = array(
+                'title'             => $postData['title'],
+                'sub_title'         => $postData['sub_title'],
+                'description'       => $postData['description'],
+                'area_id'           => $postData['area_id'],
+                'category_id'       => $postData['category_id'],
+                'address'           => $postData['address'],
+                'quality'           => $postData['quality'],
+                'mobile'            => $postData['mobile'],
+                'post_status'       => $postData['post_status'],
+                'post_type'         => $postData['post_type'],
+                'financial_value'   => $postData['financial_value'],
+            );
 
+            //return $postId;
 
+            //$postData['user_id'] = $user = Auth::user()->id;
+            $postupdate = Post::where('id', $postId )->update($columnValue);
+            //return 1;
+            if($request->file('pro-image')){
+                $attachment_all = $request->file('pro-image');
+                foreach ($attachment_all as $attachment){
+                    $attachment_name = time().$attachment->getClientOriginalName();
+                    $upload_path = 'images/postImage/';
+                    $success=$attachment->move($upload_path,$attachment_name);
 
-            /*if($file =  $image) {
-                $name = time() . $file->getClientOriginalName();
-                $file->move('images', $name);
+                    if($success){
+                        $photo = Photo::create([
+                            'path' => $attachment_name,
+                            'imageable_id' => $postId,
+                            'imageable_type'=> 'App/Post'
+                        ]);
 
-                $photo = Photo::create([
-                    'path' => $name,
-                    'imageable_id' => $postData['id'],
-                    'imageable_type'=> 'App/Post'
-                ]);
-                return response()->json(['status => 200', 'message' => 'post with image is submitted','post'=>$postData, 'photo' =>$photo]);
-            }*/
-            return response()->json(['message' => 'post without image is submitted','data'=>$postData]);
+                        $photo = PostPhoto::create([
+                            'photo_id' => $photo['id'],
+                            'post_id' => $postId,
+                        ]);
+                    }
+                }
+
+            }
+            else return response()->json(['message' => 'post without image is submitted','data'=>$postupdate]);
+
+            return response()->json(['message' => 'post with image is submitted','data'=>$postupdate]);
         }
         else{
             return $this->postValidator($request);
@@ -182,7 +240,7 @@ class PostController extends Controller
             //return sizeof($postPhoto);
             for ($i=0; sizeof($postPhoto)>$i; $i++){
                 $path = $postPhoto[$i]->photo->path;
-                array_push($respons_data, '/images/'.$path);
+                array_push($respons_data, '/images/postImage/'.$path);
             }
             $item['photo']= $respons_data;
             $area = Area::find($item['area_id']);
@@ -300,7 +358,7 @@ class PostController extends Controller
              //return sizeof($postPhoto);
             for ($i=0; sizeof($postPhoto)>$i; $i++){
                 $path = $postPhoto[$i]->photo->path;
-                array_push($respons_data, '/images/'.$path);
+                array_push($respons_data, '/images/postImage/'.$path);
             }
             $item['photo']= $respons_data;
             $area = Area::find($item['area_id']);
@@ -322,7 +380,7 @@ class PostController extends Controller
             //return sizeof($postPhoto);
             for ($i=0; sizeof($postPhoto)>$i; $i++){
                 $path = $postPhoto[$i]->photo->path;
-                array_push($respons_data, '/images/'.$path);
+                array_push($respons_data, '/image/postImage'.$path);
             }
             $item['photo']= $respons_data;
             $area = Area::find($item['area_id']);
@@ -347,7 +405,7 @@ class PostController extends Controller
             //return sizeof($postPhoto);
             for ($i=0; sizeof($postPhoto)>$i; $i++){
                 $path = $postPhoto[$i]->photo->path;
-                array_push($respons_data, '/images/'.$path);
+                array_push($respons_data, '/images/postImage/'.$path);
             }
             $item['photo']= $respons_data;
             $item['number_people']= 5;

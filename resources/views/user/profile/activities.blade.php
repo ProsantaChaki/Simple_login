@@ -16,9 +16,11 @@
             </tbody>
 
         </table>
+        <div style="align-content: center" id="page"></div>
+
     </div>
     <script src="{{ url('/') }}/js/staticText.js"></script>
-
+    <script src="{{ url('/') }}/js/pagination.js"></script>
     <script src="{{ url('/') }}/js/common.js"></script>
 
     <script>
@@ -29,13 +31,13 @@
             var request = httpRequest('GET', url, false);
             var data = JSON.parse(request.response);
             htmlData = ''
-            //alert (data['data'].length);
-            for(var i = 0; i<data['data'].length; i++){
-                //alert(data['data'][i]['id'])
-                htmlData = htmlData + htmlPostDataGenerator(data['data'][i])
-            }
+            $.each(data.data.data,function (key, activiteis) {
+                htmlData = htmlData + htmlPostDataGenerator(activiteis)
+            })
+            var pagination = paginationGenarator(data.data)
             document.getElementById('activities').innerHTML=htmlData;
-            //console.log(htmlData)
+            document.getElementById('page').innerHTML= pagination;
+
         }
         function htmlPostDataGenerator(data) {
             //alert(data['id']);
@@ -46,8 +48,8 @@
             activities += data['interested']==1? ' Interested': '';
             activities += data['received']==1? ' Received': '';
             html = '<tr>\n' +
-                '       <th scope="row">'+data["title"]+'</th>\n' +
-                '       <td>'+data["post_type"]+'</td>\n' +
+                '       <th scope="row">'+data["post"]["title"]+'</th>\n' +
+                '       <td>'+data["post"]["post_type"]+'</td>\n' +
                 '       <td>'+activities+'</td>\n' +
                 '       <td>'+data["updated_at"]+'</td>\n' +
                 '    </tr>'
@@ -55,6 +57,20 @@
             return html;
         }
 
+        function getPostData(urlId) {
+            url =  project_url+'api/v1/user/activities?page='+ urlId;
+            var request = httpRequest('GET', url, false);
+            var data = JSON.parse(request.response);
+            htmlData = ''
+            $.each(data.data.data,function (key, activiteis) {
+                htmlData = htmlData + htmlPostDataGenerator(activiteis)
+            })
+            var pagination = paginationGenarator(data.data)
+            document.getElementById('activities').innerHTML=htmlData;
+            document.getElementById('page').innerHTML= pagination;
+
+
+        }
 
     </script>
 

@@ -31,7 +31,8 @@ $(document).ready(function(){
         for(var i=0; i<idlist.length; i++){
             if (idlist[i] in respons['data']){
                 if(idlist[i]=='photo'){
-                    document.getElementById(idlist[i]).src =respons['data'][idlist[i]];
+                    alert('photo')
+                    document.getElementById(idlist[i]).src =user_image_url+respons['data'][idlist[i]];
 
                 }
                 else if(idlist[i]=='area'){
@@ -146,7 +147,7 @@ function userInformationUpdate(form) {
     formData.append('area_id',areaId);
     var data = formData;
     var url = project_url+'api/v1/users/'+ id + '/update';
-    var request= httpRequest("POST", url, data);
+    var request= fileUpload("POST", url, data);
 }
 
 

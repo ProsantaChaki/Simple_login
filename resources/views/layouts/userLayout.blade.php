@@ -16,13 +16,7 @@
         {
             opacity:0.5 !important;
         }
-        .font-normal label{
-             font-weight: normal;
-        }
-        .pagination>li>a {
-            border-radius: 50% !important;
-            margin: 0 5px;
-        }
+
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -48,7 +42,7 @@
         <ul class="navbar-brand w3-right sticky-top small" id="profileVisibility" style="padding-left: 0px; padding-top: 0px; display: none">
             <div class="user-area dropdown float-right">
                 <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar rounded-circle" id="profilePhoto" src="images/admin.jpg" style="border-radius: 50%" alt="User Avatar">
+                    <img class="user-avatar rounded-circle" id="profilePhoto" src="{{ url('/') }}images/avatar.png" style="border-radius: 50%" alt="">
                 </a>
 
                 <div class="user-menu dropdown-menu">
@@ -257,7 +251,7 @@
 
     <!-- !PAGE CONTENT! -->
 
-    <div class="w3-main w3-white " style="margin-left:260px; margin-top: 56px">
+    <div class="w3-main w3-white " style="margin-left:260px; margin-top: 56px; margin-bottom: 40px">
         <div class="w3-container" id="posts">
 
 
@@ -448,4 +442,17 @@
 <script src="{{ url('/') }}/js/pagination.js"></script>
 
 </body>
+<div class="footer p-3 mt-5 bg-white text-dark" >
+    <div class="container">
+        <div class="row footer-text">
+            <div class="col-lg-6 col-md-16 col-sm-6 col-12 text-left">
+                Copyright &copy; Sohozogi 2020
+            </div>
+            <div class="col-lg-6 col-md-16 col-sm-6 col-12 text-right">
+                Prosanta Kumar Chaki
+            </div>
+        </div>
+    </div>
+</div>
+
 </html>

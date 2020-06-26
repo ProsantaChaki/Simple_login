@@ -91,4 +91,18 @@
 <script src="{{ url('/') }}/js/userLayout.js"></script>
 
 </body>
+
+<div class="footer p-3 mt-5 bg-white text-dark" >
+    <div class="container">
+        <div class="row footer-text">
+            <div class="col-lg-6 col-md-16 col-sm-6 col-12 text-left">
+                Copyright &copy; Sohozogi 2020
+            </div>
+            <div class="col-lg-6 col-md-16 col-sm-6 col-12 text-right">
+                Prosanta Kumar Chaki
+            </div>
+        </div>
+    </div>
+</div>
+
 </html>
