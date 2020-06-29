@@ -12,10 +12,21 @@
 */
 
 use http\Client\Curl\User;
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 
-Route::get('/', function () {
+
+
+Route::get('/admin', function () {
     return view('welcome');
 });
+Route::get('/admin/login', function () {
+    return view('admin.login');
+});
+Route::post('/admin/login', 'Auth\LoginController@adminLogin');
+
 
 Auth::routes();
 
@@ -130,3 +141,7 @@ Route::get('publicprofile/{id}', function ($id) {
 Route::get('activities',function (){
     return view('user.profile.activities');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

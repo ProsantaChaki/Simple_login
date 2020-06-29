@@ -498,7 +498,7 @@ class UserController extends Controller
 
     public function userActivities(){
         $id = Auth::user()->id;
-        $activities = UserActivities::where('user_id',$id)->with('post')->orderBy('id')->paginate(20);
+        $activities = UserActivities::where('user_id',$id)->with('post')->orderBy('id');
         return response()->json(['message' => 'Activities found', 'data'=>$activities], $this-> successStatus);
     }
 
