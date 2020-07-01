@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use mysql_xdevapi\Exception;
 use Validator;
 use DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 

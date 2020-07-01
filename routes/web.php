@@ -12,25 +12,36 @@
 */
 
 use http\Client\Curl\User;
-Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+
+/******---Admin Route Control---*********/
+
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm')->name('login.admin');
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function (){
 
+    Route::group(['middleware' => 'auth:admin'], function() {
 
-Route::get('/admin', function () {
-    return view('welcome');
+        Route::get('/', 'AdminUserController@index');
+        Route::resource('users', 'AdminUserController');
+
+    });
 });
-Route::get('/admin/login', function () {
-    return view('admin.login');
+
+Route::group(['middleware' => 'auth:admin'], function() {
+
+    //Route::get('/', 'AdminUserController@user');
+    Route::get('logout/admin', 'Auth\LoginController@logout')->name('logout.admin');;
+
 });
-Route::post('/admin/login', 'Auth\LoginController@adminLogin');
 
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/user', function (){
@@ -43,7 +54,7 @@ Route::get('/user/name', function (){
 });
 
 
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+//Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 
 
@@ -70,19 +81,17 @@ Route::get('masterlayout', function () {
     return view('layouts.masterLayout');
 });
 
+/*
 Route::get('login', function () {
     return view('user.login');
 });
-
-
-
-
-
+*/
 
 Route::get('post', function () {
     return view('layouts.userLayout');
 
 });
+
 Route::get('userDashboardlayout', function () {
     return view('layouts.userDashboardLayout');
 
@@ -142,6 +151,4 @@ Route::get('activities',function (){
     return view('user.profile.activities');
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

@@ -104,6 +104,10 @@
       <path value="$PROJECT_DIR$/vendor/rap2hpoutre/laravel-log-viewer" />
       <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/mmucklo/inflect" />
+      <path value="$PROJECT_DIR$/vendor/zendesk/zendesk_api_client_php" />
+      <path value="$PROJECT_DIR$/vendor/huddledigital/zendesk-laravel" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
