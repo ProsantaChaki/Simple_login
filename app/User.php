@@ -51,4 +51,31 @@ class User extends Authenticatable
     public function AauthAcessToken(){
         return $this->hasMany('\App\OauthAccessToken');
     }
+
+    public function userinfo()
+    {
+        return $this->hasOne('App\UserInfo');
+    }
+    public function photos()
+    {
+        return $this->hasOneThrough(
+            'App\Photo',
+            'App\UserInfo',
+            'user_id', // Foreign key on cars table...
+            'id', // Foreign key on owners table...
+            'id', // Local key on mechanics table...
+            'photo_id' // Local key on cars table...
+        );
+    }
+    public function area()
+    {
+        return $this->hasOneThrough(
+            'App\Area',
+            'App\UserInfo',
+            'user_id', // Foreign key on cars table...
+            'id', // Foreign key on owners table...
+            'id', // Local key on mechanics table...
+            'area_id' // Local key on cars table...
+        );
+    }
 }

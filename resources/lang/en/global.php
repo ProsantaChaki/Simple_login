@@ -120,6 +120,19 @@ return [
             'updated_at_helper'        => '',
             'deleted_at'               => 'Deleted at',
             'deleted_at_helper'        => '',
+            'mobile'                   => 'Mobile',
+            'address'                   => 'Address',
+            'birthday'                  => 'Birthday',
+            'blood_group'               => 'Blood Group',
+            'weight'                    => 'Weight',
+            'gender'                    => 'Gender',
+            'occupation'                => 'Occupation',
+            'description'               => 'Description',
+            'organization'              => 'Organization',
+            'marital_status'            => 'Marital Status',
+            'status'                    => 'Status',
+            'image'                     => 'Image',
+
         ],
     ],
     'name'                                 => 'Name',
@@ -317,6 +330,15 @@ return [
         'title_singular' => 'User Management',
         'fields'         => [],
     ],
+    'postManagement'                       => [
+        'title'          => 'Post Management',
+        'title_singular' => 'Post Management',
+        'post'             =>'Post',
+        'all_post'         =>'All Post',
+        'new_post'         =>'New Post',
+        'archive_post'     =>'Archive Post',
+        'fields'           => [],
+    ],
     'permission'                           => [
         'title'          => 'Permissions',
         'title_singular' => 'Permission',
@@ -353,5 +375,9 @@ return [
             'deleted_at_helper'  => '',
         ],
     ],
+    'admins'                               => 'Admins',
+    'admin-management'                     => 'Admin Management',
+
+
 ];
 

@@ -25,10 +25,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function (){
     Route::group(['middleware' => 'auth:admin'], function() {
 
         Route::get('/', 'AdminUserController@index');
-        Route::resource('users', 'AdminUserController');
+        Route::resource('admin', 'AdminUserController');
+        Route::resource('user', 'UserController');
+        Route::resource('post', 'PostController');
+
 
     });
 });
+
 
 Route::group(['middleware' => 'auth:admin'], function() {
 

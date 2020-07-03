@@ -27,12 +27,15 @@
                             {{ trans('global.user.fields.name') }}
                         </th>
                         <th>
+                            Type
                             {{ trans('global.user.fields.email') }}
                         </th>
                         <th>
+                            Status
                             {{ trans('global.user.fields.mobile') }}
                         </th>
                         <th>
+                            User
                             {{ trans('global.user.fields.status') }}
                         </th>
 
@@ -42,42 +45,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $key => $user)
-                        <tr data-entry-id="{{ $user->id }}">
+                    @foreach($posts as $key => $post)
+                        <tr data-entry-id="{{ $post->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $user->name ?? '' }}
+                                {{ $post->title ?? '' }}
                             </td>
                             <td>
-                                {{ $user->email ?? '' }}
+                                {{ $post->post_type ?? '' }}
                             </td>
                             <td>
-                                {{ $user->mobile ?? '' }}
+                                {{ $post->post_status ?? '' }}
                             </td>
                             <td>
-                                @if($user->userinfo)
-                                    @if($user->userinfo->active_status ==1 )
-                                        <a class="btn btn-xs btn-primary" href="{{--route('admin.user.show', $user->id) --}}">
-                                            Active
-                                        </a>
-                                    @else
-                                        <a class="btn btn-xs btn-danger" href="{{route('admin.user.show', $user->id) }}">
-                                            Inactive
-                                        </a>
-                                    @endif
-                                @endif
+                                {{ $post->user_id ?? '' }}
+
                             </td>
                             <td>
                                 @if(auth()->user()->can('user_show'))
-                                    <a class="btn btn-xs btn-primary" href="{{route('admin.user.show', $user->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{route('admin.post.show', $post->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
                                 @can('user_delete')
-                                    <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    <form action="{{ route('admin.post.destroy', $post->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">

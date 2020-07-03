@@ -3,7 +3,7 @@
 @can('user_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.user.create") }}">
+            <a class="btn btn-success" href="{{ route("admin.admin.create") }}">
                 {{ trans('global.add') }} {{ trans('global.user.title_singular') }}
             </a>
         </div>
@@ -30,12 +30,11 @@
                             {{ trans('global.user.fields.email') }}
                         </th>
                         <th>
-                            {{ trans('global.user.fields.mobile') }}
+                            {{ trans('global.user.fields.email_verified_at') }}
                         </th>
                         <th>
-                            {{ trans('global.user.fields.status') }}
+                            {{ trans('global.user.fields.roles') }}
                         </th>
-
                         <th>
                             &nbsp;
                         </th>
@@ -54,30 +53,26 @@
                                 {{ $user->email ?? '' }}
                             </td>
                             <td>
-                                {{ $user->mobile ?? '' }}
+                                {{ $user->email_verified_at ?? '' }}
                             </td>
                             <td>
-                                @if($user->userinfo)
-                                    @if($user->userinfo->active_status ==1 )
-                                        <a class="btn btn-xs btn-primary" href="{{--route('admin.user.show', $user->id) --}}">
-                                            Active
-                                        </a>
-                                    @else
-                                        <a class="btn btn-xs btn-danger" href="{{route('admin.user.show', $user->id) }}">
-                                            Inactive
-                                        </a>
-                                    @endif
-                                @endif
+                                @foreach($user->roles as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name  }}</span>
+                                @endforeach
                             </td>
                             <td>
                                 @if(auth()->user()->can('user_show'))
-                                    <a class="btn btn-xs btn-primary" href="{{route('admin.user.show', $user->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{route('admin.admin.show', $user->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
-
+                                @can('user_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.admin.edit', $user->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
                                 @can('user_delete')
-                                    <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    <form action="{{ route('admin.admin.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">

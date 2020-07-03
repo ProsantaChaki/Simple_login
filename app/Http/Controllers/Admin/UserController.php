@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\StoreUserRequest;
-use App\Admin;
+use App\User;
 
 
-class AdminUserController extends Controller{
+class UserController extends Controller{
 
     public function createRole(){
 
@@ -27,13 +28,17 @@ class AdminUserController extends Controller{
     {
         abort_unless(\Gate::allows('user_access'), 403);
 
-        $users = Admin::with('roles')->get();
+        $users = User::with('userinfo')->get();
 
-        return view('admin.admins.index', compact('users'));
+        //return $users;
+
+        return view('admin.users.index', compact('users'));
     }
 
     public function create()
     {
+        return back();
+
         abort_unless(\Gate::allows('user_create'), 403);
 
         $roles = Role::all()->pluck('name', 'id');
@@ -51,20 +56,18 @@ class AdminUserController extends Controller{
         return redirect()->route('admin.admin.index');
     }
 
-    public function edit(Admin $admin)
+    public function edit(User $user)
     {
-        $user =$admin;
         abort_unless(\Gate::allows('user_edit'), 403);
-
-        $roles = Role::all()->pluck('name', 'id');
 
         $user->load('roles');
 
-        return view('admin.admins.edit', compact('roles', 'user'));
+        return view('admin.users.edit', compact( 'user'));
     }
 
     public function update(UpdateUserRequest $request, Admin $admin)
     {
+        return back();
         $user = $admin;
         abort_unless(\Gate::allows('user_edit'), 403);
         //if($request->password == null) unset($request->password);
@@ -80,18 +83,25 @@ class AdminUserController extends Controller{
         return redirect()->route('admin.admin.index');
     }
 
-    public function show(Admin $admin)
+    public function show(User $user)
     {
-        $user =  $admin;
+        //return json_encode($user->userinfo());
         abort_unless(\Gate::allows('user_show'), 403);
 
-        $admin->load('roles');
+        $user = User::with('userinfo','photos','area')->get();
 
-        return view('admin.admins.show', compact('user'));
+        $user= $user[0];
+
+        //return $user;
+
+        return view('admin.users.show', compact('user'));
     }
 
-    public function destroy(Admin $admin)
+    public function destroy(User $user)
     {
+        //return $user;
+        return back();
+
         abort_unless(\Gate::allows('user_delete'), 403);
 
         $admin->delete();
