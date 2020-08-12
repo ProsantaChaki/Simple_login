@@ -1,4 +1,1 @@
-Donation 
-
-
-This application will be use for social service 
+The Post man file is in resources/Api
